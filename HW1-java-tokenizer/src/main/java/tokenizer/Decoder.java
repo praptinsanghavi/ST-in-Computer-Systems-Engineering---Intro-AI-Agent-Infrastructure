@@ -4,46 +4,72 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Decoder that converts token IDs back to text.
+ * ==================================================================================
+ * [COMPONENT]: Decoder
+ * [RESPONSIBILITY]: ID -> Text Reconstruction
+ * ==================================================================================
+ * 
+ * The Decoder reverses the process, turning a sequence of integers back into
+ * human-readable text.
+ * 
+ * CHALLENGE: Detokenization
+ * Simply joining tokens with spaces ("hello", ",", "world") results in "hello ,
+ * world".
+ * This class implements heuristic logic to smart-join tokens, attempting to
+ * reconstruction
+ * natural spacing around punctuation.
  */
 public class Decoder {
 
     private final Vocabulary vocabulary;
 
-    /**
-     * Creates a decoder with the given vocabulary.
-     * 
-     * @param vocabulary The vocabulary for token lookup
-     */
     public Decoder(Vocabulary vocabulary) {
         this.vocabulary = vocabulary;
     }
 
     /**
-     * Decodes a list of token IDs back to text.
+     * Reconstructs text from IDs.
      * 
-     * @param ids List of token IDs
-     * @return Decoded text
+     * SMART SPACING LOGIC:
+     * We iterate through the tokens and decide whether to prepend a space based on
+     * the CURRENT token and the PREVIOUS token.
+     * 
+     * Rules:
+     * 1. Don't put space before punctuation (e.g. "word ." -> "word.")
+     * 2. Don't put space after opening punctuation (e.g. "(" "word" -> "(word")
      */
     public String decode(List<Integer> ids) {
         StringBuilder sb = new StringBuilder();
         String prevToken = null;
 
         for (int id : ids) {
-            // Skip PAD tokens
+            // Filter out PAD tokens completely - they are structural only.
             if (id == Vocabulary.PAD_ID) {
                 continue;
             }
 
             String token = vocabulary.getToken(id);
 
-            // Add space before word tokens (not punctuation)
-            if (prevToken != null && !isPunctuation(token) && !isPunctuation(prevToken)) {
-                sb.append(" ");
-            } else if (prevToken != null && isOpeningPunctuation(prevToken)) {
-                // No space after opening punctuation
-            } else if (prevToken != null && !isPunctuation(token)) {
-                sb.append(" ");
+            // === Spacing Logic ===
+            boolean isPunc = isPunctuation(token);
+            boolean prevIsPunc = (prevToken != null) && isPunctuation(prevToken);
+            boolean prevIsOpenPunc = (prevToken != null) && isOpeningPunctuation(prevToken);
+
+            if (prevToken != null) {
+                // Case 1: Standard word following word -> add space
+                if (!isPunc && !prevIsPunc) {
+                    sb.append(" ");
+                }
+                // Case 2: Opening punctuation -> NO space (e.g. "(word")
+                else if (prevIsOpenPunc) {
+                    // no space
+                }
+                // Case 3: Word following NON-opening punctuation -> add space (e.g. "end.
+                // Start")
+                else if (!isPunc && prevIsPunc) {
+                    sb.append(" ");
+                }
+                // Else: Punctuation following word -> NO space (e.g. "end.")
             }
 
             sb.append(token);
@@ -54,10 +80,7 @@ public class Decoder {
     }
 
     /**
-     * Decodes a space-separated string of IDs.
-     * 
-     * @param idsString Space-separated token IDs
-     * @return Decoded text
+     * Wrapper to handle string input directly (e.g. from CLI).
      */
     public String decodeFromString(String idsString) {
         if (idsString == null || idsString.trim().isEmpty()) {
@@ -79,10 +102,7 @@ public class Decoder {
     }
 
     /**
-     * Decodes IDs and returns detailed output showing the mapping.
-     * 
-     * @param idsString Space-separated token IDs
-     * @return Detailed decoding output
+     * Debugging utility showing step-by-step reconstruction.
      */
     public String decodeWithDetails(String idsString) {
         if (idsString == null || idsString.trim().isEmpty()) {
@@ -122,17 +142,13 @@ public class Decoder {
         return sb.toString();
     }
 
-    /**
-     * Checks if a token is punctuation.
-     */
+    // Heuristics for simple punctuation
     private boolean isPunctuation(String token) {
         return token.length() == 1 && !Character.isLetterOrDigit(token.charAt(0));
     }
 
-    /**
-     * Checks if a token is opening punctuation.
-     */
     private boolean isOpeningPunctuation(String token) {
+        // Punctuation marks that attach to the NEXT word (no space after)
         return "([{\"'".contains(token);
     }
 }

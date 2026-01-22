@@ -1,0 +1,6 @@
+# Build outputs
+HW1-java-tokenizer/out/
+HW1-java-tokenizer/target/
+
+# Compiled classes
+*.class

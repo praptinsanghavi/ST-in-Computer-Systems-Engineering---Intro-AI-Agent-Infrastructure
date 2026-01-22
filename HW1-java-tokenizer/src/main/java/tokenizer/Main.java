@@ -5,16 +5,29 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Main application class for the Text Tokenizer with Encoder/Decoder.
+ * ==================================================================================
+ * [COMPONENT]: Main Application Controller
+ * [RESPONSIBILITY]: Orchestration & User Interface
+ * ==================================================================================
  * 
- * This application:
- * 1. Downloads 3 eBooks from Project Gutenberg
- * 2. Tokenizes the text and builds a vocabulary
- * 3. Provides interactive encoding/decoding
+ * This is the entry point of the application. It acts as the "Director" in our
+ * design,
+ * coordinating the specialized components (Downloader, Tokenizer, Vocabulary,
+ * etc.)
+ * to fulfill the user's requests.
+ * 
+ * EXECUTION FLOW:
+ * 1. Initialize Components (dependency instantiation).
+ * 2. Data Preparation Phase (Download -> Clean -> Tokenize -> Train
+ * Vocabulary).
+ * 3. Interactive Loop (Wait for user input -> Process -> Display -> Repeat).
  */
 public class Main {
 
-    // Project Gutenberg eBook URLs
+    /**
+     * Configuration Constant: Books to process.
+     * We use a 2D array for simplicity. Struct: {Title, URL, LocalFilename}
+     */
     private static final String[][] EBOOKS = {
             { "Frankenstein", "https://www.gutenberg.org/cache/epub/84/pg84.txt", "frankenstein.txt" },
             { "Pride and Prejudice", "https://www.gutenberg.org/cache/epub/1342/pg1342.txt",
@@ -23,12 +36,21 @@ public class Main {
                     "alice_in_wonderland.txt" }
     };
 
+    // Component dependencies
     private final EBookDownloader downloader;
     private final Tokenizer tokenizer;
     private final Vocabulary vocabulary;
+
+    // These are initialized AFTER vocabulary training because they depend on the
+    // full vocabulary state.
     private Encoder encoder;
     private Decoder decoder;
 
+    /**
+     * Constructor: Instantiates the foundational components.
+     * These components are stateless (Downloader, Tokenizer) or start empty
+     * (Vocabulary).
+     */
     public Main() {
         this.downloader = new EBookDownloader();
         this.tokenizer = new Tokenizer();
@@ -36,7 +58,15 @@ public class Main {
     }
 
     /**
-     * Downloads and processes all eBooks to build the vocabulary.
+     * [PHASE 1: INITIALIZATION]
+     * This method builds the "Brain" of the application.
+     * It iterates through the training corpus to learn all possible words.
+     * 
+     * FLOW:
+     * 1. Download raw text (or load from cache).
+     * 2. Clean the text (remove non-story content).
+     * 3. Tokenize (split into words).
+     * 4. Update Vocabulary (assign IDs to new words).
      */
     public void initialize() throws IOException {
         System.out.println("╔══════════════════════════════════════════════════════════════╗");
@@ -55,14 +85,16 @@ public class Main {
 
             System.out.println("📚 " + title);
 
-            // Download or load from cache
+            // 1. Data Acquisition
             String content = downloader.downloadOrCache(url, filename);
 
-            // Strip Gutenberg boilerplate
+            // 2. Data Cleaning
             String cleanContent = downloader.stripGutenbergBoilerplate(content);
 
-            // Tokenize and add to vocabulary
+            // 3. Tokenization
             List<String> tokens = tokenizer.tokenize(cleanContent);
+
+            // 4. Learning (Vocabulary Upgrade)
             vocabulary.addTokens(tokens);
 
             System.out.println("  Tokens extracted: " + tokens.size());
@@ -70,32 +102,39 @@ public class Main {
             System.out.println();
         }
 
+        // Display Statistics
         System.out.println("════════════════════════════════════════════════════════════════");
         System.out.println("✓ Total tokens processed: " + String.format("%,d", totalTokens));
         System.out.println("✓ " + vocabulary.getStats());
         System.out.println("════════════════════════════════════════════════════════════════");
         System.out.println();
 
-        // Initialize encoder and decoder
+        // 5. Dependency Injection
+        // Now that vocabulary is full; we can create the Encoder/Decoder.
         this.encoder = new Encoder(tokenizer, vocabulary);
         this.decoder = new Decoder(vocabulary);
     }
 
     /**
-     * Runs the interactive loop for encoding and decoding.
+     * [PHASE 2: INTERACTIVE LOOP]
+     * This keeps the application running until the user explicitly exits.
+     * It handles Input/Output and error recovery.
      */
     public void runInteractiveLoop() {
+        // Scanner is used to read from Standard Input (Keyboard)
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
             printMenu();
             System.out.print("Enter your choice (1-3): ");
+            // Explicit flush ensures the prompt appears immediately in all terminals
             System.out.flush();
 
             String choice;
             try {
                 choice = scanner.nextLine().trim();
             } catch (java.util.NoSuchElementException e) {
+                // Graceful shutdown on EOF (Ctrl+D / Ctrl+Z)
                 System.out.println("\nInput stream closed. Goodbye!");
                 return;
             }
@@ -109,7 +148,7 @@ public class Main {
                     break;
                 case "3":
                     System.out.println("\nGoodbye!");
-                    scanner.close();
+                    scanner.close(); // Resource cleanup
                     return;
                 default:
                     System.out.println("\nInvalid choice. Please enter 1, 2, or 3.\n");
@@ -117,9 +156,6 @@ public class Main {
         }
     }
 
-    /**
-     * Prints the menu options.
-     */
     private void printMenu() {
         System.out.println("┌──────────────────────────────────────────────────────────────┐");
         System.out.println("│                         MENU                                 │");
@@ -130,9 +166,6 @@ public class Main {
         System.out.println("└──────────────────────────────────────────────────────────────┘");
     }
 
-    /**
-     * Handles the encode operation.
-     */
     private void handleEncode(Scanner scanner) {
         System.out.println("\n=== ENCODE TEXT ===");
         System.out.print("Enter text to encode: ");
@@ -151,17 +184,16 @@ public class Main {
             return;
         }
 
+        // Delegate to Encoder component
         System.out.println("\n" + encoder.encodeWithDetails(input));
         System.out.println("Encoded IDs (copy for decoding): " + encoder.encodeToString(input));
         System.out.println();
 
+        // UX Improvement: Pause output so user can read it
         System.out.println("Press Enter to continue...");
         scanner.nextLine();
     }
 
-    /**
-     * Handles the decode operation.
-     */
     private void handleDecode(Scanner scanner) {
         System.out.println("\n=== DECODE IDs ===");
         System.out.print("Enter space-separated token IDs: ");
@@ -180,20 +212,25 @@ public class Main {
             return;
         }
 
+        // Delegate to Decoder component
         System.out.println("\n" + decoder.decodeWithDetails(input));
         System.out.println();
 
+        // UX Improvement: Pause output so user can read it
         System.out.println("Press Enter to continue...");
         scanner.nextLine();
     }
 
     /**
-     * Main entry point.
+     * Bootstrap method.
      */
     public static void main(String[] args) {
         Main app = new Main();
 
         try {
+            // "Fail Fast" architectural pattern:
+            // If initialization fails (e.g. no internet), we crash immediately
+            // rather than entering an invalid state.
             app.initialize();
             app.runInteractiveLoop();
         } catch (IOException e) {

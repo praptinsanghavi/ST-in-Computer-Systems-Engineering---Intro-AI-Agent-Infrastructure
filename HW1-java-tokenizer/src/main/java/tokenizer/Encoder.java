@@ -5,7 +5,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Encoder that converts text to a list of token IDs.
+ * ==================================================================================
+ * [COMPONENT]: Encoder
+ * [RESPONSIBILITY]: Text -> ID Transformation
+ * ==================================================================================
+ * 
+ * The Encoder acts as a bridge between human language and machine
+ * representation.
+ * It coordinates the Tokenizer (splitting text) and the Vocabulary (mapping to
+ * IDs).
+ * 
+ * DESIGN PATTERN: Composition
+ * The Encoder doesn't DO the tokenization or storage itself; it composes the
+ * Tokenizer and Vocabulary components to achieve the high-level goal.
  */
 public class Encoder {
 
@@ -13,10 +25,9 @@ public class Encoder {
     private final Vocabulary vocabulary;
 
     /**
-     * Creates an encoder with the given tokenizer and vocabulary.
-     * 
-     * @param tokenizer  The tokenizer to use
-     * @param vocabulary The vocabulary for ID lookup
+     * Dependency Injection via Constructor.
+     * This makes the Encoder testable - we can mock the Tokenizer or Vocabulary in
+     * unit tests.
      */
     public Encoder(Tokenizer tokenizer, Vocabulary vocabulary) {
         this.tokenizer = tokenizer;
@@ -24,16 +35,24 @@ public class Encoder {
     }
 
     /**
-     * Encodes text into a list of token IDs.
+     * The Main Encoding Pipeline.
      * 
-     * @param text The input text
-     * @return List of token IDs
+     * Process:
+     * 1. Raw Text -> Tokenizer -> List<String>
+     * 2. List<String> -> Vocabulary -> List<Integer>
+     * 
+     * @param text Raw input string.
+     * @return List of integers representing the text.
      */
     public List<Integer> encode(String text) {
+        // Step 1: Break text into atomic parts
         List<String> tokens = tokenizer.tokenize(text);
         List<Integer> ids = new ArrayList<>();
 
+        // Step 2: Map each part to its unique ID
         for (String token : tokens) {
+            // Note: vocabulary.getTokenId() handles the <UNK> logic automatically.
+            // If the token isn't found, it returns the UNK_ID (1).
             ids.add(vocabulary.getTokenId(token));
         }
 
@@ -41,10 +60,10 @@ public class Encoder {
     }
 
     /**
-     * Encodes text and returns a formatted string representation.
+     * Debugging/Educational Utility.
+     * Returns a detailed view showing exactly how the text was processed.
      * 
-     * @param text The input text
-     * @return Formatted string showing tokens and their IDs
+     * @return Formatted multi-line string.
      */
     public String encodeWithDetails(String text) {
         List<String> tokens = tokenizer.tokenize(text);
@@ -54,11 +73,13 @@ public class Encoder {
         sb.append("Tokens: ").append(tokens).append("\n");
         sb.append("IDs:    ").append(ids).append("\n");
 
-        // Show mapping
+        // Visualization Loop
         sb.append("\nToken → ID mapping:\n");
         for (int i = 0; i < tokens.size(); i++) {
             String token = tokens.get(i);
             int id = ids.get(i);
+
+            // Highlight Unknown tokens so the user knows why they got ID 1
             String marker = (id == Vocabulary.UNK_ID) ? " [UNKNOWN]" : "";
             sb.append(String.format("  '%s' → %d%s\n", token, id, marker));
         }
@@ -67,10 +88,7 @@ public class Encoder {
     }
 
     /**
-     * Returns the encoded IDs as a space-separated string.
-     * 
-     * @param text The input text
-     * @return Space-separated IDs
+     * Helper for easy copy-pasting of IDs.
      */
     public String encodeToString(String text) {
         return encode(text).stream()
