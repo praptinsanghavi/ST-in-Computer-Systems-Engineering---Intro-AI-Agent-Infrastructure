@@ -1,0 +1,193 @@
+---
+description: ''
+knowledge_type: official_documentation
+scraped_at: '2026-04-05T21:48:03Z'
+section: japi
+site: akka-io
+source_url: https://doc.akka.io/japi/akka/current/akka/testkit/TestJavaSerializer.html
+title: TestJavaSerializer
+---
+
+# TestJavaSerializer
+
+## Content
+
+Package [akka.testkit](package-summary.html)
+## Class TestJavaSerializer
+
+- java.lang.Object
+- - akka.testkit.TestJavaSerializer
+
+- All Implemented Interfaces:
+`[BaseSerializer](../serialization/BaseSerializer.html "interface in akka.serialization")`, `[Serializer](../serialization/Serializer.html "interface in akka.serialization")`
+
+---
+
+```
+public class TestJavaSerializer
+extends java.lang.Object
+implements [BaseSerializer](../serialization/BaseSerializer.html "interface in akka.serialization")
+```
+
+This Serializer uses standard Java Serialization and is useful for tests where ad\-hoc messages are created and sent
+ between actor systems. It needs to be explicitly enabled in the config (or through `ActorSystemSetup`) like so:
+ 
+`akka.actor.serialization-bindings {
+ "my.test.AdHocMessage" = java-test
+ }`
+
+- - ### Constructor Summary
+	
+	
+	
+	Constructors 
+	| Constructor | Description |
+	| `[TestJavaSerializer](#%3Cinit%3E(akka.actor.ExtendedActorSystem))​([ExtendedActorSystem](../actor/ExtendedActorSystem.html "class in akka.actor") system)` |  |
+
+	- ### Method Summary
+	
+	
+	
+	All Methods [Instance Methods](javascript:show(2);) [Concrete Methods](javascript:show(8);) 
+	| Modifier and Type | Method | Description |
+	| `protected void` | `[akka$serialization$BaseSerializer$_setter_$identifier_$eq](#akka$serialization$BaseSerializer$_setter_$identifier_$eq(int))​(int x$1)` | Globally unique serialization identifier configured in the `reference.conf`. |
+	| `java.lang.Object` | `[fromBinary](#fromBinary(byte%5B%5D,scala.Option))​(byte[] bytes,  scala.Option<java.lang.Class<?>> clazz)` | Produces an object from an array of bytes, with an optional type\-hint;  the class should be loaded using ActorSystem.dynamicAccess. |
+	| `int` | `[identifier](#identifier())()` | Globally unique serialization identifier configured in the `reference.conf`. |
+	| `boolean` | `[includeManifest](#includeManifest())()` | Returns whether this serializer needs a manifest in the fromBinary method |
+	| `[ExtendedActorSystem](../actor/ExtendedActorSystem.html "class in akka.actor")` | `[system](#system())()` | Actor system which is required by most serializer implementations. |
+	| `byte[]` | `[toBinary](#toBinary(java.lang.Object))​(java.lang.Object o)` | Serializes the given object into an Array of Byte. |
+	
+	
+		- ### Methods inherited from class java.lang.Object
+		
+		
+		`clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait`
+		- ### Methods inherited from interface akka.serialization.[BaseSerializer](../serialization/BaseSerializer.html "interface in akka.serialization")
+		
+		
+		`[identifierFromConfig](../serialization/BaseSerializer.html#identifierFromConfig()), [SerializationIdentifiers](../serialization/BaseSerializer.html#SerializationIdentifiers())`
+		- ### Methods inherited from interface akka.serialization.[Serializer](../serialization/Serializer.html "interface in akka.serialization")
+		
+		
+		`[fromBinary](../serialization/Serializer.html#fromBinary(byte%5B%5D)), [fromBinary](../serialization/Serializer.html#fromBinary(byte%5B%5D,java.lang.Class))`
+
+- - ### Constructor Detail
+	
+	
+	
+		- #### TestJavaSerializer
+		
+		
+		
+		```
+		public TestJavaSerializer​([ExtendedActorSystem](../actor/ExtendedActorSystem.html "class in akka.actor") system)
+		```
+
+	- ### Method Detail
+	
+	
+	
+		- #### akka$serialization$BaseSerializer$\_setter\_$identifier\_$eq
+		
+		
+		
+		```
+		protected void akka$serialization$BaseSerializer$_setter_$identifier_$eq​(int x$1)
+		```
+		
+		Description copied from interface: `[BaseSerializer](../serialization/BaseSerializer.html#akka$serialization$BaseSerializer$_setter_$identifier_$eq(int))`
+		Globally unique serialization identifier configured in the `reference.conf`.
+		 
+		 See `Serializer.identifier`.
+		
+		
+		
+		Specified by:
+		`[akka$serialization$BaseSerializer$_setter_$identifier_$eq](../serialization/BaseSerializer.html#akka$serialization$BaseSerializer$_setter_$identifier_$eq(int))` in interface `[BaseSerializer](../serialization/BaseSerializer.html "interface in akka.serialization")`
+		- #### fromBinary
+		
+		
+		
+		```
+		public java.lang.Object fromBinary​(byte[] bytes,
+		                                   scala.Option<java.lang.Class<?>> clazz)
+		```
+		
+		Description copied from interface: `[Serializer](../serialization/Serializer.html#fromBinary(byte%5B%5D,scala.Option))`
+		Produces an object from an array of bytes, with an optional type\-hint;
+		 the class should be loaded using ActorSystem.dynamicAccess.
+		
+		Specified by:
+		`[fromBinary](../serialization/Serializer.html#fromBinary(byte%5B%5D,scala.Option))` in interface `[Serializer](../serialization/Serializer.html "interface in akka.serialization")`
+		- #### identifier
+		
+		
+		
+		```
+		public int identifier()
+		```
+		
+		Description copied from interface: `[BaseSerializer](../serialization/BaseSerializer.html#identifier())`
+		Globally unique serialization identifier configured in the `reference.conf`.
+		 
+		 See `Serializer.identifier`.
+		
+		
+		
+		Specified by:
+		`[identifier](../serialization/BaseSerializer.html#identifier())` in interface `[BaseSerializer](../serialization/BaseSerializer.html "interface in akka.serialization")`
+		Specified by:
+		`[identifier](../serialization/Serializer.html#identifier())` in interface `[Serializer](../serialization/Serializer.html "interface in akka.serialization")`
+		- #### includeManifest
+		
+		
+		
+		```
+		public boolean includeManifest()
+		```
+		
+		Description copied from interface: `[Serializer](../serialization/Serializer.html#includeManifest())`
+		Returns whether this serializer needs a manifest in the fromBinary method
+		
+		Specified by:
+		`[includeManifest](../serialization/Serializer.html#includeManifest())` in interface `[Serializer](../serialization/Serializer.html "interface in akka.serialization")`
+		- #### system
+		
+		
+		
+		```
+		public [ExtendedActorSystem](../actor/ExtendedActorSystem.html "class in akka.actor") system()
+		```
+		
+		Description copied from interface: `[BaseSerializer](../serialization/BaseSerializer.html#system())`
+		Actor system which is required by most serializer implementations.
+		
+		Specified by:
+		`[system](../serialization/BaseSerializer.html#system())` in interface `[BaseSerializer](../serialization/BaseSerializer.html "interface in akka.serialization")`
+		- #### toBinary
+		
+		
+		
+		```
+		public byte[] toBinary​(java.lang.Object o)
+		```
+		
+		Description copied from interface: `[Serializer](../serialization/Serializer.html#toBinary(java.lang.Object))`
+		Serializes the given object into an Array of Byte.
+		 
+		 Note that the array must not be mutated by the serializer after it has been returned.
+		
+		
+		
+		Specified by:
+		`[toBinary](../serialization/Serializer.html#toBinary(java.lang.Object))` in interface `[Serializer](../serialization/Serializer.html "interface in akka.serialization")`
+
+## Related Pages (Internal Links)
+
+- https://doc.akka.io/japi/akka/current/akka/actor/ExtendedActorSystem.html
+- https://doc.akka.io/japi/akka/current/akka/serialization/BaseSerializer.html
+- https://doc.akka.io/japi/akka/current/akka/serialization/Serializer.html
+- https://doc.akka.io/japi/akka/current/akka/testkit/package-summary.html
+
+---
+*Source: [https://doc.akka.io/japi/akka/current/akka/testkit/TestJavaSerializer.html](https://doc.akka.io/japi/akka/current/akka/testkit/TestJavaSerializer.html)*

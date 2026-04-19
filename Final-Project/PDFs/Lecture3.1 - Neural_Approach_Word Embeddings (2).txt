@@ -1,0 +1,919 @@
+Word Embeddings
+1
+
+
+Word Embeddings are numeric representations of words in a lowerdimensional space, capturing semantic and syntactic information.
+
+
+
+They play a vital role in Natural Language Processing (NLP) tasks.
+
+
+
+In this lecture, we explore traditional and neural approaches, such as
+ TF-IDF
+ Word2Vec
+ GloVe
+
+
+
+Understanding the importance of pre-trained word embeddings, providing a
+comprehensive understanding of their applications in various NLP scenarios.
+
+What is Word Embedding in NLP?
+2
+
+
+
+Word Embedding is an approach for representing words and documents.
+
+
+
+Word Embedding or Word Vector is a numeric vector input that represents a
+word in a lower-dimensional space.
+
+
+
+It allows words with similar meanings to have a similar representation.
+
+
+
+Word Embeddings are a method of extracting features out of text so that we
+can input those features into an ML model to work with text data.
+
+
+
+They try to preserve syntactical and semantic information.
+
+Methods
+3
+
+
+
+The methods such as
+ Bag of Words (BOW)
+ CountVectorizer
+ TFIDF
+rely on the word count in a sentence but do not save any syntactical or
+semantic information.
+
+In these algorithms, the size of the vector is the number of elements in the
+vocabulary.
+ We can get a sparse matrix if most of the elements are zero.
+ Large input vectors will mean a huge number of weights which will result in
+high computation required for training.
+
+
+
+
+Word Embeddings give a solution to these problems.
+
+Need for Word Embedding?
+4
+
+To reduce dimensionality
+ To use a word to predict the words around it.
+ Inter-word semantics must be captured.
+
+
+How are Word Embeddings used?
+5
+
+
+
+They are used as input to machine learning models.
+
+Take the wordsGive their numeric representationUse in training/inference
+
+
+To represent or visualize any underlying patterns of usage in the corpus that
+was used to train them.
+
+6
+
+Approaches for Text Representation
+7
+
+1. Traditional Approach
+The conventional method involves compiling a list of distinct terms and giving
+each one a unique integer value, or id. and after that, insert each word’s
+distinct id into the sentence.
+Every vocabulary word is handled as a feature in this instance.
+Thus, a large vocabulary will result in an extremely large feature size.
+1.1. One-Hot Encoding
+1.2. Bag of Word (Bow)
+1.3. Term frequency-inverse document frequency (TF-IDF)
+2. Neural Approach
+2.1. Word2Vec
+2.2. Continuous Bag of Words(CBOW)
+2.3. Skip-Gram
+
+1.1. One-Hot Encoding
+8
+
+
+
+One-hot encoding is a simple method for representing words in natural
+language processing (NLP).
+
+
+
+In this encoding scheme, each word in the vocabulary is represented as a
+unique vector, where the dimensionality of the vector is equal to the size of
+the vocabulary.
+
+
+
+The vector has all elements set to 0, except for the element corresponding
+to the index of the word in the vocabulary, which is set to 1.
+
+9
+
+10
+
+Disadvantages of one-hot encoding
+11
+
+
+
+While one-hot encoding is a simple and intuitive method for
+representing words in NLP, it has several disadvantages, which may
+limit its effectiveness in certain applications.
+ It results in high-dimensional vectors, making it computationally
+expensive and memory-intensive, especially with large vocabularies.
+ It does not capture semantic relationships between words; each word is
+treated as an isolated entity without considering its meaning or context.
+ It is restricted to the vocabulary seen during training, making it unsuitable
+for handling out-of-vocabulary words.
+
+1.2. Bag of Word (Bow)
+12
+
+
+
+Bag-of-Words (BoW) is a text representation technique that represents a
+document as an unordered set of words and their respective frequencies.
+
+
+
+It discards the word order and captures the frequency of each word in the
+document, creating a vector representation.
+
+Sample Program
+13
+
+Sample Output
+14
+
+Disadvantages of BoW
+15
+
+
+
+While BoW is a simple & interpretable representation, below disadvantages
+highlight its limitations in capturing certain aspects of language structure
+and semantics:
+
+
+BoW ignores the order of words in the document, leading to a loss of
+sequential information and context making it less effective for tasks
+where word order is crucial, such as in natural language understanding.
+
+
+
+BoW representations are often sparse, with many elements being zero
+resulting in increased memory requirements and computational
+inefficiency, especially when dealing with large datasets.
+
+Example: Sample paragraph for BoW
+16
+
+Beans. I was trying to explain to somebody as we were flying in, that's corn.
+That's beans. And they were very impressed at my agricultural knowledge.
+Please give it up for Amaury once again for that outstanding introduction. I
+have a bunch of good friends here today, including somebody who I served
+with, who is one of the finest senators in the country, and we're lucky to have
+him, your Senator, Dick Durbin is here. I also noticed, by the way, former
+Governor Edgar here, who I haven't seen in a long time, and somehow he has
+not aged and I have. And it's great to see you, Governor. I want to thank
+President Killeen and everybody at the U of I System for making it possible for
+me to be here today. And I am deeply honored at the Paul Douglas Award that
+is being given to me. He is somebody who set the path for so much
+outstanding public service here in Illinois. Now, I want to start by addressing
+the elephant in the room. I know people are still wondering why I didn't speak
+at the commencement.
+
+Step #1 : We will first preprocess the data
+17
+
+
+
+In order to:
+ Convert text to lower case.
+ Remove all non-word characters.
+ Remove all punctuations.
+
+Output: Preprocessed text
+18
+
+Step #2 : Obtaining most frequent words in our text
+19
+
+
+
+We will apply the following steps to generate our model.
+ We declare a dictionary to hold our bag of words.
+ Next we tokenize each sentence to words.
+ Now for each word in sentence, we check if the word exists in our dictionary.
+ If it does, then we increment its count by 1.
+ If it doesn't, we add it to our dictionary and set its count as 1.
+
+Output: Bag of Words dictionary
+20
+
+Step #2.5: select the most frequently used words
+21
+
+In our model, we have a total of 118 words.
+ However when processing large texts the number of words could reach millions
+ We do not need to use all those words.
+ Hence, we select a particular number of most frequently used words.
+ To implement this we use:
+
+
+Step #3 : Building the Bag of Words model
+22
+
+In this step we construct a vector, which would tell us whether a word in
+each sentence is a frequent word or not.
+ If a word in a sentence is a frequent word, we set it as 1, else we set it as 0.
+ This can be implemented with the help of following code:
+
+
+Output: BoW model
+23
+
+1.3. Term frequency-inverse document frequency (TF-IDF)
+24
+
+
+
+Term Frequency-Inverse Document Frequency, commonly known as TFIDF, is a numerical statistic that reflects the importance of a word in a
+document relative to a collection of documents (corpus).
+
+
+
+It is widely used in natural language processing and information retrieval to
+evaluate the significance of a term within a specific document in a larger
+corpus.
+
+Where is it used?
+25
+
+
+
+TFIDF is widely used in text retrieval, web search engines for classification
+of documents.
+
+
+
+Have you ever looked at articles on internet and wondered if it is possible to
+generate the tags automatically for them?
+
+
+
+Well, that’s exactly the kind of problem TF-IDF is used to solve.
+
+
+
+Search engines like Google use TF-IDF as one of the factors to determine
+the rank of a particular website in search results.
+
+TF-IDF consists of two components:
+26
+
+weighting scheme
+27
+
+
+
+The higher the TF-IDF score for a term in a document, the more important
+that term is to that document within the context of the entire corpus.
+
+
+
+This weighting scheme helps in identifying and extracting relevant
+information from a large collection of documents, and it is commonly used in
+text mining, information retrieval, and document clustering.
+
+Formula
+28
+
+We can calculate TF-IDF for a term in a data set using the below formula.
+TFIDF(t,d,D) = tf(t,d) * idf(t,D)
+ Where
+tf(t,d) is the Term frequency
+idf(t,D) is the Inverse document frequency.
+
+
+Term Frequency
+29
+
+
+
+In simple terms, Term Frequency for a term can be calculated as (n) number
+of times a term t appears in a document d to the (N) total number of terms in
+the document.
+
+
+
+tf(t,d) = n/N
+ n is the number of times term t appears in the document d.
+ N is the total number of terms in the document d.
+
+Inverse document Frequency
+30
+
+Inverse document frequency can be calculated as mathematically as the
+logarithm of ratio of number of documents present in the data set to the
+number of documents that contain the term t.
+ This measure is essentially used to remove out the most commonly used
+terms in the document .
+
+
+
+
+idf(t,D) = log (N/( n))
+ N is the number of documents in the data set.
+ n is the number of documents that contain the term t among the data set.
+
+TFIDF Calculation
+31
+
+
+
+Finally TFIDF is calculated as the product of the above two values.
+TFIDF(t,d,D) = tf(t,d) * idf(t,D)
+
+Example
+32
+
+Let us assume we have two documents.
+ Let the term counts be as follows:
+ Document 1 :(This, 1 ),(Is, 1 ),(a, 3 ),(sentence,5)
+ Document 2: (This, 1),( Is, 2), (another, 2), (sentence,1)
+
+
+We can calculate TF-IDF as follows:
+ Term frequency for document 1 and Document 2 would be as follows:
+tf(“is”, Document1) = 1/10
+tf(“is”,Document2) = 2/6
+
+
+Calculation
+33
+
+
+
+Inverse Document Frequency for the data set can be calculated as follows:
+idf(“this”,D) = log(2/2) = log(1) = 0
+idf(“is”,D) = log(2/2) = 0
+
+
+
+Finally TF-IDF would be :
+TF-IDF(“is”,document1,D) = (1/10)*0 = 0.
+
+Sample Implementation
+34
+
+
+
+Sample implementation of Term Frequency-Inverse Document Frequency
+(TF-IDF) using python with the scikit-learn library.
+
+
+
+It begins by defining a set of sample documents.
+
+
+
+The TfidfVectorizer is employed to transform these documents into a TF-IDF
+matrix.
+
+
+
+The code then extracts and prints the TF-IDF values for each word in each
+document.
+
+
+
+This statistical measure helps assess the importance of words in a
+document relative to their frequency across a collection of documents,
+aiding in information retrieval and text analysis tasks.
+
+35
+
+Output
+36
+
+Document 1:
+dog: 0.3404110310756642
+lazy: 0.3404110310756642
+over: 0.3404110310756642
+jumps: 0.3404110310756642
+fox: 0.3404110310756642
+brown: 0.3404110310756642
+quick: 0.3404110310756642
+the: 0.43455990318254417
+Document 2:
+step: 0.3535533905932738
+single: 0.3535533905932738
+with: 0.3535533905932738
+begins: 0.3535533905932738
+miles: 0.3535533905932738
+thousand: 0.3535533905932738
+of: 0.3535533905932738
+journey: 0.3535533905932738
+
+Why is TF-IDF Useful in this Example?
+37
+
+
+1. Identifying Important Terms:
+ TF-IDF helps us understand that “dog” is somewhat important in Document 1,
+but irrelevant in Document 2.
+ If we were building a search engine, this score would help rank Document 1
+higher for a query like “dog”.
+
+
+
+2. Filtering Common Words:
+ Words like “the” or “and” would have high TF scores but very low IDF scores
+because they appear in almost all documents.
+ Their TF-IDF scores would be close to 0, indicating they are not meaningful.
+
+
+
+3. Highlighting Unique Terms:
+ If a term like “mat” appeared only in Document 1, it would have a higher IDF
+score, making its TF-IDF score more significant in that document.
+
+Disadvantages of TF-IDF
+38
+
+TF-IDF is a widely used technique in information retrieval and text mining,
+but its limitations should be considered, especially when dealing with tasks
+that require a deeper understanding of language semantics.
+ For example:
+ TF-IDF treats words as independent entities and doesn’t consider
+semantic relationships between them.
+ This limitation hinders its ability to capture contextual information and
+word meanings.
+ Sensitivity to Document Length:
+ Longer documents tend to have higher overall term frequencies,
+potentially biasing TF-IDF towards longer documents.
+
+
+Neural Approach
+39
+
+2.1. Word2Vec
+ 2.2. Continuous Bag of Words(CBOW)
+ 2.3. Skip-Gram
+
+
+2.1. Word2Vec
+40
+
+Word2Vec is a neural approach for generating word embeddings.
+ It belongs to the family of neural word embedding techniques and
+specifically falls under the category of distributed representation models.
+ It is a popular technique in natural language processing (NLP) that is used
+to represent words as continuous vector spaces.
+ Developed by a team at Google, Word2Vec aims to capture the semantic
+relationships between words by mapping them to high-dimensional vectors.
+ The underlying idea is that words with similar meanings should have similar
+vector representations.
+ In Word2Vec every word is assigned a vector.
+ We start with either a random vector or one-hot vector.
+
+
+There are 2 neural embedding methods for Word2Vec
+41
+
+Continuous Bag of Words (CBOW)
+ Skip-gram
+
+
+2.2. Continuous Bag of Words(CBOW)
+42
+
+
+
+Continuous Bag of Words (CBOW) is a type of neural network architecture
+used in the Word2Vec model.
+
+
+
+The primary objective of CBOW is to predict a target word based on its
+context, which consists of the surrounding words in a given window.
+
+
+
+Given a sequence of words in a context window, the model is trained to
+predict the target word at the center of the window.
+
+CBOW is a feedforward neural network with a single hidden layer
+43
+
+
+
+The input layer represents the context words, and the output layer
+represents the target word.
+
+
+
+The hidden layer contains the learned continuous vector representations
+(word embeddings) of the input words.
+
+44
+
+2.3. Skip-Gram
+45
+
+
+
+The Skip-Gram model learns distributed representations of words in a
+continuous vector space.
+
+
+
+The main objective of Skip-Gram is to predict context words (words
+surrounding a target word) given a target word.
+
+
+
+This is the opposite of the Continuous Bag of Words (CBOW) model, where
+the objective is to predict the target word based on its context.
+
+
+
+It is shown that this method produces more meaningful embeddings.
+
+46
+
+CBOW or Skip-gram?
+47
+
+
+In practice, the choice between CBOW and Skip-gram often depends on the
+specific characteristics of the data and the task at hand.
+
+
+
+CBOW might be preferred when training resources are limited, and capturing
+syntactic information is important.
+
+
+
+Skip-gram, on the other hand, might be chosen when semantic relationships
+and the representation of rare words are crucial.
+
+Pretrained Word-Embedding
+48
+
+Pre-trained word embeddings are representations of words that are learned
+from large corpora and are made available for reuse in various natural
+language processing (NLP) tasks.
+ These embeddings capture semantic relationships between words, allowing
+the model to understand similarities and relationships between different
+words in a meaningful way.
+
+
+1)
+2)
+3)
+
+GloVe
+Fasttext
+BERT (Bidirectional Encoder Representations from Transformers)
+
+3.1. GloVe
+49
+
+
+
+GloVe is trained on global word co-occurrence statistics.
+
+
+
+It leverages the global context to create word embeddings that reflect the
+overall meaning of words based on their co-occurrence probabilities.
+
+
+
+This method, we take the corpus and iterate through it and get the cooccurrence of each word with other words in the corpus.
+
+
+
+We get a co-occurrence matrix through this.
+
+
+
+The words which occur next to each other get a value of 1, if they are one
+word apart then 1/2, if two words apart then 1/3 and so on.
+
+Example:
+50
+
+
+
+Let us take an example to understand how the matrix is created.
+
+
+
+We have a small corpus:
+Corpus:
+It is a nice evening.
+Good Evening!
+Is it a nice evening?
+
+51
+
+Initially, the vectors for each word is assigned randomly
+52
+
+
+Then we take two pairs of vectors and see how close they are to each other in
+space.
+
+
+
+If they occur together more often or have a higher value in the co-occurrence
+matrix and are far apart in space then they are brought close to each other.
+
+
+
+If they are close to each other but are rarely or not frequently used together
+then they are moved further apart in space.
+
+Vector Space
+53
+
+
+
+After many iterations of the above process, we’ll get a vector space
+representation that approximates the information from the co-occurrence
+matrix.
+
+
+
+The performance of GloVe is better than Word2Vec in terms of both
+semantic and syntactic capturing.
+
+Output:
+54
+
+Similarity between 'learn' and 'learning' using GloVe: 0.802
+Similarity between 'india' and 'indian' using GloVe: 0.865
+Similarity between 'fame' and 'famous' using GloVe: 0.589
+
+3.2. Fasttext
+55
+
+
+
+Developed by Facebook, FastText extends Word2Vec by representing
+words as bags of character n-grams.
+
+
+
+This approach is particularly useful for handling out-of-vocabulary words
+and capturing morphological variations.
+
+Sample Code
+56
+
+Output:
+Similarity between 'learn' and 'learning' using FastText: 0.642
+Similarity between 'india' and 'indian' using FastText: 0.708
+Similarity between 'fame' and 'famous' using FastText: 0.519
+
+3.3. BERT (Bidirectional Encoder Representations from Transformers)
+57
+
+BERT is a transformer-based model that learns contextualized embeddings
+for words.
+ It considers the entire context of a word by considering both left and right
+contexts, resulting in embeddings that capture rich contextual information.
+
+
+Sample Code:
+58
+
+Output:
+59
+
+Similarity between 'learn' and 'learning' using BERT: 0.930
+Similarity between 'india' and 'indian' using BERT: 0.957
+Similarity between 'fame' and 'famous' using BERT: 0.956
+
+Considerations for Deploying Word Embedding Models
+60
+
+
+
+You need to use the exact same pipeline during deploying your model as
+were used to create the training data for the word embedding.
+
+If you use a different tokenizer or different method of handling white
+space, punctuation etc. you might end up with incompatible inputs.
+
+
+
+Words in your input that doesn’t have a pre-trained vector.
+
+Such words are known as Out of Vocabulary Word(oov).
+
+What you can do is replace those words with “UNK” which means
+unknown and then handle them separately.
+
+
+
+Dimension mis-match:
+
+Vectors can be of many lengths.
+
+If you train a model with vectors of length say 400 and then try to apply
+vectors of length 1000 at inference time, you will run into errors.
+
+So make sure to use the same dimensions throughout.
+
+Advantages of Word Embeddings
+61
+
+
+
+It is much faster to train than hand build models like WordNet (which uses
+graph embeddings).
+
+
+
+Almost all modern NLP applications start with an embedding layer.
+
+
+
+It Stores an approximation of meaning.
+
+Disadvantages of Word Embeddings
+62
+
+
+
+It can be memory intensive.
+
+
+
+It is corpus dependent. Any underlying bias will have an effect on your
+model.
+
+
+
+It cannot distinguish between homophones. Eg: brake/break, cell/sell,
+weather/whether etc.
+
+Conclusion
+63
+
+
+
+In conclusion, word embedding techniques such as TF-IDF, Word2Vec, and
+GloVe play a crucial role in natural language processing by representing
+words in a lower-dimensional space, capturing semantic and syntactic
+information.
+
+1. Does GPT use word embeddings?
+64
+
+
+
+GPT uses context-based embeddings rather than traditional word
+embeddings.
+
+
+
+It captures word meaning in the context of the entire sentence.
+
+2. What is the difference between Bert and word embeddings?
+65
+
+
+
+BERT is contextually aware, considering the entire sentence, while
+traditional word embeddings, like Word2Vec, treat each word independently.
+
+3. What are the two types of word embedding?
+66
+
+
+
+Word embeddings can be broadly evaluated in two categories, intrinsic and
+extrinsic.
+
+
+
+For intrinsic evaluation, word embeddings are used to calculate or predict
+semantic similarity between words, terms, or sentences.
+
+4. How does word vectorization work?
+67
+
+
+
+Word vectorization converts words into numerical vectors, capturing
+semantic relationships.
+
+
+
+Techniques like TF-IDF, Word2Vec, and GloVe are common.
+
+5. What are the benefits of word embeddings?
+68
+
+
+
+Word embeddings offer semantic understanding, capture context, and
+enhance NLP tasks.
+
+
+
+They reduce dimensionality, speed up training, and aid in language pattern
+recognition.
+
+Summary
+69
+
+
+LLMs require textual data to be converted into numerical vectors, known as
+embeddings, since they can’t process raw text.
+
+
+
+Embeddings transform discrete data (like words or images) into continuous
+vector spaces, making them compatible with neural network operations.
+
+
+
+As the first step, raw text is broken into tokens, which can be words or
+characters.
+
+
+
+Then, the tokens are converted into integer representations, termed token IDs.
+
+
+
+Special tokens, such as <|unk|> and <|endoftext|>, can be added to enhance
+the model’s understanding and handle various contexts, such as unknown
+words or marking the boundary between unrelated texts.
+
+
+
+The byte pair encoding (BPE) tokenizer used for LLMs like GPT-2 and GPT-3
+can efficiently handle unknown words by breaking them down into subword
+units or individual characters.
+
+Cont’d
+70
+
+
+We use a sliding window approach on tokenized data to generate input–target
+pairs for LLM training.
+
+
+
+Embedding layers in PyTorch function as a lookup operation, retrieving vectors
+corresponding to token IDs.
+
+
+
+The resulting embedding vectors provide continuous representations of tokens,
+which is crucial for training deep learning models like LLMs.
+
+
+
+While token embeddings provide consistent vector representations for each
+token, they lack a sense of the token’s position in a sequence.
+
+
+
+To rectify this, two main types of positional embeddings exist: absolute and
+relative.
+
+
+
+OpenAI’s GPT models utilize absolute positional embeddings, which are added
+to the token embedding vectors and are optimized during the model training.
+
+

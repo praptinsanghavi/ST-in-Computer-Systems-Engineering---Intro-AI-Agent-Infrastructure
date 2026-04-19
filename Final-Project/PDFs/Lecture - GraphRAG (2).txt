@@ -1,0 +1,403 @@
+GraphRAG
+1
+
+
+GraphRAG is a powerful retrieval mechanism that improves GenAI applications
+by taking advantage of the rich context in graph data structures.
+
+
+
+Enterprise GenAI systems face a critical challenge:
+ the need for trustworthy and reliable results.
+
+
+
+Pure large language model (LLM)-based solutions often fall short in this regard.
+
+
+
+These models are trained to prioritize helpfulness over factuality, and their pretraining data usually lacks crucial recent and relevant information.
+
+
+
+Consequently, they are prone to generating hallucinations of facts and
+explanations, which is particularly damaging in high-value business domains
+and use cases.
+
+
+
+To address these issues, Retrieval-Augmented Generation (RAG) architectures
+have emerged as a solution.
+
+RAG
+2
+
+RAG improves the reliability of GenAI components by ensuring that LLM
+answers are based only on accurate information from existing knowledge
+sources.
+ Basic RAG systems rely solely on semantic search in vector databases to
+retrieve and rank sets of isolated text fragments.
+ While this approach can surface some relevant information, it fails to
+capture the context connecting these pieces.
+ For this reason, basic RAG systems are ill-equipped to answer complex,
+multi-hop questions.
+ This is where GraphRAG comes in.
+
+
+Graph retrievers can provide more accurate & relevant results
+3
+
+
+
+It uses knowledge graphs to represent and connect information to capture
+not only more data points but also their relationships.
+
+
+
+Thus, graph-based retrievers can provide more accurate and relevant
+results by uncovering hidden connections that aren’t often obvious but are
+crucial for correlating information.
+
+
+
+In this lecture, we’ll dive into how GraphRAG works, explore its advantages
+over other RAG architectures in improving answer quality and explainability,
+and demonstrate its practical application using a Neo4j example.
+
+Three key phases of RAG:
+4
+
+1.
+2.
+3.
+
+Retrieval
+Augmentation
+Generation
+
+Retrieval
+5
+
+
+
+In this phase, the RAG system retrieves relevant information from external
+data sources, such as documents or databases, based on the user’s query.
+
+
+
+The retrieval process can use different techniques to identify the most
+pertinent data, such as similarity searches or database queries.
+
+
+
+The results are then ranked and scored based on their relevance to the
+query.
+
+Augmentation
+6
+
+
+
+During the augmentation phase, the retrieved information is combined with
+the original user question, along with any additional instructions or context.
+
+
+
+This augmented prompt provides a richer context for the language model to
+generate a response.
+
+
+
+The goal is to force the model to only use this relevant information to
+produce an accurate and useful output.
+
+Generation
+7
+
+
+
+In the final phase, the augmented prompt is processed by an LLM, which
+generates an answer in a requested format using only the provided context
+rather than relying on its pre-trained knowledge.
+
+
+
+The response can also link source information and additional metadata.
+
+8
+
+Limitations of Vector-Only RAG
+9
+
+
+
+Many baseline RAG systems rely solely on vector search over text
+embeddings (numerical vector representations) for information retrieval.
+
+
+
+To accurately capture the cohesive semantic meaning of a piece of text, the
+source documents are often chunked into smaller fragments, which are then
+embedded, indexed, and stored for retrieval.
+
+
+
+However, this approach has its limitations.
+
+
+
+By relying solely on vector search, the response’s content is confined to the
+text fragments in the retrieved chunks.
+
+
+
+This can lead to incomplete or fragmented answers.
+
+RAG system might retrieve chunks
+10
+
+
+For example, if a user asks a question about a specific product feature, a
+vector-only RAG system might retrieve chunks that mention the product but fail
+to include relevant information from other parts of the documentation that
+provide a more comprehensive answer.
+
+
+
+Moreover, due to the black-box nature of vector representations and vector
+search, such methods cannot explain the sources of the gathered information.
+
+
+
+This means that users and developers have limited visibility into why certain
+chunks were retrieved and how they contribute to the generated response.
+
+
+
+This lack of explainability can be a significant drawback, particularly in domains
+where transparency & accountability are crucial, such as healthcare or finance.
+
+GraphRAG is a common approach to enhance retrieval
+11
+
+
+To address these shortcomings, new techniques are emerging to improve
+different phases of the RAG process (retrieval, augmentation, and generation).
+
+
+
+Since the information provided to the LLM is crucial to answer quality,
+improving the retrieval mechanism often has the most significant impact.
+
+
+
+GraphRAG is a common approach to enhance retrieval by incorporating
+structured domain knowledge stored in a knowledge graph.
+
+
+
+By tapping into the rich connections and semantic relationships in a knowledge
+graph, GraphRAG aims to overcome the limitations of vector-only RAG and
+provide more accurate and explainable responses.
+
+Knowledge Graph for Data Representation
+12
+
+
+
+A knowledge graph model is especially suitable for representing structured
+and unstructured data with connected elements.
+
+
+
+Unlike traditional databases, they don’t require a rigid schema but are more
+flexible in the data model.
+
+
+
+The graph model allows efficient storage, management, querying, and
+processing of the richness of real-world information.
+
+
+
+In a RAG system, the knowledge graph serves as the flexible memory
+companion to the language skills of LLMs, such as summarization,
+translation, and extraction.
+
+13
+
+Graph Querying for GraphRAG Retrievers
+14
+
+How GraphRAG Improves Retrieval
+15
+
+
+
+A GraphRAG retrieval can find starting points in this network of data via
+vector, fulltext, spatial, or other searches and then follow relevant
+relationships to gather additional information to satisfy the user queries.
+
+
+
+The context of the user and task is considered to increase relevance.
+
+
+
+All captured nodes, relationships and their attributes can be filtered and
+ranked before being returned as context in the augmentation phase.
+
+Several advantages over vector-only RAG systems:
+16
+
+1.
+
+2.
+
+3.
+
+4.
+
+By navigating the graph structure and following relevant relationships,
+GraphRAG can retrieve information that may not be directly mentioned in
+the initial set of retrieved chunks, providing a more comprehensive and
+contextually relevant response.
+The ability to filter and rank the retrieved information based on the user’s
+context and task allows GraphRAG to prioritize the most pertinent
+information, improving the overall quality of the generated response.
+GraphRAG enables better explainability by capturing the relationships
+between the retrieved information, making it easier to trace the sources
+and reasoning behind the generated response.
+By using the knowledge graph’s ability to integrate structured and
+unstructured data, as well as computed signals, GraphRAG can provide
+more informed and nuanced responses that draw from a wider range of
+information sources.
+
+17
+
+Types of GraphRAG Retrievers
+18
+
+
+
+The actual graph retrieval depends on the use case and domain.
+
+
+
+Different types of retrievers can be combined, and their results ranked,
+combined, or sequenced.
+
+
+
+In an agentic setup, retrievers can become tools that the LLM selects and
+runs iteratively, passing parameters and results until the necessary
+information to answer the question is collected.
+
+19
+
+GraphRAG Pattern Catalog
+20
+
+
+
+You can find more examples in the GraphRAG Pattern Catalog on
+https://graphrag.com
+
+Knowledge Graph Construction
+21
+
+
+
+For GraphRAG to work well, we need to ensure that our data has a shape
+that accurately represents the highly relevant, connected pieces of
+information.
+
+
+
+To create this knowledge graph, we need to follow two steps, which can be
+repeated for refinement:
+1.
+Model the relevant nodes and relationships to represent our domain data.
+2.
+Import, create, or compute the graph structures to fit this graph model.
+
+22
+
+We can combine different sources of data:
+23
+
+
+
+Import existing structured data from databases, files or APIs.
+
+
+
+Turn unstructured data (text, audio, video) into a graph representation of
+document structures/hierarchies and add vector embeddings and full-text
+indexes for chunks.
+
+
+
+Construct or connect structured entities (with optional embeddings) and
+their relationships from textual information.
+
+
+
+Enhance existing graphs with additional computation or algorithms, such as
+topic-clustering summaries (like in Microsoft Query Focused
+Summarization), similarity relationships, and personalized page rank (PPR)
+scores.
+
+A GraphRAG Example With Neo4j
+24
+
+A frequent use case for GraphRAG is analyzing research information in
+more detail than just “chatting with your PDF.”
+ In a vector-only semantic search approach, the data returned from the
+retrievers are just scored chunks of text with little or no information on how
+they relate to concepts from the domain or each other.
+ In contrast, a GraphRAG approach allows us to extract entities such as
+Person, Organization, Article, Paper, BiologicalProcess, Condition, Disease,
+Drug, Gene, Expression, Exposure, and Pathway that appear in our
+documents and create a rich network of information.
+ To demonstrate this, let’s walk through an example of constructing a
+knowledge graph using the open source neo4j-graphrag package.
+ You can also use LangChain, LlamaIndex, or other integrations.
+
+
+In this example, we use the SimpleKGPipeline
+25
+
+26
+
+27
+
+28
+
+29
+
+30
+
+Comparison of answers shows the GraphRAG response is much more comprehensive & covers more of the relevant context
+
+Common GraphRAG Use Cases
+31
+
+GraphRAG: Enabling Enterprise-Grade AI Apps
+32
+
+RAG architectures are currently the most effective way to provide reliable
+content for GenAI applications by using data from trusted data sources.
+ GraphRAG takes this a step further, improving upon basic vector-based
+RAG in both quality and explainability.
+ By considering more relevant context and using a variety of retrievers that
+navigate document, domain, and computed graph structures, GraphRAG
+delivers more accurate, trustworthy, and traceable results.
+ The combination of knowledge graphs, with their rich representation of realworld information, and LLMs, with their advanced language skills, creates a
+robust and reliable solution for enterprise use cases.
+ As more organizations adopt GenAI, GraphRAG will be essential in
+ensuring the accuracy, reliability, and transparency of these systems, paving
+the way for better decision-making & improved business outcomes.
+
+
+

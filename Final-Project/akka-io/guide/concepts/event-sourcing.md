@@ -1,0 +1,71 @@
+---
+description: ''
+knowledge_type: official_documentation
+scraped_at: '2026-04-06T14:48:16Z'
+section: guide
+site: akka-io
+source_url: https://doc.akka.io/libraries/guide/concepts/event-sourcing.html
+title: 'Event Sourcing :: Akka Guide'
+---
+
+# Event Sourcing :: Akka Guide
+
+## Content
+
+# Event Sourcing
+
+Event Sourcing is a modelling technique where you not only model the state of your business but also the transitions between states. Then, instead of storing the current state the datastore saves these increments.
+
+A difference to persistence based on Create\-Read\-Update\-Delete (CRUD) data\-stores is that we don’t need to map our imagined entities to a database model up\-front. Instead, we model the entities, and the events that affect their state.
+
+## Updating entities
+
+To update an entity’s state we use commands from the outside and events on the inside:
+
+- **Commands**: The state of the entity can be changed only by sending commands to it. The commands are the "external" API of an entity. Commands request state changes. The current state may reject the command, or it may accept it producing zero, one or many events (depending on the command and the current state).
+- **Events**: The events represent changes of the entity’s state and are the only way to change it. The entity creates events from commands. Events are an internal mechanism for the entity to mutate the state, other parties can’t send events. Other parts of the application may listen to the created events. Summing up, events are [facts ![new tab](../_images/new-tab.svg)](https://www.reactiveprinciples.org/patterns/communicate-facts.html).
+
+The events are persisted to the datastore, while the entity state is kept in memory. In case of a restart the latest state gets rebuilt by replaying the events from the Event Journal.
+
+## Performance
+
+Event Sourcing in Akka improves writing performance thanks to multiple aspects:
+
+- The current state resides in memory so there’s no need for a round\-trip and several database joins to reconstruct it.
+- The history of events for a single entity can use snapshots so reconstructing an entity with a large list of events is fast: load only the latest snapshot and apply the last few events on top.
+- Creating aggregates or other projections over multiple entities happens asynchronously to write operations producing [eventually consistent](eventual-consistency.html) representations of the data. That happens without impacting write throughput since the events Journal is an append\-only table so no locking is required to ensure consistency between the journal and the projections.
+
+## Advantages of Event Sourcing
+
+Event Sourcing achieves persistence by storing state changes as historical events that capture business activity. This decouples the events from the storage mechanism, allowing them to be aggregated, or placed in a group with logical boundaries. Event Sourcing is one of the patterns that enables concurrent, distributed systems to achieve high performance, scalability and resilience.
+
+In a distributed architecture, Event Sourcing provides the following advantages:
+
+- In a traditional CRUD model, entities use a dual representation as a mutable object in memory, and a mutable row in a relational database table. This leads to the infamous [object relational impedance mismatch](https://en.wikipedia.org/wiki/Object-relational_impedance_mismatch). Object\-relational mappers bridge this divide, but bring new complexities of their own. The event sourcing model treats the database as an append\-only log of serialized events. It does not attempt to model the state of each entity or the relationships between them directly in the database schema. This greatly simplifies the code that writes to and reads from the database.
+- The history of how an entity reached its current state remains in the stored events. Consistency between Transactional data and audit data are the same data which guarantees consistency between them.
+- Event Sourcing brings the ability to analyze the event stream and derive important business information from it — perhaps things that were not even thought about when designing the events. You can add new views on our system’s activity without making the write\-side more complicated.
+- It improves write performance, since the data store only needs to append the events. There are no updates and no deletes.
+- Event Sourced systems are easy to test and debug.  [Commands and Events](commands-and-events.html) can be simulated for test purposes. The event log provides a good record for debugging. When detecting an issue in production, you can replay the event log in a controlled environment to understand how an entity reached the bad state.
+
+## Learn more
+
+- To learn more about migrating from CRUD modelling to Event Sourcing, read the [How to migrate from CRUD to Event Sourcing](../how-to/from-crud-to-eventsourcing.html) page and follow the [Section 4: Create the Event Sourced Cart entity](../microservices-tutorial/entity.html) and the [Section 5: Complete Event Sourced entity](../microservices-tutorial/complete-entity.html) sections of the [tutorial](../microservices-tutorial/index.html).
+- See also an [introduction to Event Sourcing](https://docs.microsoft.com/en-us/previous-versions/msp-n-p/jj591559%28v=pandp.10%29) at MSDN.
+- See also [Martin Fowler’s introduction to Event Sourcing](https://martinfowler.com/eaaDev/EventSourcing.html).
+- Another excellent article about “thinking in Events” is
+[Events As First\-Class Citizens](https://hackernoon.com/events-as-first-class-citizens-8633e8479493) by Randy Shoup. It is a short and recommended read if you’re starting developing Event based applications.
+- The [Event Sourcing with Akka 2\.6 video ![new tab](../_images/new-tab.svg)](https://akka.io/blog/news/2020/01/07/akka-event-sourcing-video) is a good starting point for learning Event Sourcing.
+- [Akka Event Sourcing documentation ![new tab](../_images/new-tab.svg)](https://doc.akka.io/libraries/akka-core/current/typed/persistence.html#introduction).
+
+## Related Pages (Internal Links)
+
+- https://doc.akka.io/guide/concepts/commands-and-events.html
+- https://doc.akka.io/guide/concepts/eventual-consistency.html
+- https://doc.akka.io/guide/how-to/from-crud-to-eventsourcing.html
+- https://doc.akka.io/guide/microservices-tutorial/complete-entity.html
+- https://doc.akka.io/guide/microservices-tutorial/entity.html
+- https://doc.akka.io/guide/microservices-tutorial/index.html
+- https://doc.akka.io/libraries/akka-core/current/typed/persistence.html
+
+---
+*Source: [https://doc.akka.io/guide/concepts/event-sourcing.html](https://doc.akka.io/guide/concepts/event-sourcing.html)*

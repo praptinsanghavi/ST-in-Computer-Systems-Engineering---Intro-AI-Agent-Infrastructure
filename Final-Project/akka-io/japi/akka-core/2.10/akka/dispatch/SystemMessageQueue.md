@@ -1,0 +1,74 @@
+---
+description: ''
+knowledge_type: official_documentation
+scraped_at: '2026-04-06T15:20:57Z'
+section: japi
+site: akka-io
+source_url: https://doc.akka.io/japi/akka-core/2.10/akka/dispatch/SystemMessageQueue.html
+title: SystemMessageQueue
+---
+
+# SystemMessageQueue
+
+## Content
+
+Package [akka.dispatch](package-summary.html)
+## Interface SystemMessageQueue
+
+- ---
+
+```
+public interface SystemMessageQueue
+```
+
+INTERNAL API
+
+- - ### Method Summary
+	
+	
+	
+	All Methods [Instance Methods](javascript:show(2);) [Abstract Methods](javascript:show(4);) 
+	| Modifier and Type | Method | Description |
+	| `boolean` | `[hasSystemMessages](#hasSystemMessages())()` |  |
+	| `akka.dispatch.sysmsg.EarliestFirstSystemMessageList` | `[systemDrain](#systemDrain(akka.dispatch.sysmsg.LatestFirstSystemMessageList))​(akka.dispatch.sysmsg.LatestFirstSystemMessageList newContents)` | Dequeue all messages from system queue and return them as single\-linked list. |
+	| `void` | `[systemEnqueue](#systemEnqueue(akka.actor.ActorRef,akka.dispatch.sysmsg.SystemMessage))​([ActorRef](../actor/ActorRef.html "class in akka.actor") receiver,  [SystemMessage](sysmsg/SystemMessage.html "interface in akka.dispatch.sysmsg") message)` | Enqueue a new system message, e.g. |
+
+- - ### Method Detail
+	
+	
+	
+		- #### hasSystemMessages
+		
+		
+		
+		```
+		boolean hasSystemMessages()
+		```
+		- #### systemDrain
+		
+		
+		
+		```
+		akka.dispatch.sysmsg.EarliestFirstSystemMessageList systemDrain​(akka.dispatch.sysmsg.LatestFirstSystemMessageList newContents)
+		```
+		
+		Dequeue all messages from system queue and return them as single\-linked list.
+		- #### systemEnqueue
+		
+		
+		
+		```
+		void systemEnqueue​([ActorRef](../actor/ActorRef.html "class in akka.actor") receiver,
+		                   [SystemMessage](sysmsg/SystemMessage.html "interface in akka.dispatch.sysmsg") message)
+		```
+		
+		Enqueue a new system message, e.g. by prepending atomically as new head of a single\-linked list.
+
+## Related Pages (Internal Links)
+
+- https://doc.akka.io/japi/akka-core/2.10/akka/actor/ActorRef.html
+- https://doc.akka.io/japi/akka-core/2.10/akka/dispatch/package-summary.html
+- https://doc.akka.io/japi/akka-core/2.10/akka/dispatch/sysmsg/SystemMessage.html
+
+---
+*Source: [https://doc.akka.io/japi/akka-core/2.10/akka/dispatch/SystemMessageQueue.html](https://doc.akka.io/japi/akka-core/2.10/akka/dispatch/SystemMessageQueue.html)*

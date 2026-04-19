@@ -1,0 +1,79 @@
+---
+description: ''
+knowledge_type: official_documentation
+scraped_at: '2026-04-06T00:29:11Z'
+section: japi
+site: akka-io
+source_url: https://doc.akka.io/japi/akka-http/current/akka/http/scaladsl/common/RepeatedValueReceptacle.html
+title: RepeatedValueReceptacle
+---
+
+# RepeatedValueReceptacle
+
+## Content
+
+Package [akka.http.scaladsl.common](package-summary.html)
+## Class RepeatedValueReceptacle\<T\>
+
+- java.lang.Object
+- - akka.http.scaladsl.common.RepeatedValueReceptacle\<T\>
+
+- ---
+
+```
+public class RepeatedValueReceptacle<T>
+extends java.lang.Object
+```
+
+- - ### Constructor Summary
+	
+	
+	
+	Constructors 
+	| Constructor | Description |
+	| `[RepeatedValueReceptacle](#%3Cinit%3E(java.lang.String))​(java.lang.String name)` |  |
+
+	- ### Method Summary
+	
+	
+	
+	All Methods [Instance Methods](javascript:show(2);) [Concrete Methods](javascript:show(8);) 
+	| Modifier and Type | Method | Description |
+	| `java.lang.String` | `[name](#name())()` |  |
+	
+	
+		- ### Methods inherited from class java.lang.Object
+		
+		
+		`clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait`
+
+- - ### Constructor Detail
+	
+	
+	
+		- #### RepeatedValueReceptacle
+		
+		
+		
+		```
+		public RepeatedValueReceptacle​(java.lang.String name)
+		```
+
+	- ### Method Detail
+	
+	
+	
+		- #### name
+		
+		
+		
+		```
+		public java.lang.String name()
+		```
+
+## Related Pages (Internal Links)
+
+- https://doc.akka.io/japi/akka-http/current/akka/http/scaladsl/common/package-summary.html
+
+---
+*Source: [https://doc.akka.io/japi/akka-http/current/akka/http/scaladsl/common/RepeatedValueReceptacle.html](https://doc.akka.io/japi/akka-http/current/akka/http/scaladsl/common/RepeatedValueReceptacle.html)*

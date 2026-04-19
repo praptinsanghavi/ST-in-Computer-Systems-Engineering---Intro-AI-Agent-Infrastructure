@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip install *)",
+      "Bash(python -c \"from docx import Document; doc = Document\\('supply_chain_proposal_v2.docx'\\); [print\\(p.text\\) for p in doc.paragraphs]\")",
+      "Bash(xargs wc *)"
+    ]
+  }
+}

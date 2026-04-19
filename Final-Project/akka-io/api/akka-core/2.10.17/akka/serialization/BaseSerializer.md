@@ -1,0 +1,212 @@
+---
+description: Akka 2.10.17 - akka.serialization.BaseSerializer
+knowledge_type: official_documentation
+scraped_at: '2026-04-06T01:47:09Z'
+section: api
+site: akka-io
+source_url: https://doc.akka.io/api/akka-core/current/akka/serialization/BaseSerializer.html
+title: Akka 2.10.17 - akka.serialization.BaseSerializer
+---
+
+# Akka 2.10.17 - akka.serialization.BaseSerializer
+
+> **Summary:** Akka 2.10.17 - akka.serialization.BaseSerializer
+
+## Content
+
+Akka2\.10\.17 \< Back****# Packages
+
+- [**](../../index.html "Permalink")  package [root](../../index.html)Definition Classes[root](../../index.html)
+- [**](../../akka/index.html "Permalink")  package [akka](../index.html)Definition Classes[root](../../index.html)
+- [**](../../akka/serialization/index.html "Permalink")  package [serialization](index.html)Definition Classes[akka](../index.html)
+- [**](../../akka/serialization/jackson/index.html "Permalink")  package [jackson](jackson/index.html)Definition Classes[serialization](index.html)
+- [AsyncSerializer](AsyncSerializer.html "Serializer that supports async serialization.")
+- [AsyncSerializerWithStringManifest](AsyncSerializerWithStringManifest.html "Scala API: Async serializer with string manifest that delegates synchronous calls to the asynchronous calls and blocks.")
+- [AsyncSerializerWithStringManifestCS](AsyncSerializerWithStringManifestCS.html "Java API: Async serializer with string manifest that delegates synchronous calls to the asynchronous calls and blocks.")
+- BaseSerializer
+- [ByteArraySerializer](ByteArraySerializer.html "This is a special Serializer that Serializes and deserializes byte arrays only, (just returns the byte array unchanged/uncopied)")
+- [ByteBufferSerializer](ByteBufferSerializer.html "Serializer between an object and a ByteBuffer representing that object.")
+- [DisabledJavaSerializer](DisabledJavaSerializer.html "This Serializer is used when akka.actor.java-serialization = off")
+- [JSerializer](JSerializer.html "Java API for creating a Serializer: make sure to include a constructor which takes exactly one argument of type akka.actor.ExtendedActorSystem, because that is the preferred constructor which will be invoked when reflectively instantiating the JSerializer (also possible with empty constructor).")
+- [JavaSerializer](JavaSerializer.html "This Serializer uses standard Java Serialization")
+- [NullSerializer](NullSerializer.html "This is a special Serializer that Serializes and deserializes nulls only")
+- [Serialization](Serialization.html "Serialization module.")
+- [SerializationExtension](SerializationExtension$.html "SerializationExtension is an Akka Extension to interact with the Serialization that is built into Akka")
+- [SerializationSetup](SerializationSetup.html "Setup for the serialization subsystem, constructor is *Internal API*, use factories in SerializationSetup")
+- [Serializer](Serializer.html "A Serializer represents a bimap between an object and an array of bytes representing that object.")
+- [SerializerDetails](SerializerDetails.html "Constructor is internal API: Use the factories SerializerDetails#create or SerializerDetails#apply to construct")
+- [SerializerWithStringManifest](SerializerWithStringManifest.html "A Serializer represents a bimap between an object and an array of bytes representing that object.")
+- [Serializers](Serializers$.html)
+[t](BaseSerializer$.html "See companion object")[akka](../index.html).[serialization](index.html)
+
+# [BaseSerializer](BaseSerializer$.html "See companion object")[**](../../akka/serialization/BaseSerializer.html "Permalink")
+
+### Companion [object BaseSerializer](BaseSerializer$.html "See companion object")
+
+#### trait BaseSerializer extends [Serializer](Serializer.html)
+
+ Base serializer trait with serialization identifiers configuration contract,
+ when globally unique serialization identifier is configured in the `reference.conf`.
+
+Source[Serializer.scala](https://github.com/akka/akka-core/tree/v2.10.17/akka-actor/src/main/scala/akka/serialization/Serializer.scala#L235)Linear Supertypes[Serializer](Serializer.html), [AnyRef](https://www.scala-lang.org/api/2.13.17/scala/AnyRef.html#scala.AnyRef), [Any](https://www.scala-lang.org/api/2.13.17/scala/Any.html#scala.Any)Known Subclasses[ServiceKeySerializer](../actor/typed/internal/receptionist/ServiceKeySerializer.html), [ReplicatedDataSerializer](../cluster/ddata/protobuf/ReplicatedDataSerializer.html), [ReplicatorMessageSerializer](../cluster/ddata/protobuf/ReplicatorMessageSerializer.html), [MessageSerializer](../cluster/metrics/protobuf/MessageSerializer.html), [ClusterMessageSerializer](../cluster/protobuf/ClusterMessageSerializer.html), [MessageSerializer](../persistence/serialization/MessageSerializer.html), [PayloadSerializer](../persistence/serialization/PayloadSerializer.html), [SnapshotSerializer](../persistence/serialization/SnapshotSerializer.html), [MessageContainerSerializer](../remote/serialization/MessageContainerSerializer.html), [MiscMessageSerializer](../remote/serialization/MiscMessageSerializer.html), [ProtobufSerializer](../remote/serialization/ProtobufSerializer.html), [SystemMessageSerializer](../remote/serialization/SystemMessageSerializer.html), [ByteArraySerializer](ByteArraySerializer.html), [JavaSerializer](JavaSerializer.html), [TestJavaSerializer](../testkit/TestJavaSerializer.html), [ByteStringSerializer](../remote/serialization/ByteStringSerializer.html), [IntSerializer](../remote/serialization/IntSerializer.html), [LongSerializer](../remote/serialization/LongSerializer.html), [StringSerializer](../remote/serialization/StringSerializer.html)Type Hierarchy****Ordering1. Alphabetic
+2. By Inheritance
+Inherited  
+1. BaseSerializer
+2. Serializer
+3. AnyRef
+4. Any
+Implicitly  
+1. by any2stringadd
+2. by StringFormat
+3. by Ensuring
+4. by ArrowAssoc
+1. Hide All
+2. Show All
+Visibility1. Public
+2. Protected
+### Abstract Value Members
+
+1. [**](../../akka/serialization/BaseSerializer.html#fromBinary(bytes:Array[Byte],manifest:Option[Class[_]]):AnyRef "Permalink") abstract  def fromBinary(bytes: [Array](https://www.scala-lang.org/api/2.13.17/scala/Array.html#scala.Array)\[[Byte](https://www.scala-lang.org/api/2.13.17/scala/Byte.html#scala.Byte)], manifest: [Option](https://www.scala-lang.org/api/2.13.17/scala/Option.html#scala.Option)\[Class\[\_]]): [AnyRef](https://www.scala-lang.org/api/2.13.17/scala/AnyRef.html#scala.AnyRef)Produces an object from an array of bytes, with an optional type\-hint;
+the class should be loaded using ActorSystem.dynamicAccess.
+
+Produces an object from an array of bytes, with an optional type\-hint;
+the class should be loaded using ActorSystem.dynamicAccess.
+
+Definition Classes[Serializer](Serializer.html)Annotations@throws(classOf\[NotSerializableException])
+2. [**](../../akka/serialization/BaseSerializer.html#includeManifest:Boolean "Permalink") abstract  def includeManifest: [Boolean](https://www.scala-lang.org/api/2.13.17/scala/Boolean.html#scala.Boolean)Returns whether this serializer needs a manifest in the fromBinary method
+
+Returns whether this serializer needs a manifest in the fromBinary method
+
+Definition Classes[Serializer](Serializer.html)
+3. [**](../../akka/serialization/BaseSerializer.html#system:akka.actor.ExtendedActorSystem "Permalink") abstract  def system: [ExtendedActorSystem](../actor/ExtendedActorSystem.html) Actor system which is required by most serializer implementations.
+4. [**](../../akka/serialization/BaseSerializer.html#toBinary(o:AnyRef):Array[Byte] "Permalink") abstract  def toBinary(o: [AnyRef](https://www.scala-lang.org/api/2.13.17/scala/AnyRef.html#scala.AnyRef)): [Array](https://www.scala-lang.org/api/2.13.17/scala/Array.html#scala.Array)\[[Byte](https://www.scala-lang.org/api/2.13.17/scala/Byte.html#scala.Byte)]Serializes the given object into an Array of Byte.
+
+Serializes the given object into an Array of Byte.
+
+Note that the array must not be mutated by the serializer after it has been returned.
+
+Definition Classes[Serializer](Serializer.html)
+### Concrete Value Members
+
+1. [**](../../akka/serialization/BaseSerializer.html#!=(x$1:Any):Boolean "Permalink") final  def !\=(arg0: [Any](https://www.scala-lang.org/api/2.13.17/scala/Any.html#scala.Any)): [Boolean](https://www.scala-lang.org/api/2.13.17/scala/Boolean.html#scala.Boolean)Definition ClassesAnyRef → Any
+2. [**](../../akka/serialization/BaseSerializer.html###:Int "Permalink") final  def \#\#: [Int](https://www.scala-lang.org/api/2.13.17/scala/Int.html#scala.Int)Definition ClassesAnyRef → Any
+3. [**](../../akka/serialization/BaseSerializer.html#+(other:String):String "Permalink")  def \+(other: String): StringImplicitThis member is added by an implicit conversion from BaseSerializer toany2stringadd\[BaseSerializer] performed by method any2stringadd in scala.Predef.Definition Classesany2stringadd
+4. [**](../../akka/serialization/BaseSerializer.html#->[B](y:B):(A,B) "Permalink")  def \-\>\[B](y: B): (BaseSerializer, B)ImplicitThis member is added by an implicit conversion from BaseSerializer toArrowAssoc\[BaseSerializer] performed by method ArrowAssoc in scala.Predef.Definition ClassesArrowAssocAnnotations@inline()
+5. [**](../../akka/serialization/BaseSerializer.html#==(x$1:Any):Boolean "Permalink") final  def \=\=(arg0: [Any](https://www.scala-lang.org/api/2.13.17/scala/Any.html#scala.Any)): [Boolean](https://www.scala-lang.org/api/2.13.17/scala/Boolean.html#scala.Boolean)Definition ClassesAnyRef → Any
+6. [**](../../akka/serialization/BaseSerializer.html#SerializationIdentifiers:String("akka.actor.serialization-identifiers") "Permalink") final  val SerializationIdentifiers: String("akka.actor.serialization\-identifiers")Configuration namespace of serialization identifiers in the `reference.conf`.
+
+Configuration namespace of serialization identifiers in the `reference.conf`.
+
+Each serializer implementation must have an entry in the following format:
+`akka.actor.serialization-identifiers."FQCN" = ID`
+where `FQCN` is fully qualified class name of the serializer implementation
+and `ID` is globally unique serializer identifier number.
+7. [**](../../akka/serialization/BaseSerializer.html#asInstanceOf[T0]:T0 "Permalink") final  def asInstanceOf\[T0]: T0Definition ClassesAny
+8. [**](../../akka/serialization/BaseSerializer.html#clone():Object "Permalink")  def clone(): [AnyRef](https://www.scala-lang.org/api/2.13.17/scala/AnyRef.html#scala.AnyRef)Attributesprotected\[lang] Definition ClassesAnyRefAnnotations@throws(classOf\[java.lang.CloneNotSupportedException]) @HotSpotIntrinsicCandidate() @native()
+9. [**](../../akka/serialization/BaseSerializer.html#ensuring(cond:A=>Boolean,msg:=>Any):A "Permalink")  def ensuring(cond: (BaseSerializer) \=\> [Boolean](https://www.scala-lang.org/api/2.13.17/scala/Boolean.html#scala.Boolean), msg: \=\> [Any](https://www.scala-lang.org/api/2.13.17/scala/Any.html#scala.Any)): BaseSerializerImplicitThis member is added by an implicit conversion from BaseSerializer toEnsuring\[BaseSerializer] performed by method Ensuring in scala.Predef.Definition ClassesEnsuring
+10. [**](../../akka/serialization/BaseSerializer.html#ensuring(cond:A=>Boolean):A "Permalink")  def ensuring(cond: (BaseSerializer) \=\> [Boolean](https://www.scala-lang.org/api/2.13.17/scala/Boolean.html#scala.Boolean)): BaseSerializerImplicitThis member is added by an implicit conversion from BaseSerializer toEnsuring\[BaseSerializer] performed by method Ensuring in scala.Predef.Definition ClassesEnsuring
+11. [**](../../akka/serialization/BaseSerializer.html#ensuring(cond:Boolean,msg:=>Any):A "Permalink")  def ensuring(cond: [Boolean](https://www.scala-lang.org/api/2.13.17/scala/Boolean.html#scala.Boolean), msg: \=\> [Any](https://www.scala-lang.org/api/2.13.17/scala/Any.html#scala.Any)): BaseSerializerImplicitThis member is added by an implicit conversion from BaseSerializer toEnsuring\[BaseSerializer] performed by method Ensuring in scala.Predef.Definition ClassesEnsuring
+12. [**](../../akka/serialization/BaseSerializer.html#ensuring(cond:Boolean):A "Permalink")  def ensuring(cond: [Boolean](https://www.scala-lang.org/api/2.13.17/scala/Boolean.html#scala.Boolean)): BaseSerializerImplicitThis member is added by an implicit conversion from BaseSerializer toEnsuring\[BaseSerializer] performed by method Ensuring in scala.Predef.Definition ClassesEnsuring
+13. [**](../../akka/serialization/BaseSerializer.html#eq(x$1:AnyRef):Boolean "Permalink") final  def eq(arg0: [AnyRef](https://www.scala-lang.org/api/2.13.17/scala/AnyRef.html#scala.AnyRef)): [Boolean](https://www.scala-lang.org/api/2.13.17/scala/Boolean.html#scala.Boolean)Definition ClassesAnyRef
+14. [**](../../akka/serialization/BaseSerializer.html#equals(x$1:Object):Boolean "Permalink")  def equals(arg0: [AnyRef](https://www.scala-lang.org/api/2.13.17/scala/AnyRef.html#scala.AnyRef)): [Boolean](https://www.scala-lang.org/api/2.13.17/scala/Boolean.html#scala.Boolean)Definition ClassesAnyRef → Any
+15. [**](../../akka/serialization/BaseSerializer.html#fromBinary(bytes:Array[Byte],clazz:Class[_]):AnyRef "Permalink") final  def fromBinary(bytes: [Array](https://www.scala-lang.org/api/2.13.17/scala/Array.html#scala.Array)\[[Byte](https://www.scala-lang.org/api/2.13.17/scala/Byte.html#scala.Byte)], clazz: Class\[\_]): [AnyRef](https://www.scala-lang.org/api/2.13.17/scala/AnyRef.html#scala.AnyRef)Java API: deserialize with type hint
+
+Java API: deserialize with type hint
+
+Definition Classes[Serializer](Serializer.html)Annotations@throws(classOf\[NotSerializableException])
+16. [**](../../akka/serialization/BaseSerializer.html#fromBinary(bytes:Array[Byte]):AnyRef "Permalink") final  def fromBinary(bytes: [Array](https://www.scala-lang.org/api/2.13.17/scala/Array.html#scala.Array)\[[Byte](https://www.scala-lang.org/api/2.13.17/scala/Byte.html#scala.Byte)]): [AnyRef](https://www.scala-lang.org/api/2.13.17/scala/AnyRef.html#scala.AnyRef)Java API: deserialize without type hint
+
+Java API: deserialize without type hint
+
+Definition Classes[Serializer](Serializer.html)
+17. [**](../../akka/serialization/BaseSerializer.html#getClass():Class[_] "Permalink") final  def getClass(): [Class](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html#java.lang.Class)\[\_ \<: [AnyRef](https://www.scala-lang.org/api/2.13.17/scala/AnyRef.html#scala.AnyRef)]Definition ClassesAnyRef → AnyAnnotations@HotSpotIntrinsicCandidate() @native()
+18. [**](../../akka/serialization/BaseSerializer.html#hashCode():Int "Permalink")  def hashCode(): [Int](https://www.scala-lang.org/api/2.13.17/scala/Int.html#scala.Int)Definition ClassesAnyRef → AnyAnnotations@HotSpotIntrinsicCandidate() @native()
+19. [**](../../akka/serialization/BaseSerializer.html#identifier:Int "Permalink")  val identifier: [Int](https://www.scala-lang.org/api/2.13.17/scala/Int.html#scala.Int)Globally unique serialization identifier configured in the `reference.conf`.
+
+Globally unique serialization identifier configured in the `reference.conf`.
+
+See [Serializer.identifier](Serializer.html#identifier:Int).
+
+Definition ClassesBaseSerializer → [Serializer](Serializer.html)
+20. [**](../../akka/serialization/BaseSerializer.html#isInstanceOf[T0]:Boolean "Permalink") final  def isInstanceOf\[T0]: [Boolean](https://www.scala-lang.org/api/2.13.17/scala/Boolean.html#scala.Boolean)Definition ClassesAny
+21. [**](../../akka/serialization/BaseSerializer.html#ne(x$1:AnyRef):Boolean "Permalink") final  def ne(arg0: [AnyRef](https://www.scala-lang.org/api/2.13.17/scala/AnyRef.html#scala.AnyRef)): [Boolean](https://www.scala-lang.org/api/2.13.17/scala/Boolean.html#scala.Boolean)Definition ClassesAnyRef
+22. [**](../../akka/serialization/BaseSerializer.html#notify():Unit "Permalink") final  def notify(): [Unit](https://www.scala-lang.org/api/2.13.17/scala/Unit.html#scala.Unit)Definition ClassesAnyRefAnnotations@HotSpotIntrinsicCandidate() @native()
+23. [**](../../akka/serialization/BaseSerializer.html#notifyAll():Unit "Permalink") final  def notifyAll(): [Unit](https://www.scala-lang.org/api/2.13.17/scala/Unit.html#scala.Unit)Definition ClassesAnyRefAnnotations@HotSpotIntrinsicCandidate() @native()
+24. [**](../../akka/serialization/BaseSerializer.html#synchronized[T0](x$1:=>T0):T0 "Permalink") final  def synchronized\[T0](arg0: \=\> T0): T0Definition ClassesAnyRef
+25. [**](../../akka/serialization/BaseSerializer.html#toString():String "Permalink")  def toString(): [String](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#java.lang.String)Definition ClassesAnyRef → Any
+26. [**](../../akka/serialization/BaseSerializer.html#wait(x$1:Long,x$2:Int):Unit "Permalink") final  def wait(arg0: [Long](https://www.scala-lang.org/api/2.13.17/scala/Long.html#scala.Long), arg1: [Int](https://www.scala-lang.org/api/2.13.17/scala/Int.html#scala.Int)): [Unit](https://www.scala-lang.org/api/2.13.17/scala/Unit.html#scala.Unit)Definition ClassesAnyRefAnnotations@throws(classOf\[java.lang.InterruptedException])
+27. [**](../../akka/serialization/BaseSerializer.html#wait(x$1:Long):Unit "Permalink") final  def wait(arg0: [Long](https://www.scala-lang.org/api/2.13.17/scala/Long.html#scala.Long)): [Unit](https://www.scala-lang.org/api/2.13.17/scala/Unit.html#scala.Unit)Definition ClassesAnyRefAnnotations@throws(classOf\[java.lang.InterruptedException]) @native()
+28. [**](../../akka/serialization/BaseSerializer.html#wait():Unit "Permalink") final  def wait(): [Unit](https://www.scala-lang.org/api/2.13.17/scala/Unit.html#scala.Unit)Definition ClassesAnyRefAnnotations@throws(classOf\[java.lang.InterruptedException])
+### Deprecated Value Members
+
+1. [**](../../akka/serialization/BaseSerializer.html#finalize():Unit "Permalink")  def finalize(): [Unit](https://www.scala-lang.org/api/2.13.17/scala/Unit.html#scala.Unit)Attributesprotected\[lang] Definition ClassesAnyRefAnnotations@throws(classOf\[java.lang.Throwable]) @Deprecated Deprecated*(Since version 9\)*
+2. [**](../../akka/serialization/BaseSerializer.html#formatted(fmtstr:String):String "Permalink")  def formatted(fmtstr: String): StringImplicitThis member is added by an implicit conversion from BaseSerializer toStringFormat\[BaseSerializer] performed by method StringFormat in scala.Predef.Definition ClassesStringFormatAnnotations@deprecated @inline() Deprecated*(Since version 2\.12\.16\)* Use `formatString.format(value)` instead of `value.formatted(formatString)`,
+or use the `f""` string interpolator. In Java 15 and later, `formatted` resolves to the new method in String which has reversed parameters.
+3. [**](../../akka/serialization/BaseSerializer.html#→[B](y:B):(A,B) "Permalink")  def →\[B](y: B): (BaseSerializer, B)ImplicitThis member is added by an implicit conversion from BaseSerializer toArrowAssoc\[BaseSerializer] performed by method ArrowAssoc in scala.Predef.Definition ClassesArrowAssocAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use `->` instead. If you still wish to display it as one character, consider using a font with programming ligatures such as Fira Code.
+### Inherited from [Serializer](Serializer.html)
+
+### Inherited from [AnyRef](https://www.scala-lang.org/api/2.13.17/scala/AnyRef.html#scala.AnyRef)
+
+### Inherited from [Any](https://www.scala-lang.org/api/2.13.17/scala/Any.html#scala.Any)
+
+### Inherited by implicit conversion any2stringadd fromBaseSerializer to any2stringadd\[BaseSerializer]
+
+### Inherited by implicit conversion StringFormat fromBaseSerializer to StringFormat\[BaseSerializer]
+
+### Inherited by implicit conversion Ensuring fromBaseSerializer to Ensuring\[BaseSerializer]
+
+### Inherited by implicit conversion ArrowAssoc fromBaseSerializer to ArrowAssoc\[BaseSerializer]
+
+### Ungrouped
+
+## Related Pages (Internal Links)
+
+- https://doc.akka.io/api/akka-core/2.10.17/akka/actor/ExtendedActorSystem.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/actor/typed/internal/receptionist/ServiceKeySerializer.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/cluster/ddata/protobuf/ReplicatedDataSerializer.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/cluster/ddata/protobuf/ReplicatorMessageSerializer.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/cluster/metrics/protobuf/MessageSerializer.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/cluster/protobuf/ClusterMessageSerializer.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/index.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/persistence/serialization/MessageSerializer.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/persistence/serialization/PayloadSerializer.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/persistence/serialization/SnapshotSerializer.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/remote/serialization/ByteStringSerializer.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/remote/serialization/IntSerializer.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/remote/serialization/LongSerializer.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/remote/serialization/MessageContainerSerializer.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/remote/serialization/MiscMessageSerializer.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/remote/serialization/ProtobufSerializer.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/remote/serialization/StringSerializer.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/remote/serialization/SystemMessageSerializer.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/AsyncSerializer.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/AsyncSerializerWithStringManifest.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/AsyncSerializerWithStringManifestCS.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/BaseSerializer$.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/BaseSerializer.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/ByteArraySerializer.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/ByteBufferSerializer.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/DisabledJavaSerializer$.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/DisabledJavaSerializer.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/JSerializer.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/JavaSerializer$.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/JavaSerializer.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/NullSerializer$.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/NullSerializer.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/Serialization$.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/Serialization.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/SerializationExtension$.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/SerializationSetup$.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/SerializationSetup.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/Serializer.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/SerializerDetails$.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/SerializerDetails.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/SerializerWithStringManifest.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/Serializers$.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/index.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/jackson/index.html
+- https://doc.akka.io/api/akka-core/2.10.17/akka/testkit/TestJavaSerializer.html
+- https://doc.akka.io/api/akka-core/2.10.17/index.html
+
+---
+*Source: [https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/BaseSerializer.html](https://doc.akka.io/api/akka-core/2.10.17/akka/serialization/BaseSerializer.html)*

@@ -1,0 +1,395 @@
+---
+description: Akka Management is a suite of tools for operating Akka Clusters.
+knowledge_type: official_documentation
+scraped_at: '2026-04-06T01:24:42Z'
+section: libraries
+site: akka-io
+source_url: https://doc.akka.io/libraries/akka-management/current/bootstrap/index.html
+title: Akka Cluster Bootstrap • Akka Management
+---
+
+# Akka Cluster Bootstrap • Akka Management
+
+> **Summary:** Akka Management is a suite of tools for operating Akka Clusters.
+
+## Content
+
+New to Akka? Start with the [Akka SDK](https://doc.akka.io/).
+
+# Akka Cluster Bootstrap
+
+Akka Cluster Bootstrap helps forming (or joining to) a cluster by using [Akka Discovery](../discovery/index.html) to discover peer nodes. It is an alternative to configuring static `seed-nodes` in dynamic deployment environments such as on Kubernetes or AWS.
+
+It builds on the flexibility of Akka Discovery, leveraging a range of discovery mechanisms depending on the environment you want to run your cluster in.
+
+## Prerequisites
+
+Bootstrap depends on:
+
+- [Akka Discovery](../discovery/index.html) to discover other members of the cluster
+- [Akka Management](../akka-management.html) to host HTTP endpoints used during the bootstrap process
+
+A discovery mechanism needs to be chosen. A good default choice is DNS.
+
+## Project Info
+
+| Project Info: Akka Cluster Bootstrap | |
+| --- | --- |
+| Artifact | com.lightbend.akka.management akka\-management\-cluster\-bootstrap 1\.6\.4 [Akka library snapshot repository](https://repo.akka.io/snapshots) |
+| JDK versions | Eclipse Temurin JDK 11Eclipse Temurin JDK 17Eclipse Temurin JDK 21 |
+| Scala versions | 2\.13\.17, 3\.3\.7 |
+| License | [BUSL\-1\.1](https://github.com/akka/akka-management/blob/v1.6.4/LICENSE) |
+| Readiness level | [Supported](https://doc.akka.io/docs/akka-dependencies/current/support-terminology.html#supported), support is available from [Lightbend](https://www.lightbend.com/akka) Since 1\.0\.0, 2019\-03\-15 |
+| Home page | <https://akka.io/> |
+| API documentation | [API (Scaladoc)](https://doc.akka.io/api/akka-management/1.6.4/akka/index.html) |
+| Forums | [Lightbend Discuss](https://discuss.akka.io/) |
+| Release notes | [GitHub releases](https://github.com/akka/akka-management/releases) |
+| Issues | [GitHub issues](https://github.com/akka/akka-management/issues) |
+| Sources | [https://github.com/akka/akka\-management](https://github.com/akka/akka-management) |
+
+## Dependency
+
+Add `akka-management-cluster-bootstrap` and one or more discovery mechanisms to use for the discovery process.
+
+For example, you might choose to use the [DNS discovery](https://doc.akka.io/libraries/akka-core/current/discovery/index.html#discovery-method-dns) and bootstrap extensions.
+
+Note
+The Akka dependencies are available from Akka’s secure library repository. To access them you need to use a secure, tokenized URL as specified at <https://account.akka.io/token>.
+
+Additionally, add the dependencies as below.
+
+sbt
+```
+val AkkaVersion = "2.10.11"
+val AkkaManagementVersion = "1.6.4"
+libraryDependencies ++= Seq(
+  "com.lightbend.akka.management" %% "akka-management-cluster-bootstrap" % AkkaManagementVersion,
+  "com.typesafe.akka" %% "akka-discovery" % AkkaVersion
+)
+```
+Gradle
+```
+def versions = [
+  AkkaVersion: "2.10.11",
+  AkkaManagementVersion: "1.6.4",
+  ScalaBinary: "2.13"
+]
+dependencies {
+  implementation "com.lightbend.akka.management:akka-management-cluster-bootstrap_${versions.ScalaBinary}:${versions.AkkaManagementVersion}"
+  implementation "com.typesafe.akka:akka-discovery_${versions.ScalaBinary}:${versions.AkkaVersion}"
+}
+```
+Maven
+```
+<properties>
+  <akka.version>2.10.11</akka.version>
+  <akka.management.version>1.6.4</akka.management.version>
+  <scala.binary.version>2.13</scala.binary.version>
+</properties>
+<dependencies&gt
+  <dependency>
+    <groupId>com.lightbend.akka.management</groupId>
+    <artifactId>akka-management-cluster-bootstrap_${scala.binary.version}</artifactId>
+    <version>${akka.management.version}</version>
+  </dependency&gt
+  <dependency>
+    <groupId>com.typesafe.akka</groupId>
+    <artifactId>akka-discovery_${scala.binary.version}</artifactId>
+    <version>${akka.version}</version>
+  </dependency&gt
+</dependencies>
+```
+
+Akka Cluster Bootstrap can be used with Akka 2\.10\.11 or later. You have to override the following Akka dependencies by defining them explicitly in your build and define the Akka version to the one that you are using. Latest patch version of Akka is recommended and a later version than 2\.10\.11 can be used.
+
+sbt
+```
+val AkkaVersion = "2.10.11"
+libraryDependencies ++= Seq(
+  "com.typesafe.akka" %% "akka-cluster" % AkkaVersion,
+  "com.typesafe.akka" %% "akka-discovery" % AkkaVersion
+)
+```
+Gradle
+```
+def versions = [
+  AkkaVersion: "2.10.11",
+  ScalaBinary: "2.13"
+]
+dependencies {
+  implementation "com.typesafe.akka:akka-cluster_${versions.ScalaBinary}:${versions.AkkaVersion}"
+  implementation "com.typesafe.akka:akka-discovery_${versions.ScalaBinary}:${versions.AkkaVersion}"
+}
+```
+Maven
+```
+<properties>
+  <akka.version>2.10.11</akka.version>
+  <scala.binary.version>2.13</scala.binary.version>
+</properties>
+<dependencies&gt
+  <dependency>
+    <groupId>com.typesafe.akka</groupId>
+    <artifactId>akka-cluster_${scala.binary.version}</artifactId>
+    <version>${akka.version}</version>
+  </dependency&gt
+  <dependency>
+    <groupId>com.typesafe.akka</groupId>
+    <artifactId>akka-discovery_${scala.binary.version}</artifactId>
+    <version>${akka.version}</version>
+  </dependency&gt
+</dependencies>
+```
+Note
+`akka-discovery` is already a transitive dependency of `akka-management-cluster-bootstrap` but it can be good to define it explicitly in the build of the application to align the Akka versions with other dependencies from the application. The version must be the same across all Akka modules, e.g. `akka-actor`, `akka-discovery` and `akka-cluster` must be of the same version.
+
+The minimum supported Akka version is 2\.10\.11\. Use the same Akka version for `akka-discovery` as for other Akka dependencies in the application. Latest patch version of Akka is recommended and a later version than 2\.10\.11 can be used.
+
+## Using
+
+Akka management must be started as well as the bootstrap process, this can either be done through config or programmatically.
+
+**Through config**
+
+Listing the `ClusterBootstrap` extension among the autoloaded `akka.extensions` in `application.conf` will also cause it to autostart:
+
+```
+akka.extensions = ["akka.management.cluster.bootstrap.ClusterBootstrap"]
+
+```
+
+If management or bootstrap configuration is incorrect, the autostart will log an error and terminate the actor system.
+
+**Programmatically**
+
+Scala
+
+```
+[source](https://github.com/akka/akka-management/tree/v1.6.4/cluster-bootstrap/src/test/scala/doc/akka/management/cluster/bootstrap/ClusterBootstrapCompileOnly.scala#L16-L20 "Go to snippet source")// Akka Management hosts the HTTP routes used by bootstrap
+AkkaManagement(system).start()
+
+// Starting the bootstrap process needs to be done explicitly
+ClusterBootstrap(system).start()
+```
+
+Java
+
+```
+[source](https://github.com/akka/akka-management/tree/v1.6.4/cluster-bootstrap/src/test/java/jdoc/akka/management/cluster/bootstrap/ClusterBootstrapCompileOnly.java#L17-L21 "Go to snippet source")// Akka Management hosts the HTTP routes used by bootstrap
+AkkaManagement.get(system).start();
+
+// Starting the bootstrap process needs to be done explicitly
+ClusterBootstrap.get(system).start();
+```
+
+`AkkaManagement().start()` will return a `Future``CompletionStage` that will fail if management cannot be started. It is a good idea to act on such a failure, for example by logging an error and terminating the actor system.
+
+Ensure that `seed-nodes` is not present in configuration and that either autoloading through config or `start()` is called on every node.
+
+The following configuration is required, more details for each and additional configuration can be found in [reference.conf](https://github.com/akka/akka-management/blob/main/cluster-bootstrap/src/main/resources/reference.conf):
+
+- `akka.management.cluster.bootstrap.contact-point-discovery.service-name`: a unique name in the deployment environment for this cluster instance which is used to lookup peers in service discovery. If unset, it will be derived from the `ActorSystem` name.
+- `akka.management.cluster.bootstrap.contact-point-discovery.discovery-method`: the intended service discovery mechanism (from what choices Akka Discovery provides). If unset, falls back to the system\-wide default from `akka.discovery.method`.
+
+## How It Works
+
+- Each node exposes an HTTP endpoint `/bootstrap/seed-nodes`. This is provided by `akka-management-cluster-bootstrap` and exposed automatically by starting Akka management.
+- During bootstrap each node queries service discovery repeatedly to get the initial contact points until at least the number of contact points ([and recommended exactly equal](#exact_contact_point)) as defined in `contact-point-discovery.required-contact-point-nr` has been found.
+- Each node then probes the found contact points’ `/bootstrap/seed-nodes` endpoint to see if a cluster has already been formed
+	- If there is an existing cluster, it joins the cluster and bootstrapping is finished.
+	- If no cluster exists, each node returns an empty list of `seed-nodes`. In that case, the node with the lowest address from the set of contact points forms a new cluster and starts advertising itself as a seed node.
+- Other nodes will start to see the `/bootstrap/seed-nodes` of the node that self\-joined and will join its cluster.
+
+See [full bootstrap process and advanced configuration](details.html) for more details on the process.
+
+## Joining Mechanism Precedence
+
+As Akka Cluster allows nodes to join to a cluster using multiple different methods, the precedence of each method is strictly defined and is as follows:
+
+- If `akka.cluster.seed-nodes` (in your `application.conf`) are non\-empty, those nodes will be joined, and bootstrap will NOT execute even if `start()` is called or autostart through configuration is enabled, however a warning will be logged.
+- If an explicit `cluster.join` or `cluster.joinSeedNodes` is invoked before the bootstrap completes, that joining would take precedence over the bootstrap (but it’s not recommended to do so, see below).
+- The Cluster Bootstrap mechanism takes some time to complete, but eventually issues a `joinSeednodes`.
+
+Warning
+It is NOT recommended to mix various joining mechanisms. Pick one mechanism and stick to it in order to avoid any surprises during cluster formation. E.g. do NOT set `akka.cluster.seed-nodes` if you are going to be using the Bootstrap mechanism.
+
+## Deployment considerations
+
+### Initial deployment
+
+Cluster Bootstrap will always attempt to join an existing cluster if possible. However if no other contact point advertises any `seed-nodes` a new cluster will be formed by the node decided by the `JoinDecider` where the default sorts the addresses then picks the lowest.
+
+A setting is provided, `akka.management.cluster.bootstrap.new-cluster-enabled` that can be disable new cluster formation to only allow the node to join existing clusters. 
+
+- On initial deployment use the default `akka.management.cluster.bootstrap.new-cluster-enabled=on`
+- Following the initial deployment it is recommended to set `akka.management.cluster.bootstrap.new-cluster-enabled=off` with an immediate re\-deployment once the initial cluster has formed
+
+This can be used to provide additional safety during restarts and redeploys while there is a network partition present. Without new cluster formation disabled an isolated set of nodes could form a new cluster if all are restarted. 
+
+For complete safety of the Initial Bootstrap it is recommended to set the `contact-point-discovery.required-contact-point-nr` setting to the exact number of nodes the initial startup of the cluster will be done. For example, if starting a cluster with 4 nodes initially, and later scaling it out to many more nodes, be sure to set this setting to `4` for additional safety of the initial joining, even in face of an flaky discovery mechanism!
+
+### Recommended Configuration
+
+When using the bootstrap module, there are some underlying Akka Cluster settings that should be specified to ensure that your deployment is robust.
+
+Since the target environments for this module are dynamic, that is, instances can come and go, failure needs to be considered. The following configuration will result in your application being shut down after 30 seconds if it is unable to join the discovered seed nodes. In this case, the orchestrator (i.e. Kubernetes) will restart your node and the operation will (presumably) eventually succeed. You’ll want to specify the following in your `application.conf` file:
+
+```
+[source](https://github.com/akka/akka-management/tree/v1.6.4/integration-test/local/src/main/resources/application.conf#L20-L21 "Go to snippet source")akka.cluster.shutdown-after-unsuccessful-join-seed-nodes = 30s
+akka.coordinated-shutdown.exit-jvm = on
+```
+
+### Rolling updates
+
+Akka Cluster can handle hard failures using a downing provider such as Lightbend’s split brain resolver discussed below. However, this should not be relied upon for regular rolling redeploys. For details on the recommended setup, see [Rolling Updates](../rolling-updates.html).
+
+### Split brains and ungraceful shutdown
+
+Nodes can crash causing cluster members to become unreachable. This is a tricky problem as it is not possible to distinguish between a network partition and a node failure. To rectify this in an automated manner, make sure you enable the [Split Brain Resolver](https://doc.akka.io/libraries/akka-core/current/split-brain-resolver.html) This module has a number of strategies that can ensure that the cluster continues to function during network partitions and node failures.
+
+## Bootstrap Recipes
+
+To see how to configure and use bootstrap in various environments such as Kubernetes, see [recipes](recipes.html).
+
+## Code Examples
+
+### Example 1: Dependency
+
+```scala
+val AkkaVersion = "2.10.11"
+val AkkaManagementVersion = "1.6.4"
+libraryDependencies ++= Seq(
+  "com.lightbend.akka.management" %% "akka-management-cluster-bootstrap" % AkkaManagementVersion,
+  "com.typesafe.akka" %% "akka-discovery" % AkkaVersion
+)
+```
+
+### Example 2: Dependency
+
+```gradle
+def versions = [
+  AkkaVersion: "2.10.11",
+  AkkaManagementVersion: "1.6.4",
+  ScalaBinary: "2.13"
+]
+dependencies {
+  implementation "com.lightbend.akka.management:akka-management-cluster-bootstrap_${versions.ScalaBinary}:${versions.AkkaManagementVersion}"
+  implementation "com.typesafe.akka:akka-discovery_${versions.ScalaBinary}:${versions.AkkaVersion}"
+}
+```
+
+### Example 3: Dependency
+
+```xml
+<properties>
+  <akka.version>2.10.11</akka.version>
+  <akka.management.version>1.6.4</akka.management.version>
+  <scala.binary.version>2.13</scala.binary.version>
+</properties>
+<dependencies&gt
+  <dependency>
+    <groupId>com.lightbend.akka.management</groupId>
+    <artifactId>akka-management-cluster-bootstrap_${scala.binary.version}</artifactId>
+    <version>${akka.management.version}</version>
+  </dependency&gt
+  <dependency>
+    <groupId>com.typesafe.akka</groupId>
+    <artifactId>akka-discovery_${scala.binary.version}</artifactId>
+    <version>${akka.version}</version>
+  </dependency&gt
+</dependencies>
+```
+
+### Example 4: Dependency
+
+```scala
+val AkkaVersion = "2.10.11"
+libraryDependencies ++= Seq(
+  "com.typesafe.akka" %% "akka-cluster" % AkkaVersion,
+  "com.typesafe.akka" %% "akka-discovery" % AkkaVersion
+)
+```
+
+### Example 5: Dependency
+
+```gradle
+def versions = [
+  AkkaVersion: "2.10.11",
+  ScalaBinary: "2.13"
+]
+dependencies {
+  implementation "com.typesafe.akka:akka-cluster_${versions.ScalaBinary}:${versions.AkkaVersion}"
+  implementation "com.typesafe.akka:akka-discovery_${versions.ScalaBinary}:${versions.AkkaVersion}"
+}
+```
+
+### Example 6: Dependency
+
+```xml
+<properties>
+  <akka.version>2.10.11</akka.version>
+  <scala.binary.version>2.13</scala.binary.version>
+</properties>
+<dependencies&gt
+  <dependency>
+    <groupId>com.typesafe.akka</groupId>
+    <artifactId>akka-cluster_${scala.binary.version}</artifactId>
+    <version>${akka.version}</version>
+  </dependency&gt
+  <dependency>
+    <groupId>com.typesafe.akka</groupId>
+    <artifactId>akka-discovery_${scala.binary.version}</artifactId>
+    <version>${akka.version}</version>
+  </dependency&gt
+</dependencies>
+```
+
+### Example 7: Using
+
+```text
+akka.extensions = ["akka.management.cluster.bootstrap.ClusterBootstrap"]
+```
+
+### Example 8: Using
+
+```scala
+// Akka Management hosts the HTTP routes used by bootstrap
+AkkaManagement(system).start()
+
+// Starting the bootstrap process needs to be done explicitly
+ClusterBootstrap(system).start()
+```
+
+### Example 9: Using
+
+```java
+// Akka Management hosts the HTTP routes used by bootstrap
+AkkaManagement.get(system).start();
+
+// Starting the bootstrap process needs to be done explicitly
+ClusterBootstrap.get(system).start();
+```
+
+### Example 10: Recommended Configuration
+
+```conf
+akka.cluster.shutdown-after-unsuccessful-join-seed-nodes = 30s
+akka.coordinated-shutdown.exit-jvm = on
+```
+
+## Related Pages (Internal Links)
+
+- https://doc.akka.io/
+- https://doc.akka.io/api/akka-management/1.6.4/akka/index.html
+- https://doc.akka.io/docs/akka-dependencies/current/support-terminology.html
+- https://doc.akka.io/libraries/akka-core/current/discovery/index.html
+- https://doc.akka.io/libraries/akka-core/current/split-brain-resolver.html
+- https://doc.akka.io/libraries/akka-management/current/akka-management.html
+- https://doc.akka.io/libraries/akka-management/current/bootstrap/details.html
+- https://doc.akka.io/libraries/akka-management/current/bootstrap/recipes.html
+- https://doc.akka.io/libraries/akka-management/current/discovery/index.html
+- https://doc.akka.io/libraries/akka-management/current/healthchecks.html
+- https://doc.akka.io/libraries/akka-management/current/rolling-updates.html
+
+---
+*Source: [https://doc.akka.io/libraries/akka-management/current/bootstrap/](https://doc.akka.io/libraries/akka-management/current/bootstrap/)*

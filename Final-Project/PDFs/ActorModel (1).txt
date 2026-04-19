@@ -1,0 +1,833 @@
+1973 – Original Actor Model Paper
+Computer scientists
+thought future computers
+would be living-room sized
+mainframes with
+thousands of low-powered
+CPUs.
+Thus, we needed a way to
+write programs that could
+run on multiple cores, a
+novel concept at the time.
+
+By NASA - Great Images in NASA Description, Public Domain,
+https://commons.wikimedia.org/w/index.php?curid=645500
+9
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+Actors in the 1970s
+Each actor is its own “micro process”
+ Owns 1 core (there are thousands)
+ Communicate across cores via message-passing in shared memory
+ Actors process 1 message at a time
+
+
+Actors in the 1970s
+2. Deploys child actors
+(child processes)
+
+1. Deploys actors
+
+Program
+Actor
+
+Actor
+
+Actor
+
+Core
+
+Core
+
+Core
+
+Core
+
+Actor
+
+Actor
+
+Actor
+
+Actor
+
+Core
+
+Core
+
+Core
+
+Core
+
+Core
+
+Core
+
+Core
+
+Core
+
+Core
+
+Core
+
+Core
+
+Actors in the 1970s
+1. Streams startup messages
+("do this work")
+
+Program
+
+Actor
+
+Core
+Core
+4. Deliver output
+
+2. Delegates work (via messages) to children
+(for concurrency & parallelism)
+
+Actor
+
+Actor
+
+Core
+Core
+3. Receives response messages
+
+Core
+
+Actor
+
+Actor
+
+Actor
+
+Actor
+
+Core
+
+Core
+
+Core
+
+Core
+
+Core
+
+Core
+
+Core
+
+Core
+
+Core
+
+Core
+
+1970s Actors Never Came to Pass
+
+1980s: Erlang Actors
+Development of network
+computing revived actor
+model.
+
+First implemented in
+1986 by Ericsson. Powers
+modern day GPRS, 3G,
+and LTE cell networks.
+
+Used to provide fault
+tolerance, soft-real time
+programming, and linear
+hardware scalability for
+telephony networks.
+
+
+Modern CPUs: More Cores!
+
+Source: Karl Rupp https://www.karlrupp.net/2018/02/42-years-of-microprocessor-trend-data/
+
+Modern Day: Actors Everywhere
+Multi-core programming now everywhere
+ Developers need more robust model than “shared state concurrent
+programming”
+ Cloud computing == 1970s vision of dividing work across thousands of
+cheap CPUs finally comes true
+
+
+WHY USE THE ACTOR
+MODEL?
+
+Actors Reduce Big Problems into Small
+Ones
+Big Firehose of Events from Many Different Sources
+(Users, Devices, Ticker Symbols, etc...)
+
+/user
+(root)
+
+/device
+TypeA
+Entities
+
+/deviceA{
+id1}
+
+/device
+TypeB
+Entities
+
+/deviceA{
+id2}
+
+/deviceB{
+id3}
+
+/deviceB{
+id4}
+
+Actors are Reactive
+Accumulate state inmemory.
+
+
+
+Can react to changes
+in state in real-time.
+
+
+
+No database calls,
+I/O, or external
+infrastructure.
+
+Event 2
+Event 1
+
+
+
+PUSH to Client
+
+State(0)
+State(1)
+State(2)
+
+MyActor
+
+Actors Make Concurrency Easy
+Mailbox
+Message 2
+Queued, unprocessed messages
+
+Other messages
+have to wait until
+receive() function
+exits for Message 0
+
+Message 1
+2
+
+Message 0
+1
+2
+
+Unique Address
+Mailbox pushes message at
+front of queue into actor's
+receive() function
+
+0
+Message 1
+2
+
+Actor
+
+Actors Isolate Faults
+/user
+
+/parent1
+
+/parent2
+
+Error:
+InvalidOperationException
+
+Restart
+
+/child1
+
+/child2
+
+Crash!
+
+/child3
+
+/child4
+
+Actors Scale & Distribute
+
+Node 1
+(Up, Reachable)
+
+Node 4
+/user/foo
+
+(Up, Reachable)
+
+myRoute
+r
+
+/user/foo
+/user/foo
+
+Node 2
+
+Node 3
+
+(Up, Reachable)
+
+(Up, Reachable)
+
+Actors Recover from Network Failures
+
+C
+D
+D
+
+A
+
+(takeover)
+
+B
+
+E
+F
+(Critical
+State)
+
+All other nodes are notified of failure
+
+Actors Are Used in Domains Where
+Soft real-time guarantees are common
+ i.e. “every transaction must be completed within ~100ms to be within
+SLA”
+ Work is best modeled as streams
+ Long-running jobs (i.e. Asset line management, simulations, ETL,
+migrations)
+ Continuous flows(i.e. IOT, marketing automation, real-time pricing)
+ High availability is key to business success
+
+
+Actor Terms
+Actor = a class that can contain state and modifies
+that state by processing messages it receives.
+ ActorReference = a handle to an actor. Allows you
+to send the actor messages without knowing its
+implementation type or location on network.
+ ActorSystem = a collection of actors that exist
+inside a single process and communicate via inmemory message passing.
+ Cluster = a collection of networked ActorSystems
+whose actors communicate via TCP message
+passing.
+
+
+Actors Always Run
+Asynchronously
+1. message
+4. sleeps
+
+Actor 1
+
+3. Actor1 sends
+message to Actor2
+
+CPU
+
+Actor 2
+
+State is Shared Only Through Messages
+3. Message arrives
+that causes Actor A
+to modify its state
+
+1. Requests state
+
+4. Receives copy of
+Actor A's state
+for processing
+
+2. Copies state
+into immutable message
+State(0)
+State(1)
+
+State
+Msg (0)
+
+State
+Msg (0)
+
+Actor A
+
+Actor B
+
+Actor References are Location Transparent
+ActorRef can point to
+local actor (in-memory
+messaging.)
+
+ActorRef can point to
+actor running in
+another remote
+process (TCP
+messaging.)
+
+You don’t need to
+explicitly know or care
+which is which.
+
+
+But Actors Still Have Explicit Addresses
+
+All parts form an "ActorPath"
+Protocol
+
+Address
+
+akka.tcp://MySystem@localhost:9001/user/actorName1
+ActorSystem
+
+Path
+
+Processes Usually Contain
+Many Actors
+
+Root actor
+(also, parent of children)
+
+Children
+
+/user/a1
+
+Grand children
+
+/user/
+
+/user/a2
+
+/user/a1/c1
+
+/user/a3
+
+USING ACTORS IN
+PRACTICE
+
+Business Case: Sdbkin
+Fulfillment
+
+“The App Store meets NuGet”
+
+Fulfillment requires:
+
+
+Provisioning NuGet feed
+
+Processing payment + generating invoice
+
+Sending out email notifications to customer +
+publisher
+
+Scheduling renewal
+
+Other stuff (taxes, payouts)
+
+
+Model Orders as State Machines (Saga Pattern)
+
+Line Items Changed
+
+Customer creates
+"PurchaseIntent"
+
+Compute Price
+of Line Items
+
+Receive
+Payment
+
+Timeout
+Timeout / Failure
+Cancel
+
+Fulfill Product(s)
+
+Deliver
+Notifications
+
+Order
+Complete
+
+5. User submits payment
+1. User selects
+at least 1 product
+
+2. Returns
+"IntentId"
+
+UserService
+
+UserService
+
+4. Returns
+3. Creates "Order" computed price
+w/ IntentId
+
+Azure
+EventHubs
+NotificationService
+
+6. PaymentId mapped
+to IntentId
+
+FulfillmentService
+
+FulfillmentService
+
+Order actor state
+persisted
+Azure TableStorage
+
+7. Stripe Webhook fired
+when payment clears
+
+UserService
+
+UserService 11. Event read - emails sent
+
+8. "PaymentCleared"
+for IntentId
+
+Azure
+EventHubs
+NotificationService
+
+FulfillmentService
+
+9. Provision product(s)
+(external service call)
+
+FulfillmentService
+
+10. InvoiceCreated event
+
+Azure TableStorage
+
+Actor Implementation
+OrderActor – uses Akka.Persistence with EntityId == Stripe “IntentId”
+(or equivalent)
+ Internal state event sourced from UserService / external payment system
+events
+ State isn’t persisted until user attempts to pay
+ Uses Akka.Persistence.Azure as backing store
+ Terminates once all “OrderComplete” events are pushed to Azure EventHub
+
+
+Actor Infrastructure
+Akka.Cluster – allows us to fault-tolerantly place actors
+anywhere in our network
+ Akka.Cluster.Sharding – guarantees that each
+OrderActor will be globally unique; moves actors around the
+cluster to load-balance and recover from faults
+ Akka.Persistence – makes it possible for actors to
+recover their state after restart, failure, or a deployment
+
+
+FufillmentService
+(node 1)
+
+Shard1
+
+Order
+"xxx-xxx-1"
+Order
+"xxx-xxx-a"
+
+"Orders"
+ShardRegion
+
+Shard2
+
+Order
+"xxx-xxx-c"
+
+FufillmentService
+(node 2)
+
+...
+
+ShardN
+
+Order
+"xxx-xxx-d"
+Order
+"xxx-xxx-e"
+
+When to Use Akka
+Event-driven applications (i.e. chat, workflow,
+CRM)
+ Finance (pricing, fraud detection, algorithmic
+trading)
+ Gaming (multi-player)
+ Analytics & monitoring
+ Marketing automation
+ Systems integration
+ IOT (healthcare, transportation, security)
+
+
+What’s in it for me?
+Promises
+
+Benefits
+
+Actors can’t be accessed
+directly, only through actor
+references.
+
+Implementation and
+location transparency
+
+Actors work by
+asynchronously processing
+strongly typed messages.
+Actors process messages
+serially and in FIFO order.
+
+Less code; automatic
+concurrency.
+
+Actor state is always threadsafe and requires no locks.
+
+A method of concurrency in which the universal primitive is an Actor.
+
+41
+
+Everything is an Actor.
+
+42
+
+Operations
+43
+
+
+
+The only allowed operations for an actor are:
+ to create another actor,
+ to send a message
+ or to designate how to handle the next message
+
+First two operations are quite easy to understand.
+ Let’s focus on the last one.
+
+
+An Actor can hold its own private state.
+It can decide how to process the next message based on that state.
+
+44
+
+Imagine an Actor storing a total balance of our account.
+
+45
+
+If an Actor receives a message with a new transaction, it updates
+its state by adding the new amount to the already calculated total
+balance.
+This means, for the next message the state of the Actor will be
+different.
+
+46
+
+Actors are Lightweight
+47
+
+
+
+So, it is easy to create thousands or even millions of them as they require
+fewer resources than Threads.
+
+Actors in More Details
+48
+
+Actors are Isolated.
+They do not share memory
+They have a state, but the only
+way to change it is by
+receiving a message.
+Every Actor has its own
+mailbox that is similar to a
+Message Queue.
+
+Messages
+49
+
+Messages are stored in Actor’s Mailboxes until they are processed.
+Actors, after created, wait for messages to arrive.
+Actors can communicate with each other only through messages.
+Messages are sent to Actors’ mailboxes, and processed in FIFO order.
+Messages are simple immutable data structures that are easy to send over the network.
+Actors can process one message at a time.
+
+50
+
+51
+
+52
+
+53
+
+54
+
+55
+
+56
+
+57
+
+Actors are decoupled
+58
+
+Actors work asynchronously.
+ They don’t need to wait for a response form another Actor.
+ Actors have addresses.
+ It is possible for an Actor to send a message to another Actor by knowing its
+Address.
+
+
+• Actors have addresses, so it’s possible for an actor to send a message to another
+actor by knowing its address.
+• An actor can only communicate with actors whose addresses it has.
+• An actor has addresses of the actors it has itself created and it can obtain other
+addresses from a message it receives.
+• One actor can have many addresses.
+• We need to remember that address is not equal to identity.
+
+59
+
+60
+
+Actors can run locally or remotely
+on another machine.
+It is completely transparent for the
+system as Actors communicate
+through Addresses that can be
+remote or local.
+
+61
+
+62
+
+Knowledge Check: Actor Model
+63
+
+64
+
+65
+
+66
+
+67
+
+68
+
+69
+
+70
+
+71
+
+72
+
+73
+
+74
+
+75
+
+76
+
+77
+
+78
+
+79
+
+80
+
+81
+
+82
+
+83
+
+84
+
+85
+
+86
+
+87
+
+88
+
+89
+
+90
+
+91
+
+92
+
+93
+
+94
+
+95
+
+96
+
+97
+
+98
+
+99
+
+100
+
+101
+
+102
+
+103
+
+104
+
+105
+
+106
+
+107
+
+108
+
+

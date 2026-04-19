@@ -1,0 +1,57 @@
+---
+description: Akka gRPC - Support for building streaming gRPC servers and clients on
+  top of Akka Streams.
+knowledge_type: official_documentation
+scraped_at: '2026-04-06T03:04:22Z'
+section: libraries
+site: akka-io
+source_url: https://doc.akka.io/libraries/akka-grpc/current/binary-compatibility.html
+title: Binary compatibility • Akka gRPC
+---
+
+# Binary compatibility • Akka gRPC
+
+> **Summary:** Akka gRPC - Support for building streaming gRPC servers and clients on top of Akka Streams.
+
+## Content
+
+New to Akka? Start with the [Akka SDK](https://doc.akka.io/).
+
+# Binary compatibility
+
+If possible we recommend using Akka gRPC directly from your downstream projects, and share protocols among projects by distributing the .proto service definition rather than creating libraries that contain generated code. However, in some cases it can be convenient to use Akka gRPC in a library project.
+
+Conflicting versions in transitive dependencies can make upgrading a painful exercise. To make this easier, starting with version 1\.0\.0 Akka gRPC provides binary compatibility for the runtime library within each major version. This means if you use a library that in turn uses Akka gRPC, it should be possible to use that library with any newer version of Akka gRPC as well (with the exceptions listed below).
+
+This is especially relevant if you depend on one library that depends on Akka gRPC version ‘A’, and another library that depends on Akka gRPC version ‘B’: due to binary compatibility, you can simply choose the latest version of Akka gRPC and use both libraries with that.
+
+## Limitations
+
+No binary compatibility is guaranteed between major versions.
+
+### New features
+
+Features introduced in later versions of Akka gRPC may not work with code generated with a previous version of Akka gRPC.
+
+### Deprecations
+
+Binary compatibility can be broken via a deprecation cycle: an API that has been marked deprecated in version `x.y.0` may disappear in version `x.(y+1).z`.
+
+### Internal and ApiMayChange API’s
+
+Internal API’s (designated by the `akka.grpc.internal` package or with the `@InternalApi` annotation) and API’s that are still marked `@ApiMayChange` are not guaranteed to remain binary compatible.
+
+Libraries that use such methods may not work in applications that depend on a newer version of Akka gRPC.
+
+## Upstream libraries
+
+We depend on a number of upstream libraries that don’t formally maintain binary compatibility, such as [ScalaPB](https://scalapb.github.io/) (when generating Scala code) and [grpc\-java](https://github.com/grpc/grpc-java/). When updates to those libraries introduce incompatibilities it will be decided on a case\-by\-case basis, based on the expected impact of the change, whether the update requires a new major Akka gRPC version.
+
+## Related Pages (Internal Links)
+
+- https://doc.akka.io/
+- https://doc.akka.io/libraries/akka-grpc/current/apidesign.html
+- https://doc.akka.io/libraries/akka-grpc/current/buildtools/maven.html
+
+---
+*Source: [https://doc.akka.io/libraries/akka-grpc/current/binary-compatibility.html](https://doc.akka.io/libraries/akka-grpc/current/binary-compatibility.html)*

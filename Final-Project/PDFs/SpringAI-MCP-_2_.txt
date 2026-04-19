@@ -1,0 +1,265 @@
+Structured Output Converter
+1
+
+
+   The ability of LLMs to produce structured outputs is important for
+    downstream applications that rely on reliably parsing output values.
+
+   Developers want to quickly turn results from an AI model into data types,
+    such as JSON, XML or Java classes, that can be passed to other
+    application functions and methods.
+
+   The Spring AI Structured Output Converters help to convert the LLM output
+    into a structured format.
+2
+Structured Output API
+3
+4
+5
+6
+7
+8
+9
+10
+it is up to the application to provide the tool calling logic
+11
+
+
+    Even though we typically refer to tool calling as a model capability, it is
+     actually up to the client application to provide the tool calling logic.
+
+    The model can only request a tool call and provide the input arguments,
+     whereas the application is responsible for executing the tool call from the
+     input arguments and returning the result.
+
+    The model never gets access to any of the APIs provided as tools, which is
+     a critical security consideration.
+
+    Spring AI provides convenient APIs to define tools, resolve tool call requests
+     from a model, and execute the tool calls.
+12
+13
+14
+Taking Actions
+15
+
+
+    AI models can be used to generate plans for accomplishing certain goals.
+     For example, a model can generate a plan for booking a trip to Denmark.
+    However, the model doesn’t have the ability to execute the plan.
+    That’s where tools come in: they can be used to execute the plan that a
+     model generates.
+
+    In the previous example, we used a tool to determine the current date and
+     time.
+    In this example, we’ll define a second tool for setting an alarm at a specific
+     time.
+    The goal is to set an alarm for 10 minutes from now, so we need to provide
+     both tools to the model to accomplish this task.
+Cont’d
+16
+
+
+    We’ll add the new tool to the same DateTimeTools class as before.
+    The new tool will take a single parameter, which is the time in ISO-8601
+     format.
+    The tool will then print a message to the console indicating that the alarm
+     has been set for the given time.
+    Like before, the tool is defined as a method annotated with @Tool, which
+     we also use to provide a detailed description to help the model understand
+     when and how to use the tool
+17
+18
+19
+20
+21
+Model Context Protocol (MCP)
+22
+
+
+    The Model Context Protocol (MCP) is a standardized protocol that enables
+     AI models to interact with external tools and resources in a structured way.
+    It supports multiple transport mechanisms to provide flexibility across
+     different environments.
+    The MCP Java SDK provides a Java implementation of the Model Context
+     Protocol, enabling standardized interaction with AI models and tools through
+     both synchronous and asynchronous communication patterns.
+    Spring AI MCP extends the MCP Java SDK with Spring Boot integration,
+     providing both client and server starters.
+    Bootstrap your AI applications with MCP support using Spring Initializer.
+MCP
+23
+
+
+    Modern web applications are increasingly integrating with Large Language
+     Models (LLMs) to build solutions, which are not just limited to general
+     knowledge-based question-answering.
+    To enhance an AI model’s response and make it more context-aware, we
+     can connect it to external sources like search engines, databases, and file
+     systems.
+    However, integrating and managing multiple data sources with different
+     formats and protocols is a challenge.
+    The Model Context Protocol (MCP), introduced by Anthropic, addresses this
+     integration challenge and provides a standardized way to connect AI-
+     powered applications with external data sources.
+    Through MCP, we can build complex agents and workflows on top of a
+     native LLM.
+24
+Communication between clients and servers
+25
+
+
+    Additionally, to handle communication between clients and servers, MCP
+     provides two transport channels.
+
+    To enable communication through standard input and output streams with
+     local processes and command-line tools, it provides the Standard
+     Input/Output (stdio) transport type.
+
+    Alternatively, for HTTP-based communication between clients and servers,
+     it provides the Server-Sent Events (SSE) transport type.
+LAB TOPIC
+26
+
+    We’ll be building a chatbot using Anthropic’s Claude model, which will act
+     as our MCP host.
+
+    Alternatively, we can use a local LLM via Hugging Face or Ollama, as the
+     specific AI model is irrelevant
+27
+Model Context Protocol (MCP) Client
+28
+
+    The MCP Client is a key component in the MCP architecture, responsible for
+     establishing and managing connections with MCP servers.
+    It implements the client-side of the protocol, handling:
+       Protocol version negotiation to ensure compatibility with servers
+       Capability negotiation to determine available features
+       Message transport and JSON-RPC communication
+       Tool discovery and execution
+       Resource access and management
+       Prompt system interactions
+       Optional features:
+           Roots management
+           Sampling support
+       Synchronous and asynchronous operations
+       Transport options:
+           Stdio-based transport for process-based communication
+           Java HttpClient-based SSE client transport
+           WebFlux SSE client transport for reactive HTTP streaming
+29
+MCP Server
+30
+
+
+    The MCP Server is a foundational component in the Model Context Protocol
+     (MCP) architecture that provides tools, resources, and capabilities to clients.
+    It implements the server-side of the protocol, responsible for:
+       Server-side protocol operations implementation
+           Tool exposure and discovery
+           Resource management with URI-based access
+           Prompt template provision and handling
+           Capability negotiation with clients
+           Structured logging and notifications
+       Concurrent client connection management
+       Synchronous and Asynchronous API support
+       Transport implementations:
+           Stdio-based transport for process-based communication
+           Servlet-based SSE server transport
+           WebFlux SSE server transport for reactive HTTP streaming
+           WebMVC SSE server transport for servlet-based HTTP streaming
+31
+Multimodality API
+32
+Spring AI Multimodality
+33
+
+
+    Multimodality refers to a model’s ability to simultaneously understand and
+     process information from various sources, including text, images, audio,
+     and other data formats.
+
+    The Spring AI Message API provides all necessary abstractions to support
+     multimodal LLMs.
+34
+35
+36
+Chat models:
+37
+
+
+    Spring AI provides multimodal support for the following chat models:
+      Anthropic Claude 3
+
+      AWS Bedrock Converse
+
+      Azure Open AI (e.g. GPT-4o models)
+
+      Mistral AI (e.g. Mistral Pixtral models)
+
+      Ollama (e.g. LLaVA, BakLLaVA, Llama3.2 models)
+
+      OpenAI (e.g. GPT-4 and GPT-4o models)
+
+      Vertex AI Gemini (e.g. gemini-1.5-pro-001, gemini-1.5-flash-001 models)
+Observability
+38
+
+
+    Spring AI builds upon the observability features in the Spring ecosystem to
+     provide insights into AI-related operations.
+
+    Spring AI provides metrics and tracing capabilities for its core components:
+      ChatClient (including Advisor)
+
+      ChatModel
+
+      EmbeddingModel
+
+      ImageModel
+
+      VectorStore.
+Prompts
+39
+
+
+    Prompts are the inputs that guide an AI model to generate specific outputs.
+     The design and phrasing of these prompts significantly influence the
+     model’s responses.
+    The structure of prompts has evolved over time within the AI field.
+    Initially, prompts were simple strings.
+    Over time, they grew to include placeholders for specific inputs, like
+     "USER:", which the AI model recognizes.
+    OpenAI have introduced even more structure to prompts by categorizing
+     multiple message strings into distinct roles before they are processed by the
+     AI model.
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+OpenAI Tokenizer UI
+54
+
+
+    Experiment with the OpenAI Tokenizer UI to see how words are converted
+     into tokens.
+            https://platform.openai.com/tokenizer
+55
+56
+57
+58
+59
+60
+61
+62
+

@@ -1,0 +1,52 @@
+---
+description: Migrating to Akka 2.9.
+knowledge_type: official_documentation
+scraped_at: '2026-04-05T18:59:44Z'
+section: libraries
+site: akka-io
+source_url: https://doc.akka.io/libraries/akka-core/current/project/migration-guide-2.9.x-2.10.x.html
+title: Migration Guide 2.9.x to 2.10.x • Akka core
+---
+
+# Migration Guide 2.9.x to 2.10.x • Akka core
+
+> **Summary:** Migrating to Akka 2.9.
+
+## Content
+
+New to Akka? Start with the [Akka SDK](https://doc.akka.io/).
+
+# Migration Guide 2\.9\.x to 2\.10\.x
+
+## Support for slf4j 1\.7\.x and logback 1\.2\.x removed
+
+This is the first release that only supports slf4j 2\.0\.x and logback 1\.5\.x.
+
+## Changes to Java Flight Recorder (JFR)
+
+The config `akka.java-flight-recorder.enabled` was removed. Instead, the JFR interactions are recorded directly.
+
+Please use the jvm native flags to take advantage of the JFR recorded events.
+
+## Remove dependency to scala\-java8\-compat
+
+The transitive dependency on `scala-java8-compat` has been removed.
+
+## Deprecation of `akka.actor.typed.scaladsl.LoggerOps`
+
+All helper methods like `LoggerOps.info2` can be replaced by using the underlying `org.slf4j.Logger` apis.
+
+## Deprecation of Multi\-DC Cluster
+
+Use [Akka Distributed Cluster](https://doc.akka.io/libraries/akka-distributed-cluster/current/) and [Akka Edge](https://doc.akka.io/libraries/akka-edge/current/) instead.
+
+## Related Pages (Internal Links)
+
+- https://doc.akka.io/
+- https://doc.akka.io/libraries/akka-core/current/project/migration-guide-2.8.x-2.9.x.html
+- https://doc.akka.io/libraries/akka-core/current/project/migration-guides.html
+- https://doc.akka.io/libraries/akka-distributed-cluster/current/
+- https://doc.akka.io/libraries/akka-edge/current/
+
+---
+*Source: [https://doc.akka.io/libraries/akka-core/current/project/migration-guide-2.9.x-2.10.x.html](https://doc.akka.io/libraries/akka-core/current/project/migration-guide-2.9.x-2.10.x.html)*

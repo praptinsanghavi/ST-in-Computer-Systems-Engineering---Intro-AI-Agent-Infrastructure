@@ -1,0 +1,203 @@
+---
+description: Akka 2.10.17 - akka.io.Tcp.Event
+knowledge_type: official_documentation
+scraped_at: '2026-04-06T16:23:37Z'
+section: api
+site: akka-io
+source_url: https://doc.akka.io/api/akka-core/current/akka/io/Tcp$$Event.html
+title: Akka 2.10.17 - akka.io.Tcp.Event
+---
+
+# Akka 2.10.17 - akka.io.Tcp.Event
+
+> **Summary:** Akka 2.10.17 - akka.io.Tcp.Event
+
+## Content
+
+Akka2\.10\.17 \< Back****# Packages
+
+- [**](../../index.html "Permalink")  package [root](../../index.html)Definition Classes[root](../../index.html)
+- [**](../../akka/index.html "Permalink")  package [akka](../index.html)Definition Classes[root](../../index.html)
+- [**](../../akka/io/index.html "Permalink")  package [io](index.html)Definition Classes[akka](../index.html)
+- [**](../../akka/io/Tcp$.html "Permalink")  object [Tcp](Tcp$.html "TCP Extension for Akka’s IO layer.") extends [ExtensionId](../actor/ExtensionId.html)\[[TcpExt](TcpExt.html)] with [ExtensionIdProvider](../actor/ExtensionIdProvider.html)TCP Extension for Akka’s IO layer.
+
+TCP Extension for Akka’s IO layer.
+
+For a full description of the design and philosophy behind this IO
+implementation please refer to [the Akka online documentation](https://akka.io/docs/).
+
+In order to open an outbound connection send a [Tcp.Connect](Tcp$$Connect.html) message
+to the [TcpExt\#manager](TcpExt.html#manager:akka.actor.ActorRef).
+
+In order to start listening for inbound connections send a [Tcp.Bind](Tcp$$Bind.html)
+message to the [TcpExt\#manager](TcpExt.html#manager:akka.actor.ActorRef).
+
+The Java API for generating TCP commands is available at [TcpMessage](TcpMessage$.html).
+
+Definition Classes[io](index.html)
+- [Abort](Tcp$$Abort$.html "An abort operation will not flush pending writes and will issue a TCP ABORT command to the O/S kernel which should result in a TCP_RST packet being sent to the peer.")
+- [Aborted](Tcp$$Aborted$.html "The connection has been aborted in response to an Abort command.")
+- [Bind](Tcp$$Bind.html "The Bind message is send to the TCP manager actor, which is obtained via TcpExt#manager in order to bind to a listening socket.")
+- [Bound](Tcp$$Bound.html "The sender of a Bind command will—in case of success—receive confirmation in this form.")
+- [Close](Tcp$$Close$.html "A normal close operation will first flush pending writes and then close the socket.")
+- [CloseCommand](Tcp$$CloseCommand.html "Common interface for all commands which aim to close down an open connection.")
+- [Closed](Tcp$$Closed$.html "The connection has been closed normally in response to a Close command.")
+- [Command](Tcp$$Command.html "This is the common trait for all commands understood by TCP actors.")
+- [CommandFailed](Tcp$$CommandFailed.html "Whenever a command cannot be completed, the queried actor will reply with this message, wrapping the original command which failed.")
+- [CompoundWrite](Tcp$$CompoundWrite.html "A write command which aggregates two other write commands.")
+- [ConfirmedClose](Tcp$$ConfirmedClose$.html "A confirmed close operation will flush pending writes and half-close the connection, waiting for the peer to close the other half.")
+- [ConfirmedClosed](Tcp$$ConfirmedClosed$.html "The connection has been half-closed by us and then half-close by the peer in response to a ConfirmedClose command.")
+- [Connect](Tcp$$Connect.html "The Connect message is sent to the TCP manager actor, which is obtained via TcpExt#manager.")
+- [Connected](Tcp$$Connected.html "The connection actor sends this message either to the sender of a Connect command (for outbound) or to the handler for incoming connections designated in the Bind message.")
+- [ConnectionClosed](Tcp$$ConnectionClosed.html "This is the common interface for all events which indicate that a connection has been closed or half-closed.")
+- [ErrorClosed](Tcp$$ErrorClosed.html "The connection has been closed due to an IO error.")
+- Event
+- [Message](Tcp$$Message.html "The common interface for Command and Event.")
+- [NoAck](Tcp$$NoAck.html "Each WriteCommand can optionally request a positive acknowledgment to be sent to the commanding actor.")
+- [PeerClosed](Tcp$$PeerClosed$.html "The peer has closed its writing half of the connection.")
+- [Received](Tcp$$Received.html "Whenever data are read from a socket they will be transferred within this class to the handler actor which was designated in the Register message.")
+- [Register](Tcp$$Register.html "This message must be sent to a TCP connection actor after receiving the Connected message.")
+- [ResumeAccepting](Tcp$$ResumeAccepting.html "This message enables the accepting of the next connection if read throttling is enabled for connection actors.")
+- [ResumeReading](Tcp$$ResumeReading$.html "This command needs to be sent to the connection actor after a SuspendReading command in order to resume reading from the socket.")
+- [ResumeWriting](Tcp$$ResumeWriting$.html "When useResumeWriting is in effect as was indicated in the Register message then this command needs to be sent to the connection actor in order to re-enable writing after a CommandFailed event.")
+- [SO](Tcp$$SO$.html "Scala API: this object contains all applicable socket options for TCP.")
+- [SimpleWriteCommand](Tcp$$SimpleWriteCommand.html "Common supertype of Write and WriteFile.")
+- [SuspendReading](Tcp$$SuspendReading$.html "Sending this command to the connection actor will disable reading from the TCP socket.")
+- [Unbind](Tcp$$Unbind$.html "In order to close down a listening socket, send this message to that socket’s actor (that is the actor which previously had sent the Bound message).")
+- [Unbound](Tcp$$Unbound.html "The sender of an Unbind command will receive confirmation through this message once the listening socket has been closed.")
+- [Write](Tcp$$Write.html "Write data to the TCP connection.")
+- [WriteCommand](Tcp$$WriteCommand.html "Common interface for all write commands.")
+- [WriteFile](Tcp$$WriteFile.html)
+- [WritePath](Tcp$$WritePath.html "Write count bytes starting at position from file at filePath to the connection.")
+- [WritingResumed](Tcp$$WritingResumed.html "When useResumeWriting is in effect as indicated in the Register message, the ResumeWriting command will be acknowledged by this message type, upon which it is safe to send at least one write.")
+t[akka](../index.html).[io](index.html).[Tcp](Tcp$.html)
+
+# Event[**](../../akka/io/Tcp$$Event.html "Permalink")
+
+### 
+
+#### trait Event extends [Message](Tcp$$Message.html)
+
+Common interface for all events generated by the TCP layer actors.
+
+Source[Tcp.scala](https://github.com/akka/akka-core/tree/v2.10.17/akka-actor/src/main/scala/akka/io/Tcp.scala#L445)Linear Supertypes[Message](Tcp$$Message.html), [NoSerializationVerificationNeeded](../actor/NoSerializationVerificationNeeded.html), [AnyRef](https://www.scala-lang.org/api/2.13.17/scala/AnyRef.html#scala.AnyRef), [Any](https://www.scala-lang.org/api/2.13.17/scala/Any.html#scala.Any)Known Subclasses[Aborted](Tcp$$Aborted$.html), [Bound](Tcp$$Bound.html), [Closed](Tcp$$Closed$.html), [CommandFailed](Tcp$$CommandFailed.html), [ConfirmedClosed](Tcp$$ConfirmedClosed$.html), [Connected](Tcp$$Connected.html), [ConnectionClosed](Tcp$$ConnectionClosed.html), [ErrorClosed](Tcp$$ErrorClosed.html), [NoAck](Tcp$$NoAck.html), [NoAck](Tcp$$NoAck$.html), [PeerClosed](Tcp$$PeerClosed$.html), [Received](Tcp$$Received.html), [Unbound](Tcp$$Unbound.html), [Unbound](Tcp$$Unbound$.html), [WritingResumed](Tcp$$WritingResumed.html), [WritingResumed](Tcp$$WritingResumed$.html)Type Hierarchy****Ordering1. Alphabetic
+2. By Inheritance
+Inherited  
+1. Event
+2. Message
+3. NoSerializationVerificationNeeded
+4. AnyRef
+5. Any
+Implicitly  
+1. by any2stringadd
+2. by StringFormat
+3. by Ensuring
+4. by ArrowAssoc
+1. Hide All
+2. Show All
+Visibility1. Public
+2. Protected
+### Value Members
+
+1. [**](../../akka/io/Tcp$$Event.html#!=(x$1:Any):Boolean "Permalink") final  def !\=(arg0: [Any](https://www.scala-lang.org/api/2.13.17/scala/Any.html#scala.Any)): [Boolean](https://www.scala-lang.org/api/2.13.17/scala/Boolean.html#scala.Boolean)Definition ClassesAnyRef → Any
+2. [**](../../akka/io/Tcp$$Event.html###:Int "Permalink") final  def \#\#: [Int](https://www.scala-lang.org/api/2.13.17/scala/Int.html#scala.Int)Definition ClassesAnyRef → Any
+3. [**](../../akka/io/Tcp$$Event.html#+(other:String):String "Permalink")  def \+(other: String): StringImplicitThis member is added by an implicit conversion from Event toany2stringadd\[Event] performed by method any2stringadd in scala.Predef.Definition Classesany2stringadd
+4. [**](../../akka/io/Tcp$$Event.html#->[B](y:B):(A,B) "Permalink")  def \-\>\[B](y: B): (Event, B)ImplicitThis member is added by an implicit conversion from Event toArrowAssoc\[Event] performed by method ArrowAssoc in scala.Predef.Definition ClassesArrowAssocAnnotations@inline()
+5. [**](../../akka/io/Tcp$$Event.html#==(x$1:Any):Boolean "Permalink") final  def \=\=(arg0: [Any](https://www.scala-lang.org/api/2.13.17/scala/Any.html#scala.Any)): [Boolean](https://www.scala-lang.org/api/2.13.17/scala/Boolean.html#scala.Boolean)Definition ClassesAnyRef → Any
+6. [**](../../akka/io/Tcp$$Event.html#asInstanceOf[T0]:T0 "Permalink") final  def asInstanceOf\[T0]: T0Definition ClassesAny
+7. [**](../../akka/io/Tcp$$Event.html#clone():Object "Permalink")  def clone(): [AnyRef](https://www.scala-lang.org/api/2.13.17/scala/AnyRef.html#scala.AnyRef)Attributesprotected\[lang] Definition ClassesAnyRefAnnotations@throws(classOf\[java.lang.CloneNotSupportedException]) @HotSpotIntrinsicCandidate() @native()
+8. [**](../../akka/io/Tcp$$Event.html#ensuring(cond:A=>Boolean,msg:=>Any):A "Permalink")  def ensuring(cond: (Event) \=\> [Boolean](https://www.scala-lang.org/api/2.13.17/scala/Boolean.html#scala.Boolean), msg: \=\> [Any](https://www.scala-lang.org/api/2.13.17/scala/Any.html#scala.Any)): EventImplicitThis member is added by an implicit conversion from Event toEnsuring\[Event] performed by method Ensuring in scala.Predef.Definition ClassesEnsuring
+9. [**](../../akka/io/Tcp$$Event.html#ensuring(cond:A=>Boolean):A "Permalink")  def ensuring(cond: (Event) \=\> [Boolean](https://www.scala-lang.org/api/2.13.17/scala/Boolean.html#scala.Boolean)): EventImplicitThis member is added by an implicit conversion from Event toEnsuring\[Event] performed by method Ensuring in scala.Predef.Definition ClassesEnsuring
+10. [**](../../akka/io/Tcp$$Event.html#ensuring(cond:Boolean,msg:=>Any):A "Permalink")  def ensuring(cond: [Boolean](https://www.scala-lang.org/api/2.13.17/scala/Boolean.html#scala.Boolean), msg: \=\> [Any](https://www.scala-lang.org/api/2.13.17/scala/Any.html#scala.Any)): EventImplicitThis member is added by an implicit conversion from Event toEnsuring\[Event] performed by method Ensuring in scala.Predef.Definition ClassesEnsuring
+11. [**](../../akka/io/Tcp$$Event.html#ensuring(cond:Boolean):A "Permalink")  def ensuring(cond: [Boolean](https://www.scala-lang.org/api/2.13.17/scala/Boolean.html#scala.Boolean)): EventImplicitThis member is added by an implicit conversion from Event toEnsuring\[Event] performed by method Ensuring in scala.Predef.Definition ClassesEnsuring
+12. [**](../../akka/io/Tcp$$Event.html#eq(x$1:AnyRef):Boolean "Permalink") final  def eq(arg0: [AnyRef](https://www.scala-lang.org/api/2.13.17/scala/AnyRef.html#scala.AnyRef)): [Boolean](https://www.scala-lang.org/api/2.13.17/scala/Boolean.html#scala.Boolean)Definition ClassesAnyRef
+13. [**](../../akka/io/Tcp$$Event.html#equals(x$1:Object):Boolean "Permalink")  def equals(arg0: [AnyRef](https://www.scala-lang.org/api/2.13.17/scala/AnyRef.html#scala.AnyRef)): [Boolean](https://www.scala-lang.org/api/2.13.17/scala/Boolean.html#scala.Boolean)Definition ClassesAnyRef → Any
+14. [**](../../akka/io/Tcp$$Event.html#getClass():Class[_] "Permalink") final  def getClass(): [Class](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html#java.lang.Class)\[\_ \<: [AnyRef](https://www.scala-lang.org/api/2.13.17/scala/AnyRef.html#scala.AnyRef)]Definition ClassesAnyRef → AnyAnnotations@HotSpotIntrinsicCandidate() @native()
+15. [**](../../akka/io/Tcp$$Event.html#hashCode():Int "Permalink")  def hashCode(): [Int](https://www.scala-lang.org/api/2.13.17/scala/Int.html#scala.Int)Definition ClassesAnyRef → AnyAnnotations@HotSpotIntrinsicCandidate() @native()
+16. [**](../../akka/io/Tcp$$Event.html#isInstanceOf[T0]:Boolean "Permalink") final  def isInstanceOf\[T0]: [Boolean](https://www.scala-lang.org/api/2.13.17/scala/Boolean.html#scala.Boolean)Definition ClassesAny
+17. [**](../../akka/io/Tcp$$Event.html#ne(x$1:AnyRef):Boolean "Permalink") final  def ne(arg0: [AnyRef](https://www.scala-lang.org/api/2.13.17/scala/AnyRef.html#scala.AnyRef)): [Boolean](https://www.scala-lang.org/api/2.13.17/scala/Boolean.html#scala.Boolean)Definition ClassesAnyRef
+18. [**](../../akka/io/Tcp$$Event.html#notify():Unit "Permalink") final  def notify(): [Unit](https://www.scala-lang.org/api/2.13.17/scala/Unit.html#scala.Unit)Definition ClassesAnyRefAnnotations@HotSpotIntrinsicCandidate() @native()
+19. [**](../../akka/io/Tcp$$Event.html#notifyAll():Unit "Permalink") final  def notifyAll(): [Unit](https://www.scala-lang.org/api/2.13.17/scala/Unit.html#scala.Unit)Definition ClassesAnyRefAnnotations@HotSpotIntrinsicCandidate() @native()
+20. [**](../../akka/io/Tcp$$Event.html#synchronized[T0](x$1:=>T0):T0 "Permalink") final  def synchronized\[T0](arg0: \=\> T0): T0Definition ClassesAnyRef
+21. [**](../../akka/io/Tcp$$Event.html#toString():String "Permalink")  def toString(): [String](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#java.lang.String)Definition ClassesAnyRef → Any
+22. [**](../../akka/io/Tcp$$Event.html#wait(x$1:Long,x$2:Int):Unit "Permalink") final  def wait(arg0: [Long](https://www.scala-lang.org/api/2.13.17/scala/Long.html#scala.Long), arg1: [Int](https://www.scala-lang.org/api/2.13.17/scala/Int.html#scala.Int)): [Unit](https://www.scala-lang.org/api/2.13.17/scala/Unit.html#scala.Unit)Definition ClassesAnyRefAnnotations@throws(classOf\[java.lang.InterruptedException])
+23. [**](../../akka/io/Tcp$$Event.html#wait(x$1:Long):Unit "Permalink") final  def wait(arg0: [Long](https://www.scala-lang.org/api/2.13.17/scala/Long.html#scala.Long)): [Unit](https://www.scala-lang.org/api/2.13.17/scala/Unit.html#scala.Unit)Definition ClassesAnyRefAnnotations@throws(classOf\[java.lang.InterruptedException]) @native()
+24. [**](../../akka/io/Tcp$$Event.html#wait():Unit "Permalink") final  def wait(): [Unit](https://www.scala-lang.org/api/2.13.17/scala/Unit.html#scala.Unit)Definition ClassesAnyRefAnnotations@throws(classOf\[java.lang.InterruptedException])
+### Deprecated Value Members
+
+1. [**](../../akka/io/Tcp$$Event.html#finalize():Unit "Permalink")  def finalize(): [Unit](https://www.scala-lang.org/api/2.13.17/scala/Unit.html#scala.Unit)Attributesprotected\[lang] Definition ClassesAnyRefAnnotations@throws(classOf\[java.lang.Throwable]) @Deprecated Deprecated*(Since version 9\)*
+2. [**](../../akka/io/Tcp$$Event.html#formatted(fmtstr:String):String "Permalink")  def formatted(fmtstr: String): StringImplicitThis member is added by an implicit conversion from Event toStringFormat\[Event] performed by method StringFormat in scala.Predef.Definition ClassesStringFormatAnnotations@deprecated @inline() Deprecated*(Since version 2\.12\.16\)* Use `formatString.format(value)` instead of `value.formatted(formatString)`,
+or use the `f""` string interpolator. In Java 15 and later, `formatted` resolves to the new method in String which has reversed parameters.
+3. [**](../../akka/io/Tcp$$Event.html#→[B](y:B):(A,B) "Permalink")  def →\[B](y: B): (Event, B)ImplicitThis member is added by an implicit conversion from Event toArrowAssoc\[Event] performed by method ArrowAssoc in scala.Predef.Definition ClassesArrowAssocAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use `->` instead. If you still wish to display it as one character, consider using a font with programming ligatures such as Fira Code.
+### Inherited from [Message](Tcp$$Message.html)
+
+### Inherited from [NoSerializationVerificationNeeded](../actor/NoSerializationVerificationNeeded.html)
+
+### Inherited from [AnyRef](https://www.scala-lang.org/api/2.13.17/scala/AnyRef.html#scala.AnyRef)
+
+### Inherited from [Any](https://www.scala-lang.org/api/2.13.17/scala/Any.html#scala.Any)
+
+### Inherited by implicit conversion any2stringadd fromEvent to any2stringadd\[Event]
+
+### Inherited by implicit conversion StringFormat fromEvent to StringFormat\[Event]
+
+### Inherited by implicit conversion Ensuring fromEvent to Ensuring\[Event]
+
+### Inherited by implicit conversion ArrowAssoc fromEvent to ArrowAssoc\[Event]
+
+### Ungrouped
+
+## Related Pages (Internal Links)
+
+- https://doc.akka.io/api/akka/current/akka/actor/ExtensionId.html
+- https://doc.akka.io/api/akka/current/akka/actor/ExtensionIdProvider.html
+- https://doc.akka.io/api/akka/current/akka/actor/NoSerializationVerificationNeeded.html
+- https://doc.akka.io/api/akka/current/akka/index.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$Abort$.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$Aborted$.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$Bind.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$Bound.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$Close$.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$CloseCommand.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$Closed$.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$Command.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$CommandFailed.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$CompoundWrite.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$ConfirmedClose$.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$ConfirmedClosed$.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$Connect.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$Connected.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$ConnectionClosed.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$ErrorClosed.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$Event.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$Message.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$NoAck$.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$NoAck.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$PeerClosed$.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$Received.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$Register.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$ResumeAccepting.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$ResumeReading$.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$ResumeWriting$.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$SO$.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$SimpleWriteCommand.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$SuspendReading$.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$Unbind$.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$Unbound$.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$Unbound.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$Write$.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$Write.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$WriteCommand$.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$WriteCommand.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$WriteFile.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$WritePath.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$WritingResumed$.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$$WritingResumed.html
+- https://doc.akka.io/api/akka/current/akka/io/Tcp$.html
+- https://doc.akka.io/api/akka/current/akka/io/TcpExt.html
+- https://doc.akka.io/api/akka/current/akka/io/TcpMessage$.html
+- https://doc.akka.io/api/akka/current/akka/io/index.html
+- https://doc.akka.io/api/akka/current/index.html
+
+---
+*Source: [https://doc.akka.io/api/akka/current/akka/io/Tcp$$Event.html](https://doc.akka.io/api/akka/current/akka/io/Tcp$$Event.html)*

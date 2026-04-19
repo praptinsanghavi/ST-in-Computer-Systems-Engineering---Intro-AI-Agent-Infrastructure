@@ -1,0 +1,274 @@
+---
+description: ''
+knowledge_type: official_documentation
+scraped_at: '2026-04-05T18:21:46Z'
+section: concepts
+site: akka-io
+source_url: https://doc.akka.io/concepts/development-process.html
+title: 'Development process :: Akka Documentation'
+---
+
+# Development process :: Akka Documentation
+
+## Content
+
+# Development process
+
+## Overview
+
+Building an Akka service follows a repeatable lifecycle — from defining your domain model through to deployment. Akka supports two paths through this lifecycle:
+
+- **Spec\-Driven Development (SDD)** — the recommended, primary approach. You describe your service in a declarative specification, and Akka generates the project scaffolding, components, endpoints, and tests for you. SDD provides a golden path: anyone on your team can go from idea to running service quickly and consistently.
+- **Manual development** — a fallback for situations where you need full control from the start or are working outside the boundaries of what SDD currently generates.
+
+Both paths converge on the same runtime, the same component model, and the same deployment pipeline. The difference is how you get there.
+
+## Spec\-Driven Development workflow
+
+Spec\-Driven Development is the fastest way to build an Akka service. You write a concise specification describing your service’s entities, endpoints, and domain events, and Akka generates a complete, working project from it.
+
+The SDD workflow follows these steps:
+
+1. **Write your specification** — Describe your service’s components, domain model, and endpoints in a declarative spec file. The specification captures what your service does, not how it does it.
+2. **Generate the project** — Run the Akka tooling to generate a complete project from your spec. This produces entity classes, endpoint handlers, data model objects, and test scaffolding — all wired together and ready to build.
+3. **Customize and extend** — The generated code is yours. Add business logic to the generated component stubs, refine validation rules, and implement any behavior the spec cannot express.
+4. **Test** — Run the generated unit and integration tests, then add your own to cover custom logic.
+5. **Run locally** — Start the service on your machine to verify behavior end\-to\-end before deploying.
+6. **Package and deploy** — Build a Docker image and deploy to Akka.
+
+SDD embodies the Repeatability dimension of Akka’s design: golden paths mean anyone on your team can build and ship a service without memorizing boilerplate or copy\-pasting from previous projects. The spec becomes a living document that captures your service’s intent and can be versioned, reviewed, and evolved alongside your code.
+
+|  | Manual Development Approach  If you need to build a service without SDD — for example, when prototyping outside the spec model or integrating with an unusual external system — you can follow the manual development workflow:   1. [Create a project](#_create_a_project) 2. [Specify service interface and domain model](#_specify_service_interface_and_domain_model) 3. [Implementing components](#_implement_components) 4. [Exposing components through Endpoints and Consumers](#_endpoints) 5. [Testing your application](#_create_unit_tests) 6. [Running locally](#_run_locally) 7. [Package and deploy](#_package_and_deploy)     The sections below describe each of these steps in detail. |
+| --- | --- |
+
+## Create a project
+
+All services and applications start as a Java project. Akka has a getting started sample that makes this easier. You will code your service in this project. See [Build your first agent](../getting-started/author-your-first-service.html) for more details.
+
+## Specify service interface and domain model
+
+Creating services in Akka follows the model described in [Architecture](architecture-model.html). You start with your domain model, which models your business domain in plain old Java objects. Then you create Akka components to coordinate them.
+
+The main components of an Akka service are:
+
+- Stateful [Entities](../reference/glossary.html#entity)
+- Stateful [Workflows](../reference/glossary.html#workflow)
+- [Agents](../reference/glossary.html#agent)
+- [Views](../reference/glossary.html#view)
+- [Timed Actions](../reference/glossary.html#timed_action)
+- [Consumers](../reference/glossary.html#consumer)
+
+You should separate the service API and Entity domain data model. Separating the service interface and data model in different classes allows you to evolve them independently.
+
+|  | Kickstart a project using the [getting started guide](../getting-started/author-your-first-service.html). |
+| --- | --- |
+
+## Implementing components
+
+In Akka, services can be stateful or stateless, and the components you implement depend on the service type.
+
+Stateful services utilize components like [Event Sourced Entities](../sdk/event-sourced-entities.html), [Key Value Entities](../sdk/key-value-entities.html), [Workflows](../sdk/workflows.html), [Agents](../sdk/agents.html), and [Views](../sdk/views.html), while stateless services focus on exposing functionality via [HTTP Endpoints](../sdk/http-endpoints.html). Typically, a stateful service is centered around one Entity type but may also include Endpoints and Views to expose or retrieve data.
+
+### Entities
+
+Stateful services encapsulate business logic in Key Value Entities or Event Sourced Entities. At runtime, command messages invoke operations on Entities. A command may only act on one Entity at a time.
+
+|  | To learn more about Akka entities see [Implementing Event Sourced Entities](../sdk/event-sourced-entities.html) and [Implementing key value entities](../sdk/key-value-entities.html). |
+| --- | --- |
+
+If you would like to update multiple Entities from a single request, you can compose that in the Endpoint, Consumer or Workflow.
+
+Services can interact asynchronously with other services and with external systems. Event Sourced Entities emit events to a journal, which other services can consume. By defining your Consumer components, any service can expose their own events and consume events produced by other services or external systems.
+
+### Workflows
+
+Akka Workflows are high\-level descriptions to easily align business requirements with their implementation in code. Orchestration across multiple services including failure scenarios and compensating actions is simple with [Workflows](../sdk/workflows.html).
+
+### Agents
+
+Akka Agents interact with AI models to perform specific tasks. An agent is typically backed by a large language model (LLM), maintains contextual history in a session memory, and can invoke tools as directed by the model. Multiple agents can share the same session to collaborate on a common goal. For more information see [Agents](../sdk/agents.html).
+
+### Views
+
+A View provides a way to retrieve state from multiple Entities based on a query. You can create views from Key Value Entity state, Event Sourced Entity events, and by subscribing to topics. For more information about writing views see [Implementing Views](../sdk/views.html).
+
+### Timed Actions
+
+Timed Actions allow scheduling future calls, such as verifying process completion. These timers are persisted by the Akka Runtime and guarantee execution at least once.
+
+For more details and examples take a look at the following topics:
+
+- [Event Sourced Entities](../sdk/event-sourced-entities.html)
+- [Key Value Entities](../sdk/key-value-entities.html)
+- [Workflows](../sdk/workflows.html)
+- [Agents](../sdk/agents.html)
+- [Views](../sdk/views.html)
+- [Timed Actions](../sdk/timed-actions.html)
+
+## Components in shared libraries
+
+Akka components can be defined in shared library JARs and automatically discovered when those libraries are included as dependencies. This enables code reuse across multiple services.
+
+### Creating a component library
+
+To create a library containing Akka components, use the Akka parent pom as you would for any Akka service. The parent pom configures everything needed for component discovery automatically.
+
+Since a shared library is not a deployable service, set `non-akka-service` to `true` in the properties section. This prevents building a Docker image for the library.
+
+```
+<parent>
+  <groupId>io.akka</groupId>
+  <artifactId>akka-javasdk-parent</artifactId>
+  <version>${akka-sdk.version}</version>
+</parent>
+
+<properties>
+  <non-akka-service>true</non-akka-service>
+</properties>
+```
+
+When you compile the library, Akka generates a descriptor file that lists all components. At runtime, Akka scans the classpath for these descriptors and automatically registers all discovered components.
+
+### Using a component library
+
+To use components from a library, add it as a dependency in your project. No additional configuration is required — components are discovered automatically at startup.
+
+```
+<dependency>
+  <groupId>com.example</groupId>
+  <artifactId>my-component-library</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+
+### What to share
+
+Not all components are equally suited for sharing. Consider the following guidelines:
+
+**Good candidates for sharing:**
+
+- **Agents** \- Agents are stateless and perform tasks based on inputs, making them safe to share across services.
+- **Consumers and Views subscribing to external data** \- When a Consumer or View subscribes to data from outside the service — either from a broker (e.g., Kafka) or via [service\-to\-service streaming](../sdk/consuming-producing.html#s2s-eventing) — sharing allows multiple services to process the same external data stream or maintain the same projection.
+
+**Use with caution:**
+
+- **Entities and Workflows** \- Sharing entity or workflow classes can be misleading. The same class in different services creates separate, isolated data stores. Akka treats them as completely distinct components with separate persistence. If you share an entity class, each service will have its own independent set of entity instances with no shared state.
+- **Consumers and Views subscribing to local components** \- Sharing these only makes sense if the source components are also shared. Otherwise, the shared Consumer or View would reference components that don’t exist in the consuming service.
+- **Endpoints** \- Sharing an endpoint means sharing all the components it depends on. If any dependency is a stateful component (Entity, Workflow), each service creates its own isolated data store — giving a misleading sense of shared data. Consider whether services truly need identical routes, or if one service should own the endpoint and others call it via [service\-to\-service calls](../sdk/consuming-producing.html#s2s-eventing).
+TIP: Start with a "share nothing" approach. Only share Akka components when there is a clear benefit and you understand the implications for stateful dependencies.
+
+## Exposing components through Endpoints and Consumers
+
+Endpoints are the primary means of exposing your service to external clients. You can use HTTP or gRPC Endpoints to handle incoming requests and return responses to users or other services. Endpoints are stateless.
+
+To handle event\-driven communication, Akka uses Consumers. Consumers listen for and process events or messages from various sources, such as Event Sourced Entities, Key Value Entities, or external messaging systems. They play a key role in enabling asynchronous, event\-driven architectures by subscribing to event streams and reacting to changes in state or incoming data.
+
+In addition to consuming messages, Consumers can also produce messages to topics, facilitating communication and data
+flow between different services. This makes them essential for coordinating actions across distributed services and ensuring smooth interaction within your application ecosystem.
+
+For more information, refer to:
+
+- [Designing HTTP Endpoints](../sdk/http-endpoints.html)
+- [Designing gRPC Endpoints](../sdk/grpc-endpoints.html)
+- [Consuming and producing](../sdk/consuming-producing.html)
+
+## Testing your application
+
+Writing automated tests for your application is a good practice. Automated testing helps catch bugs early in the development process, reduces the likelihood of regressions, enables confident refactoring, and ensures your application behaves as expected. There are three main types of tests to consider: unit tests, integration tests, and end\-to\-end tests.
+
+### Unit Tests
+
+Unit tests focus on testing individual components in isolation to ensure they work as intended. The Akka SDK provides a test kit for unit testing your components.
+
+### Integration Tests
+
+Integration tests validate the interactions between multiple components or services within your application, ensuring that different parts of your system work together as intended.
+
+### End\-to\-End Tests
+
+End\-to\-end tests validate the entire application by simulating real\-world user scenarios. These tests span multiple services or modules to ensure the system functions correctly as a whole, whether within the same project or across different projects. For example, you might test the data flow between two Akka services in the same project using service\-to\-service eventing. Akka also offers flexible configuration options to accommodate various environments.
+
+## Running locally
+
+You can test and debug your services by [running them locally](../sdk/running-locally.html) before deploying your *Service*. This gives you a local debug experience that is convenient and easy.
+
+## Package and deploy
+
+You use Docker to package your service and any of its dependencies for deployment. From there, you have two paths to production:
+
+- **Direct deployment to Akka** — Use the Akka CLI or Console to deploy your packaged service directly to Akka Automated Operations. This is the fastest path for teams that manage deployments through Akka.
+- **GitOps via CI/CD** — Commit your changes to trigger your enterprise CI/CD pipelines (e.g., GitHub Actions) that build, test, and ready your services for deployment using a GitOps methodology. This is the path for enterprises with established deployment governance.
+
+Both paths package your service as a Docker image and deploy it to the same Akka runtime.
+
+The following pages provide more information:
+
+- [Container registries](../operations/projects/container-registries.html)
+- [Deploying a packaged service](../operations/services/deploy-service.html#_deploying_a_service)
+- [Akka projects](../operations/projects/index.html)
+- [CI/CD integration](../operations/integrating-cicd/index.html)
+
+## Next steps
+
+Now that you have a project and have deployed it, you should familiarize yourself with operating an Akka project. See [Operating](../operations/index.html) for more information about operating Akka services.
+
+The following topics may also be of interest:
+
+- [Developer best practices](../sdk/dev-best-practices.html)
+
+## See also
+
+- [Spec\-Driven Development](../sdk/spec-driven-development.html) — Full reference for writing and generating from Akka specifications.
+- [Introducing Specify](https://akka.io/blog/introducing-akka-specify) — Blog post on the vision behind Spec\-Driven Development.
+
+## Code Examples
+
+### Example 1: Creating a component library
+
+```xml
+<parent>
+  <groupId>io.akka</groupId>
+  <artifactId>akka-javasdk-parent</artifactId>
+  <version>${akka-sdk.version}</version>
+</parent>
+
+<properties>
+  <non-akka-service>true</non-akka-service>
+</properties>
+```
+
+### Example 2: Using a component library
+
+```xml
+<dependency>
+  <groupId>com.example</groupId>
+  <artifactId>my-component-library</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+
+## Related Pages (Internal Links)
+
+- https://doc.akka.io/concepts/architecture-model.html
+- https://doc.akka.io/getting-started/author-your-first-service.html
+- https://doc.akka.io/operations/index.html
+- https://doc.akka.io/operations/integrating-cicd/index.html
+- https://doc.akka.io/operations/projects/container-registries.html
+- https://doc.akka.io/operations/projects/index.html
+- https://doc.akka.io/operations/services/deploy-service.html
+- https://doc.akka.io/reference/glossary.html
+- https://doc.akka.io/sdk/agents.html
+- https://doc.akka.io/sdk/consuming-producing.html
+- https://doc.akka.io/sdk/dev-best-practices.html
+- https://doc.akka.io/sdk/event-sourced-entities.html
+- https://doc.akka.io/sdk/grpc-endpoints.html
+- https://doc.akka.io/sdk/http-endpoints.html
+- https://doc.akka.io/sdk/key-value-entities.html
+- https://doc.akka.io/sdk/running-locally.html
+- https://doc.akka.io/sdk/spec-driven-development.html
+- https://doc.akka.io/sdk/timed-actions.html
+- https://doc.akka.io/sdk/views.html
+- https://doc.akka.io/sdk/workflows.html
+
+---
+*Source: [https://doc.akka.io/concepts/development-process.html](https://doc.akka.io/concepts/development-process.html)*

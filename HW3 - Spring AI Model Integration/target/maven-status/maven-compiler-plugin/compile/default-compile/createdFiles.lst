@@ -1,0 +1,7 @@
+com\example\demo\DemoApplication.class
+com\example\demo\ImageModelExample.class
+com\example\demo\ChatModelExample.class
+com\example\demo\SpeechModelExample.class
+com\example\demo\DocumentEmbeddingModelExample.class
+com\example\demo\ModerationModelExample.class
+com\example\demo\EmbeddingModelExample.class

@@ -1,0 +1,56 @@
+---
+description: ''
+knowledge_type: official_documentation
+scraped_at: '2026-04-05T18:19:56Z'
+section: reference
+site: akka-io
+source_url: https://doc.akka.io/reference/cli/akka-cli/akka_organizations_invitations_cancel.html
+title: 'akka organizations invitations cancel :: Akka Documentation'
+---
+
+# akka organizations invitations cancel :: Akka Documentation
+
+## Content
+
+# akka organizations invitations cancel
+
+Cancel a pending invitation to the organization using the invitee’s email address
+
+```
+akka organizations invitations cancel --email INVITEE'S_EMAIL [flags]
+```
+
+## Options
+
+```
+      --email string          The email address of the invited user
+  -h, --help                  help for cancel
+      --organization string   name or ID for organization
+```
+
+## Options inherited from parent commands
+
+```
+      --cache-file string   location of cache file (default "~/.akka/cache.yaml")
+      --config string       location of config file (default "~/.akka/config.yaml")
+      --context string      configuration context to use
+      --disable-prompt      Disable all interactive prompts when running akka commands. If input is required, defaults will be used, or an error will be raised.
+                            This is equivalent to setting the environment variable AKKA_DISABLE_PROMPTS to true.
+  -o, --output string       set output format to one of [text,json,json-compact,go-template=] (default "text")
+      --page-mode string    the mode for paging, either paged, buffered or auto. (default "auto")
+  -q, --quiet               set quiet output (helpful when used as part of a script)
+      --timeout duration    client command timeout (default 10s)
+      --use-grpc-web        use grpc-web when talking to Akka APIs. This is useful when behind corporate firewalls that decrypt traffic but don't support HTTP/2.
+  -v, --verbose             set verbose output
+```
+
+## SEE ALSO
+
+- [akka organizations invitations](akka_organizations_invitations.html) \- Invite new users to the organization with a specific role.
+
+## Related Pages (Internal Links)
+
+- https://doc.akka.io/reference/cli/akka-cli/akka_organizations_invitations.html
+
+---
+*Source: [https://doc.akka.io/reference/cli/akka-cli/akka_organizations_invitations_cancel.html](https://doc.akka.io/reference/cli/akka-cli/akka_organizations_invitations_cancel.html)*

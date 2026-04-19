@@ -1,0 +1,859 @@
+---
+description: Akka 2.6.21 - akka.util.ByteString
+knowledge_type: official_documentation
+scraped_at: '2026-04-06T03:15:09Z'
+section: api
+site: akka-io
+source_url: https://doc.akka.io/api/akka/current/akka/util/ByteString.html
+title: Akka 2.6.21 - akka.util.ByteString
+---
+
+# Akka 2.6.21 - akka.util.ByteString
+
+> **Summary:** Akka 2.6.21 - akka.util.ByteString
+
+## Content
+
+Akka2\.6\.21 \< Back****# Packages
+
+- [**](../../index.html "Permalink")  package [root](../../index.html)Definition Classes[root](../../index.html)
+- [**](../../akka/index.html "Permalink")  package [akka](../index.html)Definition Classes[root](../../index.html)
+- [**](../../akka/util/index.html "Permalink")  package [util](index.html)Definition Classes[akka](../index.html)
+- [**](../../akka/util/ccompat/index.html "Permalink")  package [ccompat](ccompat/index.html "INTERNAL API")INTERNAL API
+
+INTERNAL API
+
+Based on https://github.com/scala/scala\-collection\-compat/blob/master/compat/src/main/scala\-2\.13/scala/collection/compat/package.scala
+but reproduced here so we don't need to add a dependency on this library. It contains much more than we need right now, and is
+not promising binary compatibility yet at the time of writing.
+
+Definition Classes[util](index.html)
+- [BoundedBlockingQueue](BoundedBlockingQueue.html "BoundedBlockingQueue wraps any Queue and turns the result into a BlockingQueue with a limited capacity.")
+- [BoxedType](BoxedType$.html)
+- [ByteIterator](ByteIterator.html "An iterator over a ByteString.")
+- ByteString
+- [ByteStringBuilder](ByteStringBuilder.html "A mutable builder for efficiently creating a akka.util.ByteString.")
+- [ClassLoaderObjectInputStream](ClassLoaderObjectInputStream.html "ClassLoaderObjectInputStream tries to utilize the provided ClassLoader to load Classes and falls back to ObjectInputStreams resolver.")
+- [CompactByteString](CompactByteString.html "A compact ByteString.")
+- [ConcurrentMultiMap](ConcurrentMultiMap.html "An implementation of a ConcurrentMultiMap Adds/remove is serialized over the specified key Reads are fully concurrent <-- el-cheapo")
+- [HashCode](HashCode$.html "Set of methods which allow easy implementation of hashCode.")
+- [Helpers](Helpers$.html)
+- [Index](Index.html "An implementation of a ConcurrentMultiMap Adds/remove is serialized over the specified key Reads are fully concurrent <-- el-cheapo")
+- [LineNumbers](LineNumbers$.html "This is a minimized byte-code parser that concentrates exclusively on line numbers and source file extraction.")
+- [ManifestInfo](ManifestInfo.html "Utility that extracts ManifestInfo#Version information from META-INF/MANIFEST.MF in jar files on the classpath.")
+- [MessageBuffer](MessageBuffer.html "A non thread safe mutable message buffer that can be used to buffer messages inside actors.")
+- [MessageBufferMap](MessageBufferMap.html "A non thread safe mutable message buffer map that can be used to buffer messages inside actors.")
+- [NanoTimeTokenBucket](NanoTimeTokenBucket.html "Default implementation of TokenBucket that uses System.nanoTime as the time source.")
+- [PriorityQueueStabilizer](PriorityQueueStabilizer.html "PriorityQueueStabilizer wraps a priority queue so that it respects FIFO for elements of equal priority.")
+- [ReentrantGuard](ReentrantGuard.html)
+- [StablePriorityBlockingQueue](StablePriorityBlockingQueue.html "StablePriorityBlockingQueue is a blocking priority queue that preserves order for elements of equal priority.")
+- [StablePriorityQueue](StablePriorityQueue.html "StablePriorityQueue is a priority queue that preserves order for elements of equal priority.")
+- [Subclassification](Subclassification.html "Typeclass which describes a classification hierarchy.")
+- [Switch](Switch.html "An atomic switch that can be either on or off")
+- [Timeout](Timeout.html)
+- [TypedMultiMap](TypedMultiMap.html "An immutable multi-map that expresses the value type as a type function of the key type.")
+- [UUIDComparator](UUIDComparator.html "Scala implementation of UUIDComparator in https://github.com/cowtowncoder/java-uuid-generator Apache License 2.0.")
+- [Unsafe](Unsafe.html "INTERNAL API")
+- [Version](Version.html "Comparable version information.")
+- [WallClock](WallClock.html "A time source.")
+[c](ByteString$.html "See companion object")[akka](../index.html).[util](index.html)
+
+# [ByteString](ByteString$.html "See companion object")[**](../../akka/util/ByteString.html "Permalink")
+
+### Companion [object ByteString](ByteString$.html "See companion object")
+
+#### sealed abstract  class ByteString extends [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] with [IndexedSeqOps](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeqOps.html#scala.collection.immutable.IndexedSeqOps)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq), ByteString] with [StrictOptimizedSeqOps](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/StrictOptimizedSeqOps.html#scala.collection.immutable.StrictOptimizedSeqOps)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq), ByteString]
+
+A rope\-like immutable data structure containing bytes.
+The goal of this structure is to reduce copying of arrays
+when concatenating and slicing sequences of bytes,
+and also providing a thread safe way of working with bytes.
+
+TODO: Add performance characteristics
+
+Source[ByteString.scala](https://github.com/akka/akka/tree/v2.6.21//akka-actor/src/main/scala-2.13/akka/util/ByteString.scala#L750)Linear Supertypes[StrictOptimizedSeqOps](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/StrictOptimizedSeqOps.html#scala.collection.immutable.StrictOptimizedSeqOps)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq), ByteString], [StrictOptimizedSeqOps](https://www.scala-lang.org/api/2.13.8/scala/collection/StrictOptimizedSeqOps.html#scala.collection.StrictOptimizedSeqOps)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq), ByteString], [StrictOptimizedIterableOps](https://www.scala-lang.org/api/2.13.8/scala/collection/StrictOptimizedIterableOps.html#scala.collection.StrictOptimizedIterableOps)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq), ByteString], [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)], [IndexedSeqOps](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeqOps.html#scala.collection.immutable.IndexedSeqOps)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq), ByteString], [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/IndexedSeq.html#scala.collection.IndexedSeq)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)], [IndexedSeqOps](https://www.scala-lang.org/api/2.13.8/scala/collection/IndexedSeqOps.html#scala.collection.IndexedSeqOps)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), \[\_][IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[\_], ByteString], [Seq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/Seq.html#scala.collection.immutable.Seq)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)], [SeqOps](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/SeqOps.html#scala.collection.immutable.SeqOps)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), \[\_][IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[\_], ByteString], [Seq](https://www.scala-lang.org/api/2.13.8/scala/collection/Seq.html#scala.collection.Seq)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)], [Equals](https://www.scala-lang.org/api/2.13.8/scala/Equals.html#scala.Equals), [SeqOps](https://www.scala-lang.org/api/2.13.8/scala/collection/SeqOps.html#scala.collection.SeqOps)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), \[\_][IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[\_], ByteString], [PartialFunction](https://www.scala-lang.org/api/2.13.8/scala/PartialFunction.html#scala.PartialFunction)\[[Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int), [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)], ([Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)) \=\> [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), [Iterable](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/Iterable.html#scala.collection.immutable.Iterable)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)], [Iterable](https://www.scala-lang.org/api/2.13.8/scala/collection/Iterable.html#scala.collection.Iterable)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)], [IterableFactoryDefaults](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableFactoryDefaults.html#scala.collection.IterableFactoryDefaults)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), \[x][IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[x]], [IterableOps](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOps.html#scala.collection.IterableOps)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), \[\_][IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[\_], ByteString], [IterableOnceOps](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceOps.html#scala.collection.IterableOnceOps)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), \[\_][IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[\_], ByteString], [IterableOnce](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnce.html#scala.collection.IterableOnce)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)], [AnyRef](https://www.scala-lang.org/api/2.13.8/scala/AnyRef.html#scala.AnyRef), [Any](https://www.scala-lang.org/api/2.13.8/scala/Any.html#scala.Any)Known Subclasses[ByteString1](ByteString$$ByteString1.html), [ByteString1C](ByteString$$ByteString1C.html), [ByteStrings](ByteString$$ByteStrings.html), [CompactByteString](CompactByteString.html)Type Hierarchy****Ordering1. Alphabetic
+2. By Inheritance
+Inherited  
+1. ByteString
+2. StrictOptimizedSeqOps
+3. StrictOptimizedSeqOps
+4. StrictOptimizedIterableOps
+5. IndexedSeq
+6. IndexedSeqOps
+7. IndexedSeq
+8. IndexedSeqOps
+9. Seq
+10. SeqOps
+11. Seq
+12. Equals
+13. SeqOps
+14. PartialFunction
+15. Function1
+16. Iterable
+17. Iterable
+18. IterableFactoryDefaults
+19. IterableOps
+20. IterableOnceOps
+21. IterableOnce
+22. AnyRef
+23. Any
+Implicitly  
+1. by iterableOnceExtensionMethods
+2. by any2stringadd
+3. by StringFormat
+4. by Ensuring
+5. by ArrowAssoc
+1. Hide All
+2. Show All
+Visibility1. Public
+2. Protected
+### Abstract Value Members
+
+1. [**](../../akka/util/ByteString.html#++(that:akka.util.ByteString):akka.util.ByteString "Permalink") abstract  def \+\+(that: ByteString): ByteStringEfficiently concatenate another ByteString.
+2. [**](../../akka/util/ByteString.html#apply(idx:Int):Byte "Permalink") abstract  def apply(idx: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)Definition ClassesByteString → SeqOps → Function1
+3. [**](../../akka/util/ByteString.html#asByteBuffer:java.nio.ByteBuffer "Permalink") abstract  def asByteBuffer: [ByteBuffer](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/ByteBuffer.html#java.nio.ByteBuffer)Returns a read\-only ByteBuffer that directly wraps this ByteString
+if it is not fragmented.
+4. [**](../../akka/util/ByteString.html#asByteBuffers:scala.collection.immutable.Iterable[java.nio.ByteBuffer] "Permalink") abstract  def asByteBuffers: [Iterable](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/Iterable.html#scala.collection.immutable.Iterable)\[[ByteBuffer](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/ByteBuffer.html#java.nio.ByteBuffer)]Scala API: Returns an immutable Iterable of read\-only ByteBuffers that directly wraps this ByteStrings
+all fragments.
+
+Scala API: Returns an immutable Iterable of read\-only ByteBuffers that directly wraps this ByteStrings
+all fragments. Will always have at least one entry.
+5. [**](../../akka/util/ByteString.html#compact:akka.util.CompactByteString "Permalink") abstract  def compact: [CompactByteString](CompactByteString.html)Create a new ByteString with all contents compacted into a single,
+full byte array.
+
+Create a new ByteString with all contents compacted into a single,
+full byte array.
+If isCompact returns true, compact is an O(1\) operation, but
+might return a different object with an optimized implementation.
+6. [**](../../akka/util/ByteString.html#copyToBuffer(buffer:java.nio.ByteBuffer):Int "Permalink") abstract  def copyToBuffer(buffer: [ByteBuffer](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/ByteBuffer.html#java.nio.ByteBuffer)): [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Copy as many bytes as possible to a ByteBuffer, starting from it's
+current position.
+
+Copy as many bytes as possible to a ByteBuffer, starting from it's
+current position. This method will not overflow the buffer.
+
+buffera ByteBuffer to copy bytes to
+
+returnsthe number of bytes actually copied
+7. [**](../../akka/util/ByteString.html#decodeBase64:akka.util.ByteString "Permalink") abstract  def decodeBase64: ByteString
+8. [**](../../akka/util/ByteString.html#decodeString(charset:java.nio.charset.Charset):String "Permalink") abstract  def decodeString(charset: [Charset](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/charset/Charset.html#java.nio.charset.Charset)): StringDecodes this ByteString using a charset to produce a String.
+
+Decodes this ByteString using a charset to produce a String.
+Avoids Charset.forName lookup in String internals, thus is preferable to `decodeString(charset: String)`.
+9. [**](../../akka/util/ByteString.html#decodeString(charset:String):String "Permalink") abstract  def decodeString(charset: String): StringDecodes this ByteString using a charset to produce a String.
+
+Decodes this ByteString using a charset to produce a String.
+If you have a Charset instance available, use `decodeString(charset: java.nio.charset.Charset` instead.
+10. [**](../../akka/util/ByteString.html#encodeBase64:akka.util.ByteString "Permalink") abstract  def encodeBase64: ByteStringReturns a ByteString which is the Base64 representation of this ByteString
+11. [**](../../akka/util/ByteString.html#isCompact:Boolean "Permalink") abstract  def isCompact: [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Check whether this ByteString is compact in memory.
+
+Check whether this ByteString is compact in memory.
+If the ByteString is compact, it might, however, not be represented
+by an object that takes full advantage of that fact. Use compact to
+get such an object.
+12. [**](../../akka/util/ByteString.html#length:Int "Permalink") abstract  def length: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesSeqOps
+### Concrete Value Members
+
+1. [**](../../akka/util/ByteString.html#!=(x$1:Any):Boolean "Permalink") final  def !\=(arg0: [Any](https://www.scala-lang.org/api/2.13.8/scala/Any.html#scala.Any)): [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition ClassesAnyRef → Any
+2. [**](../../akka/util/ByteString.html###:Int "Permalink") final  def \#\#: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesAnyRef → Any
+3. [**](../../akka/util/ByteString.html#+(other:String):String "Permalink")  def \+(other: String): StringImplicitThis member is added by an implicit conversion from ByteString toany2stringadd\[ByteString] performed by method any2stringadd in scala.Predef.Definition Classesany2stringadd
+4. [**](../../akka/util/ByteString.html#++[B>:A](suffix:scala.collection.IterableOnce[B]):CC[B] "Permalink") final  def \+\+\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](suffix: [IterableOnce](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnce.html#scala.collection.IterableOnce)\[B]): [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[B]Definition ClassesIterableOpsAnnotations@inline()
+5. [**](../../akka/util/ByteString.html#++:[B>:A](prefix:scala.collection.IterableOnce[B]):CC[B] "Permalink") final  def \+\+:\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](prefix: [IterableOnce](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnce.html#scala.collection.IterableOnce)\[B]): [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[B]Definition ClassesSeqOps → IterableOpsAnnotations@inline()
+6. [**](../../akka/util/ByteString.html#+:[B>:A](elem:B):CC[B] "Permalink") final  def \+:\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](elem: B): [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[B]Definition ClassesSeqOpsAnnotations@inline()
+7. [**](../../akka/util/ByteString.html#->[B](y:B):(A,B) "Permalink")  def \-\>\[B](y: B): (ByteString, B)ImplicitThis member is added by an implicit conversion from ByteString toArrowAssoc\[ByteString] performed by method ArrowAssoc in scala.Predef.Definition ClassesArrowAssocAnnotations@inline()
+8. [**](../../akka/util/ByteString.html#:+[B>:A](elem:B):CC[B] "Permalink") final  def :\+\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](elem: B): [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[B]Definition ClassesSeqOpsAnnotations@inline()
+9. [**](../../akka/util/ByteString.html#:++[B>:A](suffix:scala.collection.IterableOnce[B]):CC[B] "Permalink") final  def :\+\+\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](suffix: [IterableOnce](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnce.html#scala.collection.IterableOnce)\[B]): [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[B]Definition ClassesSeqOpsAnnotations@inline()
+10. [**](../../akka/util/ByteString.html#==(x$1:Any):Boolean "Permalink") final  def \=\=(arg0: [Any](https://www.scala-lang.org/api/2.13.8/scala/Any.html#scala.Any)): [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition ClassesAnyRef → Any
+11. [**](../../akka/util/ByteString.html#addString(b:StringBuilder):StringBuilder "Permalink") final  def addString(b: [StringBuilder](https://www.scala-lang.org/api/2.13.8/scala/collection/mutable/StringBuilder.html#scala.collection.mutable.StringBuilder)): [StringBuilder](https://www.scala-lang.org/api/2.13.8/scala/collection/mutable/StringBuilder.html#scala.collection.mutable.StringBuilder)Definition ClassesIterableOnceOpsAnnotations@inline()
+12. [**](../../akka/util/ByteString.html#addString(b:StringBuilder,sep:String):StringBuilder "Permalink") final  def addString(b: [StringBuilder](https://www.scala-lang.org/api/2.13.8/scala/collection/mutable/StringBuilder.html#scala.collection.mutable.StringBuilder), sep: String): [StringBuilder](https://www.scala-lang.org/api/2.13.8/scala/collection/mutable/StringBuilder.html#scala.collection.mutable.StringBuilder)Definition ClassesIterableOnceOpsAnnotations@inline()
+13. [**](../../akka/util/ByteString.html#addString(b:StringBuilder,start:String,sep:String,end:String):StringBuilder "Permalink")  def addString(b: [StringBuilder](https://www.scala-lang.org/api/2.13.8/scala/collection/mutable/StringBuilder.html#scala.collection.mutable.StringBuilder), start: String, sep: String, end: String): [StringBuilder](https://www.scala-lang.org/api/2.13.8/scala/collection/mutable/StringBuilder.html#scala.collection.mutable.StringBuilder)Definition ClassesIterableOnceOps
+14. [**](../../akka/util/ByteString.html#andThen[C](k:PartialFunction[B,C]):PartialFunction[A,C] "Permalink")  def andThen\[C](k: [PartialFunction](https://www.scala-lang.org/api/2.13.8/scala/PartialFunction.html#scala.PartialFunction)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), C]): [PartialFunction](https://www.scala-lang.org/api/2.13.8/scala/PartialFunction.html#scala.PartialFunction)\[[Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int), C]Definition ClassesPartialFunction
+15. [**](../../akka/util/ByteString.html#andThen[C](k:B=>C):PartialFunction[A,C] "Permalink")  def andThen\[C](k: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> C): [PartialFunction](https://www.scala-lang.org/api/2.13.8/scala/PartialFunction.html#scala.PartialFunction)\[[Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int), C]Definition ClassesPartialFunction → Function1
+16. [**](../../akka/util/ByteString.html#appended[B>:A](elem:B):CC[B] "Permalink")  def appended\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](elem: B): [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[B]Definition ClassesStrictOptimizedSeqOps → SeqOps
+17. [**](../../akka/util/ByteString.html#appendedAll[B>:A](suffix:scala.collection.IterableOnce[B]):CC[B] "Permalink")  def appendedAll\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](suffix: [IterableOnce](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnce.html#scala.collection.IterableOnce)\[B]): [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[B]Definition ClassesStrictOptimizedSeqOps → SeqOps
+18. [**](../../akka/util/ByteString.html#applyOrElse[A1<:A,B1>:B](x:A1,default:A1=>B1):B1 "Permalink")  def applyOrElse\[A1 \<: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int), B1 \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](x: A1, default: (A1) \=\> B1): B1Definition ClassesPartialFunction
+19. [**](../../akka/util/ByteString.html#applyPreferredMaxLength:Int "Permalink")  def applyPreferredMaxLength: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Attributesprotected Definition ClassesIndexedSeq
+20. [**](../../akka/util/ByteString.html#asInstanceOf[T0]:T0 "Permalink") final  def asInstanceOf\[T0]: T0Definition ClassesAny
+21. [**](../../akka/util/ByteString.html#canEqual(that:Any):Boolean "Permalink")  def canEqual(that: [Any](https://www.scala-lang.org/api/2.13.8/scala/Any.html#scala.Any)): [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition ClassesIndexedSeq → Seq → Equals
+22. [**](../../akka/util/ByteString.html#className:String "Permalink") final  def className: StringDefinition ClassesByteString → Iterable
+23. [**](../../akka/util/ByteString.html#clone():Object "Permalink")  def clone(): [AnyRef](https://www.scala-lang.org/api/2.13.8/scala/AnyRef.html#scala.AnyRef)Attributesprotected\[lang] Definition ClassesAnyRefAnnotations@throws(classOf\[java.lang.CloneNotSupportedException]) @native() @HotSpotIntrinsicCandidate()
+24. [**](../../akka/util/ByteString.html#coll:Iterable.this.type "Permalink") final  def coll: ByteString.this.typeAttributesprotected Definition ClassesIterable → IterableOps
+25. [**](../../akka/util/ByteString.html#collect[B](pf:PartialFunction[A,B]):CC[B] "Permalink")  def collect\[B](pf: [PartialFunction](https://www.scala-lang.org/api/2.13.8/scala/PartialFunction.html#scala.PartialFunction)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), B]): [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[B]Definition ClassesStrictOptimizedIterableOps → IterableOps → IterableOnceOps
+26. [**](../../akka/util/ByteString.html#collectFirst[B](pf:PartialFunction[A,B]):Option[B] "Permalink")  def collectFirst\[B](pf: [PartialFunction](https://www.scala-lang.org/api/2.13.8/scala/PartialFunction.html#scala.PartialFunction)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), B]): [Option](https://www.scala-lang.org/api/2.13.8/scala/Option.html#scala.Option)\[B]Definition ClassesIterableOnceOps
+27. [**](../../akka/util/ByteString.html#combinations(n:Int):Iterator[C] "Permalink")  def combinations(n: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): [Iterator](https://www.scala-lang.org/api/2.13.8/scala/collection/Iterator.html#scala.collection.Iterator)\[ByteString]Definition ClassesSeqOps
+28. [**](../../akka/util/ByteString.html#compose[R](k:PartialFunction[R,A]):PartialFunction[R,B] "Permalink")  def compose\[R](k: [PartialFunction](https://www.scala-lang.org/api/2.13.8/scala/PartialFunction.html#scala.PartialFunction)\[R, [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)]): [PartialFunction](https://www.scala-lang.org/api/2.13.8/scala/PartialFunction.html#scala.PartialFunction)\[R, [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]Definition ClassesPartialFunction
+29. [**](../../akka/util/ByteString.html#compose[A](g:A=>T1):A=>R "Permalink")  def compose\[A](g: (A) \=\> [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): (A) \=\> [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)Definition ClassesFunction1Annotations@unspecialized()
+30. [**](../../akka/util/ByteString.html#concat(that:akka.util.ByteString):akka.util.ByteString "Permalink")  def concat(that: ByteString): ByteStringJava API: efficiently concatenate another ByteString.
+31. [**](../../akka/util/ByteString.html#concat[B>:A](suffix:scala.collection.IterableOnce[B]):CC[B] "Permalink") final  def concat\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](suffix: [IterableOnce](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnce.html#scala.collection.IterableOnce)\[B]): [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[B]Definition ClassesSeqOps → IterableOpsAnnotations@inline()
+32. [**](../../akka/util/ByteString.html#contains[A1>:A](elem:A1):Boolean "Permalink")  def contains\[A1 \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](elem: A1): [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition ClassesSeqOps
+33. [**](../../akka/util/ByteString.html#containsSlice[B>:A](that:scala.collection.Seq[B]):Boolean "Permalink")  def containsSlice\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](that: [Seq](https://www.scala-lang.org/api/2.13.8/scala/collection/Seq.html#scala.collection.Seq)\[B]): [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition ClassesSeqOps
+34. [**](../../akka/util/ByteString.html#copyToArray[B>:Byte](xs:Array[B],start:Int,len:Int):Int "Permalink")  def copyToArray\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](xs: [Array](https://www.scala-lang.org/api/2.13.8/scala/Array.html#scala.Array)\[B], start: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int), len: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesByteString → IterableOnceOps
+35. [**](../../akka/util/ByteString.html#copyToArray[B>:Byte](xs:Array[B],start:Int):Int "Permalink") final  def copyToArray\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](xs: [Array](https://www.scala-lang.org/api/2.13.8/scala/Array.html#scala.Array)\[B], start: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesByteString → IterableOnceOpsAnnotations@nowarn()
+36. [**](../../akka/util/ByteString.html#copyToArray[B>:A](xs:Array[B]):Int "Permalink")  def copyToArray\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](xs: [Array](https://www.scala-lang.org/api/2.13.8/scala/Array.html#scala.Array)\[B]): [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesIterableOnceOpsAnnotations@deprecatedOverriding()
+37. [**](../../akka/util/ByteString.html#corresponds[B](that:scala.collection.Seq[B])(p:(A,B)=>Boolean):Boolean "Permalink")  def corresponds\[B](that: [Seq](https://www.scala-lang.org/api/2.13.8/scala/collection/Seq.html#scala.collection.Seq)\[B])(p: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), B) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition ClassesSeqOps
+38. [**](../../akka/util/ByteString.html#corresponds[B](that:scala.collection.IterableOnce[B])(p:(A,B)=>Boolean):Boolean "Permalink")  def corresponds\[B](that: [IterableOnce](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnce.html#scala.collection.IterableOnce)\[B])(p: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), B) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition ClassesIterableOnceOps
+39. [**](../../akka/util/ByteString.html#count(p:A=>Boolean):Int "Permalink")  def count(p: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesIterableOnceOps
+40. [**](../../akka/util/ByteString.html#diff[B>:A](that:scala.collection.Seq[B]):C "Permalink")  def diff\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](that: [Seq](https://www.scala-lang.org/api/2.13.8/scala/collection/Seq.html#scala.collection.Seq)\[B]): ByteStringDefinition ClassesStrictOptimizedSeqOps → SeqOps
+41. [**](../../akka/util/ByteString.html#distinct:C "Permalink")  def distinct: ByteStringDefinition ClassesSeqOps
+42. [**](../../akka/util/ByteString.html#distinctBy[B](f:A=>B):C "Permalink")  def distinctBy\[B](f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> B): ByteStringDefinition ClassesStrictOptimizedSeqOps → StrictOptimizedSeqOps → SeqOps
+43. [**](../../akka/util/ByteString.html#drop(n:Int):akka.util.ByteString "Permalink")  def drop(n: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): ByteStringDefinition ClassesByteString → IndexedSeqOps → IterableOps → IterableOnceOps
+44. [**](../../akka/util/ByteString.html#dropRight(n:Int):akka.util.ByteString "Permalink")  def dropRight(n: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): ByteStringDefinition ClassesByteString → StrictOptimizedIterableOps → IndexedSeqOps → IterableOps
+45. [**](../../akka/util/ByteString.html#dropWhile(p:Byte=>Boolean):akka.util.ByteString "Permalink")  def dropWhile(p: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): ByteStringDefinition ClassesByteString → IterableOps → IterableOnceOps
+46. [**](../../akka/util/ByteString.html#elementWise:PartialFunction.ElementWiseExtractor[A,B] "Permalink")  def elementWise: ElementWiseExtractor\[[Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int), [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]Definition ClassesPartialFunction
+47. [**](../../akka/util/ByteString.html#empty:akka.util.ByteString "Permalink")  def empty: ByteStringDefinition ClassesByteString → IterableFactoryDefaults → IterableOps
+48. [**](../../akka/util/ByteString.html#endsWith[B>:A](that:Iterable[B]):Boolean "Permalink")  def endsWith\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](that: [Iterable](https://www.scala-lang.org/api/2.13.8/scala/collection/Iterable.html#scala.collection.Iterable)\[B]): [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition ClassesSeqOps
+49. [**](../../akka/util/ByteString.html#ensuring(cond:A=>Boolean,msg:=>Any):A "Permalink")  def ensuring(cond: (ByteString) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean), msg: \=\> [Any](https://www.scala-lang.org/api/2.13.8/scala/Any.html#scala.Any)): ByteStringImplicitThis member is added by an implicit conversion from ByteString toEnsuring\[ByteString] performed by method Ensuring in scala.Predef.Definition ClassesEnsuring
+50. [**](../../akka/util/ByteString.html#ensuring(cond:A=>Boolean):A "Permalink")  def ensuring(cond: (ByteString) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): ByteStringImplicitThis member is added by an implicit conversion from ByteString toEnsuring\[ByteString] performed by method Ensuring in scala.Predef.Definition ClassesEnsuring
+51. [**](../../akka/util/ByteString.html#ensuring(cond:Boolean,msg:=>Any):A "Permalink")  def ensuring(cond: [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean), msg: \=\> [Any](https://www.scala-lang.org/api/2.13.8/scala/Any.html#scala.Any)): ByteStringImplicitThis member is added by an implicit conversion from ByteString toEnsuring\[ByteString] performed by method Ensuring in scala.Predef.Definition ClassesEnsuring
+52. [**](../../akka/util/ByteString.html#ensuring(cond:Boolean):A "Permalink")  def ensuring(cond: [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): ByteStringImplicitThis member is added by an implicit conversion from ByteString toEnsuring\[ByteString] performed by method Ensuring in scala.Predef.Definition ClassesEnsuring
+53. [**](../../akka/util/ByteString.html#eq(x$1:AnyRef):Boolean "Permalink") final  def eq(arg0: [AnyRef](https://www.scala-lang.org/api/2.13.8/scala/AnyRef.html#scala.AnyRef)): [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition ClassesAnyRef
+54. [**](../../akka/util/ByteString.html#equals(o:Any):Boolean "Permalink")  def equals(o: [Any](https://www.scala-lang.org/api/2.13.8/scala/Any.html#scala.Any)): [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition ClassesSeq → Equals → AnyRef → Any
+55. [**](../../akka/util/ByteString.html#exists(p:A=>Boolean):Boolean "Permalink")  def exists(p: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition ClassesIterableOnceOps
+56. [**](../../akka/util/ByteString.html#filter(pred:A=>Boolean):C "Permalink")  def filter(pred: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): ByteStringDefinition ClassesStrictOptimizedIterableOps → IterableOps → IterableOnceOps
+57. [**](../../akka/util/ByteString.html#filterImpl(pred:A=>Boolean,isFlipped:Boolean):C "Permalink")  def filterImpl(pred: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean), isFlipped: [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): ByteStringAttributesprotected\[[collection](https://www.scala-lang.org/api/2.13.8/scala/collection/index.html#scala.collection)] Definition ClassesStrictOptimizedIterableOps
+58. [**](../../akka/util/ByteString.html#filterNot(pred:A=>Boolean):C "Permalink")  def filterNot(pred: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): ByteStringDefinition ClassesStrictOptimizedIterableOps → IterableOps → IterableOnceOps
+59. [**](../../akka/util/ByteString.html#find(p:A=>Boolean):Option[A] "Permalink")  def find(p: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): [Option](https://www.scala-lang.org/api/2.13.8/scala/Option.html#scala.Option)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]Definition ClassesIterableOnceOps
+60. [**](../../akka/util/ByteString.html#findLast(p:A=>Boolean):Option[A] "Permalink")  def findLast(p: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): [Option](https://www.scala-lang.org/api/2.13.8/scala/Option.html#scala.Option)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]Definition ClassesSeqOps
+61. [**](../../akka/util/ByteString.html#flatMap[B](f:A=>scala.collection.IterableOnce[B]):CC[B] "Permalink")  def flatMap\[B](f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [IterableOnce](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnce.html#scala.collection.IterableOnce)\[B]): [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[B]Definition ClassesStrictOptimizedIterableOps → IterableOps → IterableOnceOps
+62. [**](../../akka/util/ByteString.html#flatten[B](implicittoIterableOnce:A=>scala.collection.IterableOnce[B]):CC[B] "Permalink")  def flatten\[B](implicit toIterableOnce: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [IterableOnce](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnce.html#scala.collection.IterableOnce)\[B]): [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[B]Definition ClassesStrictOptimizedIterableOps → IterableOps → IterableOnceOps
+63. [**](../../akka/util/ByteString.html#fold[A1>:A](z:A1)(op:(A1,A1)=>A1):A1 "Permalink")  def fold\[A1 \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](z: A1)(op: (A1, A1) \=\> A1): A1Definition ClassesIterableOnceOps
+64. [**](../../akka/util/ByteString.html#foldLeft[B](z:B)(op:(B,A)=>B):B "Permalink")  def foldLeft\[B](z: B)(op: (B, [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> B): BDefinition ClassesIterableOnceOps
+65. [**](../../akka/util/ByteString.html#foldRight[B](z:B)(op:(A,B)=>B):B "Permalink")  def foldRight\[B](z: B)(op: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), B) \=\> B): BDefinition ClassesIndexedSeqOps → IterableOnceOps
+66. [**](../../akka/util/ByteString.html#forall(p:A=>Boolean):Boolean "Permalink")  def forall(p: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition ClassesIterableOnceOps
+67. [**](../../akka/util/ByteString.html#foreach[U](f:Byte=>U):Unit "Permalink")  def foreach\[U](f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> U): [Unit](https://www.scala-lang.org/api/2.13.8/scala/Unit.html#scala.Unit)Definition ClassesByteString → IterableOnceOps
+68. [**](../../akka/util/ByteString.html#fromSpecific(coll:IterableOnce[Byte]):akka.util.ByteString "Permalink")  def fromSpecific(coll: IterableOnce\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]): ByteStringAttributesprotected Definition ClassesByteString → IterableFactoryDefaults → IterableOps
+69. [**](../../akka/util/ByteString.html#getByteBuffers():Iterable[java.nio.ByteBuffer] "Permalink")  def getByteBuffers(): [Iterable](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Iterable.html#java.lang.Iterable)\[[ByteBuffer](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/ByteBuffer.html#java.nio.ByteBuffer)]Java API: Returns an Iterable of read\-only ByteBuffers that directly wraps this ByteStrings
+all fragments.
+
+Java API: Returns an Iterable of read\-only ByteBuffers that directly wraps this ByteStrings
+all fragments. Will always have at least one entry.
+
+Annotations@nowarn()
+70. [**](../../akka/util/ByteString.html#getClass():Class[_] "Permalink") final  def getClass(): [Class](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html#java.lang.Class)\[\_ \<: [AnyRef](https://www.scala-lang.org/api/2.13.8/scala/AnyRef.html#scala.AnyRef)]Definition ClassesAnyRef → AnyAnnotations@native() @HotSpotIntrinsicCandidate()
+71. [**](../../akka/util/ByteString.html#groupBy[K](f:A=>K):scala.collection.immutable.Map[K,C] "Permalink")  def groupBy\[K](f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> K): [Map](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/Map.html#scala.collection.immutable.Map)\[K, ByteString]Definition ClassesIterableOps
+72. [**](../../akka/util/ByteString.html#groupMap[K,B](key:A=>K)(f:A=>B):scala.collection.immutable.Map[K,CC[B]] "Permalink")  def groupMap\[K, B](key: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> K)(f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> B): [Map](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/Map.html#scala.collection.immutable.Map)\[K, [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[B]]Definition ClassesIterableOps
+73. [**](../../akka/util/ByteString.html#groupMapReduce[K,B](key:A=>K)(f:A=>B)(reduce:(B,B)=>B):scala.collection.immutable.Map[K,B] "Permalink")  def groupMapReduce\[K, B](key: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> K)(f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> B)(reduce: (B, B) \=\> B): [Map](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/Map.html#scala.collection.immutable.Map)\[K, B]Definition ClassesIterableOps
+74. [**](../../akka/util/ByteString.html#grouped(size:Int):Iterator[akka.util.ByteString] "Permalink")  def grouped(size: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): Iterator\[ByteString]Definition ClassesByteString → IterableOps
+75. [**](../../akka/util/ByteString.html#hashCode():Int "Permalink")  def hashCode(): [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesSeq → AnyRef → Any
+76. [**](../../akka/util/ByteString.html#head:Byte "Permalink")  def head: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)Definition ClassesByteString → IndexedSeqOps → IterableOps
+77. [**](../../akka/util/ByteString.html#headOption:Option[A] "Permalink")  def headOption: [Option](https://www.scala-lang.org/api/2.13.8/scala/Option.html#scala.Option)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]Definition ClassesIndexedSeqOps → IterableOps
+78. [**](../../akka/util/ByteString.html#indexOf[B>:Byte](elem:B,from:Int):Int "Permalink")  def indexOf\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](elem: B, from: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesByteString → SeqOps
+79. [**](../../akka/util/ByteString.html#indexOf[B>:A](elem:B):Int "Permalink")  def indexOf\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](elem: B): [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesSeqOpsAnnotations@deprecatedOverriding()
+80. [**](../../akka/util/ByteString.html#indexOfSlice[B>:A](that:scala.collection.Seq[B]):Int "Permalink")  def indexOfSlice\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](that: [Seq](https://www.scala-lang.org/api/2.13.8/scala/collection/Seq.html#scala.collection.Seq)\[B]): [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesSeqOpsAnnotations@deprecatedOverriding()
+81. [**](../../akka/util/ByteString.html#indexOfSlice[B>:A](that:scala.collection.Seq[B],from:Int):Int "Permalink")  def indexOfSlice\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](that: [Seq](https://www.scala-lang.org/api/2.13.8/scala/collection/Seq.html#scala.collection.Seq)\[B], from: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesSeqOps
+82. [**](../../akka/util/ByteString.html#indexWhere(p:Byte=>Boolean,from:Int):Int "Permalink")  def indexWhere(p: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean), from: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesByteString → SeqOps
+83. [**](../../akka/util/ByteString.html#indexWhere(p:A=>Boolean):Int "Permalink")  def indexWhere(p: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesSeqOpsAnnotations@deprecatedOverriding()
+84. [**](../../akka/util/ByteString.html#indices:scala.collection.immutable.Range "Permalink")  def indices: [Range](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/Range.html#scala.collection.immutable.Range)Definition ClassesSeqOps
+85. [**](../../akka/util/ByteString.html#init:akka.util.ByteString "Permalink")  def init: ByteStringDefinition ClassesByteString → IterableOps
+86. [**](../../akka/util/ByteString.html#inits:Iterator[C] "Permalink")  def inits: [Iterator](https://www.scala-lang.org/api/2.13.8/scala/collection/Iterator.html#scala.collection.Iterator)\[ByteString]Definition ClassesIterableOps
+87. [**](../../akka/util/ByteString.html#intersect[B>:A](that:scala.collection.Seq[B]):C "Permalink")  def intersect\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](that: [Seq](https://www.scala-lang.org/api/2.13.8/scala/collection/Seq.html#scala.collection.Seq)\[B]): ByteStringDefinition ClassesStrictOptimizedSeqOps → SeqOps
+88. [**](../../akka/util/ByteString.html#isDefinedAt(idx:Int):Boolean "Permalink")  def isDefinedAt(idx: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition ClassesSeqOps
+89. [**](../../akka/util/ByteString.html#isEmpty:Boolean "Permalink")  def isEmpty: [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition ClassesByteString → SeqOps → IterableOnceOps
+90. [**](../../akka/util/ByteString.html#isInstanceOf[T0]:Boolean "Permalink") final  def isInstanceOf\[T0]: [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition ClassesAny
+91. [**](../../akka/util/ByteString.html#isTraversableAgain:Boolean "Permalink")  def isTraversableAgain: [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition ClassesIterableOps → IterableOnceOps
+92. [**](../../akka/util/ByteString.html#iterableFactory:scala.collection.SeqFactory[IndexedSeq] "Permalink")  def iterableFactory: [SeqFactory](https://www.scala-lang.org/api/2.13.8/scala/collection/SeqFactory.html#scala.collection.SeqFactory)\[[IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)]Definition ClassesIndexedSeq → IndexedSeq → Seq → Seq → Iterable → Iterable → IterableOps
+93. [**](../../akka/util/ByteString.html#iterator:akka.util.ByteIterator "Permalink")  def iterator: [ByteIterator](ByteIterator.html)Definition ClassesByteString → IndexedSeqOps → IterableOnce
+94. [**](../../akka/util/ByteString.html#knownSize:Int "Permalink")  def knownSize: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesIndexedSeqOps → IterableOnce
+95. [**](../../akka/util/ByteString.html#last:Byte "Permalink")  def last: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)Definition ClassesByteString → IndexedSeqOps → IterableOps
+96. [**](../../akka/util/ByteString.html#lastIndexOf[B>:A](elem:B,end:Int):Int "Permalink")  def lastIndexOf\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](elem: B, end: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesSeqOps
+97. [**](../../akka/util/ByteString.html#lastIndexOfSlice[B>:A](that:scala.collection.Seq[B]):Int "Permalink")  def lastIndexOfSlice\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](that: [Seq](https://www.scala-lang.org/api/2.13.8/scala/collection/Seq.html#scala.collection.Seq)\[B]): [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesSeqOpsAnnotations@deprecatedOverriding()
+98. [**](../../akka/util/ByteString.html#lastIndexOfSlice[B>:A](that:scala.collection.Seq[B],end:Int):Int "Permalink")  def lastIndexOfSlice\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](that: [Seq](https://www.scala-lang.org/api/2.13.8/scala/collection/Seq.html#scala.collection.Seq)\[B], end: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesSeqOps
+99. [**](../../akka/util/ByteString.html#lastIndexWhere(p:A=>Boolean):Int "Permalink")  def lastIndexWhere(p: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesSeqOpsAnnotations@deprecatedOverriding()
+100. [**](../../akka/util/ByteString.html#lastIndexWhere(p:A=>Boolean,end:Int):Int "Permalink")  def lastIndexWhere(p: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean), end: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesSeqOps
+101. [**](../../akka/util/ByteString.html#lastOption:Option[A] "Permalink")  def lastOption: [Option](https://www.scala-lang.org/api/2.13.8/scala/Option.html#scala.Option)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]Definition ClassesIterableOps
+102. [**](../../akka/util/ByteString.html#lazyZip[B](that:Iterable[B]):scala.collection.LazyZip2[A,B,Iterable.this.type] "Permalink")  def lazyZip\[B](that: [Iterable](https://www.scala-lang.org/api/2.13.8/scala/collection/Iterable.html#scala.collection.Iterable)\[B]): LazyZip2\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), B, ByteString.this.type]Definition ClassesIterable
+103. [**](../../akka/util/ByteString.html#lengthCompare(that:Iterable[_]):Int "Permalink") final  def lengthCompare(that: [Iterable](https://www.scala-lang.org/api/2.13.8/scala/collection/Iterable.html#scala.collection.Iterable)\[\_]): [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesIndexedSeqOps → SeqOps
+104. [**](../../akka/util/ByteString.html#lengthCompare(len:Int):Int "Permalink") final  def lengthCompare(len: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesIndexedSeqOps → SeqOps
+105. [**](../../akka/util/ByteString.html#lengthIs:scala.collection.IterableOps.SizeCompareOps "Permalink") final  def lengthIs: SizeCompareOpsDefinition ClassesSeqOpsAnnotations@inline()
+106. [**](../../akka/util/ByteString.html#lift:A=>Option[B] "Permalink")  def lift: ([Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)) \=\> [Option](https://www.scala-lang.org/api/2.13.8/scala/Option.html#scala.Option)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]Definition ClassesPartialFunction
+107. [**](../../akka/util/ByteString.html#map[A](f:Byte=>Byte):akka.util.ByteString "Permalink")  def map\[A](f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)): ByteString
+108. [**](../../akka/util/ByteString.html#map[B](f:A=>B):CC[B] "Permalink")  def map\[B](f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> B): [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[B]Definition ClassesStrictOptimizedIterableOps → IterableOps → IterableOnceOps
+109. [**](../../akka/util/ByteString.html#mapI(f:Byte=>Int):akka.util.ByteString "Permalink") final  def mapI(f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): ByteStringmap method that will automatically cast Int back into Byte.
+110. [**](../../akka/util/ByteString.html#max[B>:A](implicitord:scala.math.Ordering[B]):A "Permalink")  def max\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](implicit ord: [Ordering](https://www.scala-lang.org/api/2.13.8/scala/math/Ordering.html#scala.math.Ordering)\[B]): [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)Definition ClassesIterableOnceOps
+111. [**](../../akka/util/ByteString.html#maxBy[B](f:A=>B)(implicitcmp:scala.math.Ordering[B]):A "Permalink")  def maxBy\[B](f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> B)(implicit cmp: [Ordering](https://www.scala-lang.org/api/2.13.8/scala/math/Ordering.html#scala.math.Ordering)\[B]): [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)Definition ClassesIterableOnceOps
+112. [**](../../akka/util/ByteString.html#maxByOption[B](f:A=>B)(implicitcmp:scala.math.Ordering[B]):Option[A] "Permalink")  def maxByOption\[B](f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> B)(implicit cmp: [Ordering](https://www.scala-lang.org/api/2.13.8/scala/math/Ordering.html#scala.math.Ordering)\[B]): [Option](https://www.scala-lang.org/api/2.13.8/scala/Option.html#scala.Option)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]Definition ClassesIterableOnceOps
+113. [**](../../akka/util/ByteString.html#maxOption[B>:A](implicitord:scala.math.Ordering[B]):Option[A] "Permalink")  def maxOption\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](implicit ord: [Ordering](https://www.scala-lang.org/api/2.13.8/scala/math/Ordering.html#scala.math.Ordering)\[B]): [Option](https://www.scala-lang.org/api/2.13.8/scala/Option.html#scala.Option)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]Definition ClassesIterableOnceOps
+114. [**](../../akka/util/ByteString.html#min[B>:A](implicitord:scala.math.Ordering[B]):A "Permalink")  def min\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](implicit ord: [Ordering](https://www.scala-lang.org/api/2.13.8/scala/math/Ordering.html#scala.math.Ordering)\[B]): [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)Definition ClassesIterableOnceOps
+115. [**](../../akka/util/ByteString.html#minBy[B](f:A=>B)(implicitcmp:scala.math.Ordering[B]):A "Permalink")  def minBy\[B](f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> B)(implicit cmp: [Ordering](https://www.scala-lang.org/api/2.13.8/scala/math/Ordering.html#scala.math.Ordering)\[B]): [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)Definition ClassesIterableOnceOps
+116. [**](../../akka/util/ByteString.html#minByOption[B](f:A=>B)(implicitcmp:scala.math.Ordering[B]):Option[A] "Permalink")  def minByOption\[B](f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> B)(implicit cmp: [Ordering](https://www.scala-lang.org/api/2.13.8/scala/math/Ordering.html#scala.math.Ordering)\[B]): [Option](https://www.scala-lang.org/api/2.13.8/scala/Option.html#scala.Option)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]Definition ClassesIterableOnceOps
+117. [**](../../akka/util/ByteString.html#minOption[B>:A](implicitord:scala.math.Ordering[B]):Option[A] "Permalink")  def minOption\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](implicit ord: [Ordering](https://www.scala-lang.org/api/2.13.8/scala/math/Ordering.html#scala.math.Ordering)\[B]): [Option](https://www.scala-lang.org/api/2.13.8/scala/Option.html#scala.Option)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]Definition ClassesIterableOnceOps
+118. [**](../../akka/util/ByteString.html#mkString:String "Permalink") final  def mkString: StringDefinition ClassesIterableOnceOpsAnnotations@inline()
+119. [**](../../akka/util/ByteString.html#mkString(sep:String):String "Permalink") final  def mkString(sep: String): StringDefinition ClassesIterableOnceOpsAnnotations@inline()
+120. [**](../../akka/util/ByteString.html#mkString(start:String,sep:String,end:String):String "Permalink") final  def mkString(start: String, sep: String, end: String): StringDefinition ClassesIterableOnceOps
+121. [**](../../akka/util/ByteString.html#ne(x$1:AnyRef):Boolean "Permalink") final  def ne(arg0: [AnyRef](https://www.scala-lang.org/api/2.13.8/scala/AnyRef.html#scala.AnyRef)): [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition ClassesAnyRef
+122. [**](../../akka/util/ByteString.html#newSpecificBuilder:scala.collection.mutable.Builder[Byte,akka.util.ByteString] "Permalink")  def newSpecificBuilder: [Builder](https://www.scala-lang.org/api/2.13.8/scala/collection/mutable/Builder.html#scala.collection.mutable.Builder)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), ByteString]Attributesprotected Definition ClassesByteString → IterableFactoryDefaults → IterableOps
+123. [**](../../akka/util/ByteString.html#nonEmpty:Boolean "Permalink")  def nonEmpty: [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition ClassesIterableOnceOpsAnnotations@deprecatedOverriding()
+124. [**](../../akka/util/ByteString.html#notify():Unit "Permalink") final  def notify(): [Unit](https://www.scala-lang.org/api/2.13.8/scala/Unit.html#scala.Unit)Definition ClassesAnyRefAnnotations@native() @HotSpotIntrinsicCandidate()
+125. [**](../../akka/util/ByteString.html#notifyAll():Unit "Permalink") final  def notifyAll(): [Unit](https://www.scala-lang.org/api/2.13.8/scala/Unit.html#scala.Unit)Definition ClassesAnyRefAnnotations@native() @HotSpotIntrinsicCandidate()
+126. [**](../../akka/util/ByteString.html#occCounts[B](sq:scala.collection.Seq[B]):scala.collection.mutable.Map[B,Int] "Permalink")  def occCounts\[B](sq: [Seq](https://www.scala-lang.org/api/2.13.8/scala/collection/Seq.html#scala.collection.Seq)\[B]): [Map](https://www.scala-lang.org/api/2.13.8/scala/collection/mutable/Map.html#scala.collection.mutable.Map)\[B, [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)]Attributesprotected\[[collection](https://www.scala-lang.org/api/2.13.8/scala/collection/index.html#scala.collection)] Definition ClassesSeqOps
+127. [**](../../akka/util/ByteString.html#orElse[A1<:A,B1>:B](that:PartialFunction[A1,B1]):PartialFunction[A1,B1] "Permalink")  def orElse\[A1 \<: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int), B1 \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](that: [PartialFunction](https://www.scala-lang.org/api/2.13.8/scala/PartialFunction.html#scala.PartialFunction)\[A1, B1]): [PartialFunction](https://www.scala-lang.org/api/2.13.8/scala/PartialFunction.html#scala.PartialFunction)\[A1, B1]Definition ClassesPartialFunction
+128. [**](../../akka/util/ByteString.html#padTo[B>:A](len:Int,elem:B):CC[B] "Permalink")  def padTo\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](len: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int), elem: B): [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[B]Definition ClassesStrictOptimizedSeqOps → SeqOps
+129. [**](../../akka/util/ByteString.html#partition(p:A=>Boolean):(C,C) "Permalink")  def partition(p: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): (ByteString, ByteString)Definition ClassesStrictOptimizedIterableOps → IterableOps
+130. [**](../../akka/util/ByteString.html#partitionMap[A1,A2](f:A=>Either[A1,A2]):(CC[A1],CC[A2]) "Permalink")  def partitionMap\[A1, A2](f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> Either\[A1, A2]): ([IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[A1], [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[A2])Definition ClassesStrictOptimizedIterableOps → IterableOps
+131. [**](../../akka/util/ByteString.html#patch[B>:A](from:Int,other:scala.collection.IterableOnce[B],replaced:Int):CC[B] "Permalink")  def patch\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](from: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int), other: [IterableOnce](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnce.html#scala.collection.IterableOnce)\[B], replaced: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[B]Definition ClassesStrictOptimizedSeqOps → SeqOps
+132. [**](../../akka/util/ByteString.html#permutations:Iterator[C] "Permalink")  def permutations: [Iterator](https://www.scala-lang.org/api/2.13.8/scala/collection/Iterator.html#scala.collection.Iterator)\[ByteString]Definition ClassesSeqOps
+133. [**](../../akka/util/ByteString.html#prepended[B>:A](elem:B):CC[B] "Permalink")  def prepended\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](elem: B): [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[B]Definition ClassesStrictOptimizedSeqOps → SeqOps
+134. [**](../../akka/util/ByteString.html#prependedAll[B>:A](prefix:scala.collection.IterableOnce[B]):CC[B] "Permalink")  def prependedAll\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](prefix: [IterableOnce](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnce.html#scala.collection.IterableOnce)\[B]): [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[B]Definition ClassesStrictOptimizedSeqOps → SeqOps
+135. [**](../../akka/util/ByteString.html#product[B>:A](implicitnum:scala.math.Numeric[B]):B "Permalink")  def product\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](implicit num: [Numeric](https://www.scala-lang.org/api/2.13.8/scala/math/Numeric.html#scala.math.Numeric)\[B]): BDefinition ClassesIterableOnceOps
+136. [**](../../akka/util/ByteString.html#reduce[B>:A](op:(B,B)=>B):B "Permalink")  def reduce\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](op: (B, B) \=\> B): BDefinition ClassesIterableOnceOps
+137. [**](../../akka/util/ByteString.html#reduceLeft[B>:A](op:(B,A)=>B):B "Permalink")  def reduceLeft\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](op: (B, [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> B): BDefinition ClassesIterableOnceOps
+138. [**](../../akka/util/ByteString.html#reduceLeftOption[B>:A](op:(B,A)=>B):Option[B] "Permalink")  def reduceLeftOption\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](op: (B, [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> B): [Option](https://www.scala-lang.org/api/2.13.8/scala/Option.html#scala.Option)\[B]Definition ClassesIterableOnceOps
+139. [**](../../akka/util/ByteString.html#reduceOption[B>:A](op:(B,B)=>B):Option[B] "Permalink")  def reduceOption\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](op: (B, B) \=\> B): [Option](https://www.scala-lang.org/api/2.13.8/scala/Option.html#scala.Option)\[B]Definition ClassesIterableOnceOps
+140. [**](../../akka/util/ByteString.html#reduceRight[B>:A](op:(A,B)=>B):B "Permalink")  def reduceRight\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](op: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), B) \=\> B): BDefinition ClassesIterableOnceOps
+141. [**](../../akka/util/ByteString.html#reduceRightOption[B>:A](op:(A,B)=>B):Option[B] "Permalink")  def reduceRightOption\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](op: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), B) \=\> B): [Option](https://www.scala-lang.org/api/2.13.8/scala/Option.html#scala.Option)\[B]Definition ClassesIterableOnceOps
+142. [**](../../akka/util/ByteString.html#reverse:C "Permalink")  def reverse: ByteStringDefinition ClassesIndexedSeqOps → SeqOps
+143. [**](../../akka/util/ByteString.html#reverseIterator:Iterator[A] "Permalink")  def reverseIterator: [Iterator](https://www.scala-lang.org/api/2.13.8/scala/collection/Iterator.html#scala.collection.Iterator)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]Definition ClassesIndexedSeqOps → SeqOps
+144. [**](../../akka/util/ByteString.html#reversed:Iterable[A] "Permalink")  def reversed: [Iterable](https://www.scala-lang.org/api/2.13.8/scala/collection/Iterable.html#scala.collection.Iterable)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]Attributesprotected Definition ClassesIndexedSeqOps → IterableOnceOps
+145. [**](../../akka/util/ByteString.html#runWith[U](action:B=>U):A=>Boolean "Permalink")  def runWith\[U](action: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> U): ([Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition ClassesPartialFunction
+146. [**](../../akka/util/ByteString.html#sameElements[B>:A](o:scala.collection.IterableOnce[B]):Boolean "Permalink")  def sameElements\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](o: [IterableOnce](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnce.html#scala.collection.IterableOnce)\[B]): [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition ClassesIndexedSeq → SeqOps
+147. [**](../../akka/util/ByteString.html#scan[B>:A](z:B)(op:(B,B)=>B):CC[B] "Permalink")  def scan\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](z: B)(op: (B, B) \=\> B): [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[B]Definition ClassesIterableOps
+148. [**](../../akka/util/ByteString.html#scanLeft[B](z:B)(op:(B,A)=>B):CC[B] "Permalink")  def scanLeft\[B](z: B)(op: (B, [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> B): [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[B]Definition ClassesStrictOptimizedIterableOps → IterableOps → IterableOnceOps
+149. [**](../../akka/util/ByteString.html#scanRight[B](z:B)(op:(A,B)=>B):CC[B] "Permalink")  def scanRight\[B](z: B)(op: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), B) \=\> B): [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[B]Definition ClassesIterableOps
+150. [**](../../akka/util/ByteString.html#search[B>:A](elem:B,from:Int,to:Int)(implicitord:scala.math.Ordering[B]):collection.Searching.SearchResult "Permalink")  def search\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](elem: B, from: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int), to: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int))(implicit ord: [Ordering](https://www.scala-lang.org/api/2.13.8/scala/math/Ordering.html#scala.math.Ordering)\[B]): SearchResultDefinition ClassesIndexedSeqOps → SeqOps
+151. [**](../../akka/util/ByteString.html#search[B>:A](elem:B)(implicitord:scala.math.Ordering[B]):collection.Searching.SearchResult "Permalink")  def search\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](elem: B)(implicit ord: [Ordering](https://www.scala-lang.org/api/2.13.8/scala/math/Ordering.html#scala.math.Ordering)\[B]): SearchResultDefinition ClassesIndexedSeqOps → SeqOps
+152. [**](../../akka/util/ByteString.html#segmentLength(p:A=>Boolean,from:Int):Int "Permalink")  def segmentLength(p: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean), from: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesSeqOps
+153. [**](../../akka/util/ByteString.html#segmentLength(p:A=>Boolean):Int "Permalink") final  def segmentLength(p: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesSeqOps
+154. [**](../../akka/util/ByteString.html#size:Int "Permalink") final  def size: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesSeqOps → IterableOnceOps
+155. [**](../../akka/util/ByteString.html#sizeCompare(that:Iterable[_]):Int "Permalink") final  def sizeCompare(that: [Iterable](https://www.scala-lang.org/api/2.13.8/scala/collection/Iterable.html#scala.collection.Iterable)\[\_]): [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesSeqOps → IterableOps
+156. [**](../../akka/util/ByteString.html#sizeCompare(otherSize:Int):Int "Permalink") final  def sizeCompare(otherSize: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesSeqOps → IterableOps
+157. [**](../../akka/util/ByteString.html#sizeIs:scala.collection.IterableOps.SizeCompareOps "Permalink") final  def sizeIs: SizeCompareOpsDefinition ClassesIterableOpsAnnotations@inline()
+158. [**](../../akka/util/ByteString.html#slice(from:Int,until:Int):akka.util.ByteString "Permalink")  def slice(from: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int), until: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): ByteStringDefinition ClassesByteString → IndexedSeqOps → IndexedSeqOps → IterableOps → IterableOnceOps
+159. [**](../../akka/util/ByteString.html#sliding(size:Int,step:Int):Iterator[C] "Permalink")  def sliding(size: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int), step: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): [Iterator](https://www.scala-lang.org/api/2.13.8/scala/collection/Iterator.html#scala.collection.Iterator)\[ByteString]Definition ClassesIterableOps
+160. [**](../../akka/util/ByteString.html#sliding(size:Int):Iterator[C] "Permalink")  def sliding(size: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): [Iterator](https://www.scala-lang.org/api/2.13.8/scala/collection/Iterator.html#scala.collection.Iterator)\[ByteString]Definition ClassesIterableOps
+161. [**](../../akka/util/ByteString.html#sortBy[B](f:A=>B)(implicitord:Ordering[B]):C "Permalink")  def sortBy\[B](f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> B)(implicit ord: Ordering\[B]): ByteStringDefinition ClassesSeqOps
+162. [**](../../akka/util/ByteString.html#sortWith(lt:(A,A)=>Boolean):C "Permalink")  def sortWith(lt: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): ByteStringDefinition ClassesSeqOps
+163. [**](../../akka/util/ByteString.html#sorted[B>:A](implicitord:Ordering[B]):C "Permalink")  def sorted\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](implicit ord: Ordering\[B]): ByteStringDefinition ClassesStrictOptimizedSeqOps → SeqOps
+164. [**](../../akka/util/ByteString.html#span(p:Byte=>Boolean):(akka.util.ByteString,akka.util.ByteString) "Permalink")  def span(p: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): (ByteString, ByteString)Definition ClassesByteString → StrictOptimizedIterableOps → IterableOps → IterableOnceOps
+165. [**](../../akka/util/ByteString.html#splitAt(n:Int):(akka.util.ByteString,akka.util.ByteString) "Permalink")  def splitAt(n: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): (ByteString, ByteString)Definition ClassesByteString → IterableOps → IterableOnceOps
+166. [**](../../akka/util/ByteString.html#startsWith[B>:A](that:scala.collection.IterableOnce[B],offset:Int):Boolean "Permalink")  def startsWith\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](that: [IterableOnce](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnce.html#scala.collection.IterableOnce)\[B], offset: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition ClassesSeqOps
+167. [**](../../akka/util/ByteString.html#stepper[S<:scala.collection.Stepper[_]](implicitshape:scala.collection.StepperShape[A,S]):Swithcollection.Stepper.EfficientSplit "Permalink")  def stepper\[S \<: [Stepper](https://www.scala-lang.org/api/2.13.8/scala/collection/Stepper.html#scala.collection.Stepper)\[\_]](implicit shape: StepperShape\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), S]): S with EfficientSplitDefinition ClassesIndexedSeqOps → IterableOnce
+168. [**](../../akka/util/ByteString.html#strictOptimizedCollect[B,C2](b:scala.collection.mutable.Builder[B,C2],pf:PartialFunction[A,B]):C2 "Permalink") final  def strictOptimizedCollect\[B, C2](b: [Builder](https://www.scala-lang.org/api/2.13.8/scala/collection/mutable/Builder.html#scala.collection.mutable.Builder)\[B, C2], pf: [PartialFunction](https://www.scala-lang.org/api/2.13.8/scala/PartialFunction.html#scala.PartialFunction)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), B]): C2Attributesprotected\[this] Definition ClassesStrictOptimizedIterableOpsAnnotations@inline()
+169. [**](../../akka/util/ByteString.html#strictOptimizedConcat[B>:A,C2](that:scala.collection.IterableOnce[B],b:scala.collection.mutable.Builder[B,C2]):C2 "Permalink") final  def strictOptimizedConcat\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), C2](that: [IterableOnce](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnce.html#scala.collection.IterableOnce)\[B], b: [Builder](https://www.scala-lang.org/api/2.13.8/scala/collection/mutable/Builder.html#scala.collection.mutable.Builder)\[B, C2]): C2Attributesprotected\[this] Definition ClassesStrictOptimizedIterableOpsAnnotations@inline()
+170. [**](../../akka/util/ByteString.html#strictOptimizedFlatMap[B,C2](b:scala.collection.mutable.Builder[B,C2],f:A=>scala.collection.IterableOnce[B]):C2 "Permalink") final  def strictOptimizedFlatMap\[B, C2](b: [Builder](https://www.scala-lang.org/api/2.13.8/scala/collection/mutable/Builder.html#scala.collection.mutable.Builder)\[B, C2], f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [IterableOnce](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnce.html#scala.collection.IterableOnce)\[B]): C2Attributesprotected\[this] Definition ClassesStrictOptimizedIterableOpsAnnotations@inline()
+171. [**](../../akka/util/ByteString.html#strictOptimizedFlatten[B,C2](b:scala.collection.mutable.Builder[B,C2])(implicittoIterableOnce:A=>scala.collection.IterableOnce[B]):C2 "Permalink") final  def strictOptimizedFlatten\[B, C2](b: [Builder](https://www.scala-lang.org/api/2.13.8/scala/collection/mutable/Builder.html#scala.collection.mutable.Builder)\[B, C2])(implicit toIterableOnce: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [IterableOnce](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnce.html#scala.collection.IterableOnce)\[B]): C2Attributesprotected\[this] Definition ClassesStrictOptimizedIterableOpsAnnotations@inline()
+172. [**](../../akka/util/ByteString.html#strictOptimizedMap[B,C2](b:scala.collection.mutable.Builder[B,C2],f:A=>B):C2 "Permalink") final  def strictOptimizedMap\[B, C2](b: [Builder](https://www.scala-lang.org/api/2.13.8/scala/collection/mutable/Builder.html#scala.collection.mutable.Builder)\[B, C2], f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> B): C2Attributesprotected\[this] Definition ClassesStrictOptimizedIterableOpsAnnotations@inline()
+173. [**](../../akka/util/ByteString.html#strictOptimizedZip[B,C2](that:scala.collection.IterableOnce[B],b:scala.collection.mutable.Builder[(A,B),C2]):C2 "Permalink") final  def strictOptimizedZip\[B, C2](that: [IterableOnce](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnce.html#scala.collection.IterableOnce)\[B], b: [Builder](https://www.scala-lang.org/api/2.13.8/scala/collection/mutable/Builder.html#scala.collection.mutable.Builder)\[([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), B), C2]): C2Attributesprotected\[this] Definition ClassesStrictOptimizedIterableOpsAnnotations@inline()
+174. [**](../../akka/util/ByteString.html#stringPrefix:String "Permalink")  def stringPrefix: StringAttributesprotected\[this] Definition ClassesIndexedSeq → Seq → Iterable
+175. [**](../../akka/util/ByteString.html#sum[B>:A](implicitnum:scala.math.Numeric[B]):B "Permalink")  def sum\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](implicit num: [Numeric](https://www.scala-lang.org/api/2.13.8/scala/math/Numeric.html#scala.math.Numeric)\[B]): BDefinition ClassesIterableOnceOps
+176. [**](../../akka/util/ByteString.html#synchronized[T0](x$1:=>T0):T0 "Permalink") final  def synchronized\[T0](arg0: \=\> T0): T0Definition ClassesAnyRef
+177. [**](../../akka/util/ByteString.html#tail:akka.util.ByteString "Permalink")  def tail: ByteStringDefinition ClassesByteString → IterableOps
+178. [**](../../akka/util/ByteString.html#tails:Iterator[C] "Permalink")  def tails: [Iterator](https://www.scala-lang.org/api/2.13.8/scala/collection/Iterator.html#scala.collection.Iterator)\[ByteString]Definition ClassesIterableOps
+179. [**](../../akka/util/ByteString.html#take(n:Int):akka.util.ByteString "Permalink")  def take(n: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): ByteStringDefinition ClassesByteString → IndexedSeqOps → IterableOps → IterableOnceOps
+180. [**](../../akka/util/ByteString.html#takeRight(n:Int):akka.util.ByteString "Permalink")  def takeRight(n: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): ByteStringDefinition ClassesByteString → StrictOptimizedIterableOps → IndexedSeqOps → IterableOps
+181. [**](../../akka/util/ByteString.html#takeWhile(p:Byte=>Boolean):akka.util.ByteString "Permalink")  def takeWhile(p: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): ByteStringDefinition ClassesByteString → IterableOps → IterableOnceOps
+182. [**](../../akka/util/ByteString.html#tapEach[U](f:A=>U):C "Permalink")  def tapEach\[U](f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> U): ByteStringDefinition ClassesStrictOptimizedIterableOps → IterableOps → IterableOnceOps
+183. [**](../../akka/util/ByteString.html#to[C1](factory:scala.collection.Factory[A,C1]):C1 "Permalink")  def to\[C1](factory: [Factory](https://www.scala-lang.org/api/2.13.8/scala/collection/Factory.html#scala.collection.Factory)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), C1]): C1Definition ClassesIterableOnceOps
+184. [**](../../akka/util/ByteString.html#toArray[B>:Byte](implicitarg0:scala.reflect.ClassTag[B]):Array[B] "Permalink") final  def toArray\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](implicit arg0: [ClassTag](https://www.scala-lang.org/api/2.13.8/scala/reflect/ClassTag.html#scala.reflect.ClassTag)\[B]): [Array](https://www.scala-lang.org/api/2.13.8/scala/Array.html#scala.Array)\[B]Definition ClassesByteString → IterableOnceOps
+185. [**](../../akka/util/ByteString.html#toArray:Array[Byte] "Permalink")  def toArray: [Array](https://www.scala-lang.org/api/2.13.8/scala/Array.html#scala.Array)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]Java API: copy this ByteString into a fresh byte array
+
+Java API: copy this ByteString into a fresh byte array
+
+returnsthis ByteString copied into a byte array
+
+Attributesprotected
+186. [**](../../akka/util/ByteString.html#toArrayUnsafe():Array[Byte] "Permalink")  def toArrayUnsafe(): [Array](https://www.scala-lang.org/api/2.13.8/scala/Array.html#scala.Array)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]Unsafe API: Use only in situations you are completely confident that this is what
+you need, and that you understand the implications documented below.
+
+Unsafe API: Use only in situations you are completely confident that this is what
+you need, and that you understand the implications documented below.
+
+If the ByteString is backed by a single array it is returned without any copy. If it is backed by a rope
+of multiple ByteString instances a new array will be allocated and the contents will be copied
+into it before returning it.
+
+This method of exposing the bytes of a ByteString can save one array
+copy and allocation in the happy path scenario which can lead to better performance,
+however it also means that one MUST NOT modify the returned array, or unexpected
+immutable data structure contract\-breaking behavior will manifest itself.
+
+This API is intended for users who need to pass the byte array to some other API, which will
+only read the bytes and never mutate then. For all other intents and purposes, please use the usual
+toArray method \- which provide the immutability guarantees by copying the backing array.
+187. [**](../../akka/util/ByteString.html#toBuffer[B>:A]:scala.collection.mutable.Buffer[B] "Permalink") final  def toBuffer\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]: [Buffer](https://www.scala-lang.org/api/2.13.8/scala/collection/mutable/Buffer.html#scala.collection.mutable.Buffer)\[B]Definition ClassesIterableOnceOpsAnnotations@inline()
+188. [**](../../akka/util/ByteString.html#toByteBuffer:java.nio.ByteBuffer "Permalink")  def toByteBuffer: [ByteBuffer](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/ByteBuffer.html#java.nio.ByteBuffer)Creates a new ByteBuffer with a copy of all bytes contained in this
+ByteString.
+189. [**](../../akka/util/ByteString.html#toIndexedSeq:IndexedSeq[A] "Permalink") final  def toIndexedSeq: [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]Definition ClassesIndexedSeq → IterableOnceOps
+190. [**](../../akka/util/ByteString.html#toList:List[A] "Permalink")  def toList: [List](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/List.html#scala.collection.immutable.List)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]Definition ClassesIterableOnceOps
+191. [**](../../akka/util/ByteString.html#toMap[K,V](implicitev:A<:<(K,V)):scala.collection.immutable.Map[K,V] "Permalink")  def toMap\[K, V](implicit ev: [\<:\<](https://www.scala-lang.org/api/2.13.8/scala/$less$colon$less.html#scala.%3C:%3C)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), (K, V)]): [Map](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/Map.html#scala.collection.immutable.Map)\[K, V]Definition ClassesIterableOnceOps
+192. [**](../../akka/util/ByteString.html#toSeq:Seq.this.type "Permalink") final  def toSeq: ByteString.this.typeDefinition ClassesSeq → IterableOnceOps
+193. [**](../../akka/util/ByteString.html#toSet[B>:A]:scala.collection.immutable.Set[B] "Permalink")  def toSet\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]: [Set](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/Set.html#scala.collection.immutable.Set)\[B]Definition ClassesIterableOnceOps
+194. [**](../../akka/util/ByteString.html#toString():String "Permalink")  def toString(): StringDefinition ClassesByteString → Seq → Function1 → Iterable → AnyRef → Any
+195. [**](../../akka/util/ByteString.html#toVector:scala.collection.immutable.Vector[A] "Permalink")  def toVector: [Vector](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/Vector.html#scala.collection.immutable.Vector)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]Definition ClassesIterableOnceOps
+196. [**](../../akka/util/ByteString.html#transpose[B](implicitasIterable:A=>Iterable[B]):CC[CC[B]@scala.annotation.unchecked.uncheckedVariance] "Permalink")  def transpose\[B](implicit asIterable: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Iterable](https://www.scala-lang.org/api/2.13.8/scala/collection/Iterable.html#scala.collection.Iterable)\[B]): [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[[IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[B]]Definition ClassesIterableOps
+197. [**](../../akka/util/ByteString.html#unapply(a:A):Option[B] "Permalink")  def unapply(a: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): [Option](https://www.scala-lang.org/api/2.13.8/scala/Option.html#scala.Option)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]Definition ClassesPartialFunction
+198. [**](../../akka/util/ByteString.html#unzip[A1,A2](implicitasPair:A=>(A1,A2)):(CC[A1],CC[A2]) "Permalink")  def unzip\[A1, A2](implicit asPair: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> (A1, A2)): ([IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[A1], [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[A2])Definition ClassesStrictOptimizedIterableOps → IterableOps
+199. [**](../../akka/util/ByteString.html#unzip3[A1,A2,A3](implicitasTriple:A=>(A1,A2,A3)):(CC[A1],CC[A2],CC[A3]) "Permalink")  def unzip3\[A1, A2, A3](implicit asTriple: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> (A1, A2, A3)): ([IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[A1], [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[A2], [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[A3])Definition ClassesStrictOptimizedIterableOps → IterableOps
+200. [**](../../akka/util/ByteString.html#updated[B>:A](index:Int,elem:B):CC[B] "Permalink")  def updated\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](index: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int), elem: B): [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[B]Definition ClassesStrictOptimizedSeqOps → SeqOps
+201. [**](../../akka/util/ByteString.html#utf8String:String "Permalink") final  def utf8String: StringDecodes this ByteString as a UTF\-8 encoded String.
+202. [**](../../akka/util/ByteString.html#view:scala.collection.IndexedSeqView[A] "Permalink")  def view: IndexedSeqView\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]Definition ClassesIndexedSeqOps → SeqOps → IterableOps
+203. [**](../../akka/util/ByteString.html#wait(x$1:Long,x$2:Int):Unit "Permalink") final  def wait(arg0: [Long](https://www.scala-lang.org/api/2.13.8/scala/Long.html#scala.Long), arg1: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): [Unit](https://www.scala-lang.org/api/2.13.8/scala/Unit.html#scala.Unit)Definition ClassesAnyRefAnnotations@throws(classOf\[java.lang.InterruptedException])
+204. [**](../../akka/util/ByteString.html#wait(x$1:Long):Unit "Permalink") final  def wait(arg0: [Long](https://www.scala-lang.org/api/2.13.8/scala/Long.html#scala.Long)): [Unit](https://www.scala-lang.org/api/2.13.8/scala/Unit.html#scala.Unit)Definition ClassesAnyRefAnnotations@throws(classOf\[java.lang.InterruptedException]) @native()
+205. [**](../../akka/util/ByteString.html#wait():Unit "Permalink") final  def wait(): [Unit](https://www.scala-lang.org/api/2.13.8/scala/Unit.html#scala.Unit)Definition ClassesAnyRefAnnotations@throws(classOf\[java.lang.InterruptedException])
+206. [**](../../akka/util/ByteString.html#withFilter(p:A=>Boolean):scala.collection.WithFilter[A,CC] "Permalink")  def withFilter(p: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): [WithFilter](https://www.scala-lang.org/api/2.13.8/scala/collection/WithFilter.html#scala.collection.WithFilter)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), \[\_][IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[\_]]Definition ClassesIterableOps
+207. [**](../../akka/util/ByteString.html#zip[B](that:scala.collection.IterableOnce[B]):CC[(A@scala.annotation.unchecked.uncheckedVariance,B)] "Permalink")  def zip\[B](that: [IterableOnce](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnce.html#scala.collection.IterableOnce)\[B]): [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), B)]Definition ClassesStrictOptimizedIterableOps → IterableOps
+208. [**](../../akka/util/ByteString.html#zipAll[A1>:A,B](that:Iterable[B],thisElem:A1,thatElem:B):CC[(A1,B)] "Permalink")  def zipAll\[A1 \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), B](that: [Iterable](https://www.scala-lang.org/api/2.13.8/scala/collection/Iterable.html#scala.collection.Iterable)\[B], thisElem: A1, thatElem: B): [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[(A1, B)]Definition ClassesIterableOps
+209. [**](../../akka/util/ByteString.html#zipWithIndex:CC[(A@scala.annotation.unchecked.uncheckedVariance,Int)] "Permalink")  def zipWithIndex: [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int))]Definition ClassesStrictOptimizedIterableOps → IterableOps → IterableOnceOps
+### Deprecated Value Members
+
+1. [**](../../akka/util/ByteString.html#/:[B](z:B)(op:(B,A)=>B):B "Permalink")  def /:\[B](z: B)(op: (B, [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> B): BImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte])./:(z)(op)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated @inline() Deprecated*(Since version 2\.13\.0\)* Use .iterator.foldLeft instead
+2. [**](../../akka/util/ByteString.html#/:[B](z:B)(op:(B,A)=>B):B "Permalink") final  def /:\[B](z: B)(op: (B, [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> B): BDefinition ClassesIterableOnceOpsAnnotations@deprecated @inline() Deprecated*(Since version 2\.13\.0\)* Use foldLeft instead of /:
+3. [**](../../akka/util/ByteString.html#:\[B](z:B)(op:(A,B)=>B):B "Permalink")  def :\\\[B](z: B)(op: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), B) \=\> B): BImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).:\(z)(op)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated @inline() Deprecated*(Since version 2\.13\.0\)* Use .iterator.foldRight instead
+4. [**](../../akka/util/ByteString.html#:\[B](z:B)(op:(A,B)=>B):B "Permalink") final  def :\\\[B](z: B)(op: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), B) \=\> B): BDefinition ClassesIterableOnceOpsAnnotations@deprecated @inline() Deprecated*(Since version 2\.13\.0\)* Use foldRight instead of :\\
+5. [**](../../akka/util/ByteString.html#aggregate[B](z:=>B)(seqop:(B,A)=>B,combop:(B,B)=>B):B "Permalink")  def aggregate\[B](z: \=\> B)(seqop: (B, [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> B, combop: (B, B) \=\> B): BDefinition ClassesIterableOnceOpsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* `aggregate` is not relevant for sequential collections. Use `foldLeft(z)(seqop)` instead.
+6. [**](../../akka/util/ByteString.html#collectFirst[B](f:PartialFunction[A,B]):Option[B] "Permalink")  def collectFirst\[B](f: [PartialFunction](https://www.scala-lang.org/api/2.13.8/scala/PartialFunction.html#scala.PartialFunction)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), B]): [Option](https://www.scala-lang.org/api/2.13.8/scala/Option.html#scala.Option)\[B]ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).collectFirst(f)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.collectFirst(...) instead
+7. [**](../../akka/util/ByteString.html#companion:scala.collection.IterableFactory[CC] "Permalink")  def companion: [IterableFactory](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableFactory.html#scala.collection.IterableFactory)\[\[\_][IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[\_]]Definition ClassesIterableOpsAnnotations@deprecated @deprecatedOverriding() @inline() Deprecated*(Since version 2\.13\.0\)* Use iterableFactory instead
+8. [**](../../akka/util/ByteString.html#copyToBuffer(dest:scala.collection.mutable.Buffer[A]):Unit "Permalink")  def copyToBuffer(dest: [Buffer](https://www.scala-lang.org/api/2.13.8/scala/collection/mutable/Buffer.html#scala.collection.mutable.Buffer)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]): [Unit](https://www.scala-lang.org/api/2.13.8/scala/Unit.html#scala.Unit)ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).copyToBuffer(dest)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.copyToBuffer(...) instead
+9. [**](../../akka/util/ByteString.html#copyToBuffer[B>:A](dest:scala.collection.mutable.Buffer[B]):Unit "Permalink") final  def copyToBuffer\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](dest: [Buffer](https://www.scala-lang.org/api/2.13.8/scala/collection/mutable/Buffer.html#scala.collection.mutable.Buffer)\[B]): [Unit](https://www.scala-lang.org/api/2.13.8/scala/Unit.html#scala.Unit)Definition ClassesIterableOnceOpsAnnotations@deprecated @inline() Deprecated*(Since version 2\.13\.0\)* Use `dest ++= coll` instead
+10. [**](../../akka/util/ByteString.html#count(f:A=>Boolean):Int "Permalink")  def count(f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).count(f)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.count(...) instead
+11. [**](../../akka/util/ByteString.html#exists(f:A=>Boolean):Boolean "Permalink")  def exists(f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).exists(f)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.exists(...) instead
+12. [**](../../akka/util/ByteString.html#filter(f:A=>Boolean):Iterator[A] "Permalink")  def filter(f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): [Iterator](https://www.scala-lang.org/api/2.13.8/scala/collection/Iterator.html#scala.collection.Iterator)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).filter(f)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.filter(...) instead
+13. [**](../../akka/util/ByteString.html#finalize():Unit "Permalink")  def finalize(): [Unit](https://www.scala-lang.org/api/2.13.8/scala/Unit.html#scala.Unit)Attributesprotected\[lang] Definition ClassesAnyRefAnnotations@throws(classOf\[java.lang.Throwable]) @Deprecated Deprecated
+14. [**](../../akka/util/ByteString.html#find(p:A=>Boolean):Option[A] "Permalink")  def find(p: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): [Option](https://www.scala-lang.org/api/2.13.8/scala/Option.html#scala.Option)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).find(p)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.find instead
+15. [**](../../akka/util/ByteString.html#flatMap[B](f:A=>scala.collection.IterableOnce[B]):scala.collection.IterableOnce[B] "Permalink")  def flatMap\[B](f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [IterableOnce](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnce.html#scala.collection.IterableOnce)\[B]): [IterableOnce](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnce.html#scala.collection.IterableOnce)\[B]ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).flatMap(f)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.flatMap instead or consider requiring an Iterable
+16. [**](../../akka/util/ByteString.html#fold[A1>:A](z:A1)(op:(A1,A1)=>A1):A1 "Permalink")  def fold\[A1 \>: A](z: A1)(op: (A1, A1) \=\> A1): A1ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).fold(z)(op)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.fold instead
+17. [**](../../akka/util/ByteString.html#foldLeft[B](z:B)(op:(B,A)=>B):B "Permalink")  def foldLeft\[B](z: B)(op: (B, [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> B): BImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).foldLeft(z)(op)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated @inline() Deprecated*(Since version 2\.13\.0\)* Use .iterator.foldLeft instead
+18. [**](../../akka/util/ByteString.html#foldRight[B](z:B)(op:(A,B)=>B):B "Permalink")  def foldRight\[B](z: B)(op: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), B) \=\> B): BImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).foldRight(z)(op)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated @inline() Deprecated*(Since version 2\.13\.0\)* Use .iterator.foldRight instead
+19. [**](../../akka/util/ByteString.html#forall(f:A=>Boolean):Boolean "Permalink")  def forall(f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).forall(f)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.forall(...) instead
+20. [**](../../akka/util/ByteString.html#foreach[U](f:A=>U):Unit "Permalink")  def foreach\[U](f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> U): [Unit](https://www.scala-lang.org/api/2.13.8/scala/Unit.html#scala.Unit)ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).foreach(f)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated @inline() Deprecated*(Since version 2\.13\.0\)* Use .iterator.foreach(...) instead
+21. [**](../../akka/util/ByteString.html#formatted(fmtstr:String):String "Permalink")  def formatted(fmtstr: String): StringImplicitThis member is added by an implicit conversion from ByteString toStringFormat\[ByteString] performed by method StringFormat in scala.Predef.Definition ClassesStringFormatAnnotations@deprecated @inline() Deprecated*(Since version 2\.12\.16\)* Use `formatString.format(value)` instead of `value.formatted(formatString)`,
+or use the `f""` string interpolator. In Java 15 and later, `formatted` resolves to the new method in String which has reversed parameters.
+22. [**](../../akka/util/ByteString.html#hasDefiniteSize:Boolean "Permalink")  def hasDefiniteSize: [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition ClassesIterableOnceOpsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Check .knownSize instead of .hasDefiniteSize for more actionable information (see scaladoc for details)
+23. [**](../../akka/util/ByteString.html#isEmpty:Boolean "Permalink")  def isEmpty: [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).isEmpty
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.isEmpty instead
+24. [**](../../akka/util/ByteString.html#map[B](f:A=>B):scala.collection.IterableOnce[B] "Permalink")  def map\[B](f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> B): [IterableOnce](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnce.html#scala.collection.IterableOnce)\[B]ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).map(f)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.map instead or consider requiring an Iterable
+25. [**](../../akka/util/ByteString.html#max(implicitord:scala.math.Ordering[A]):A "Permalink")  def max(implicit ord: [Ordering](https://www.scala-lang.org/api/2.13.8/scala/math/Ordering.html#scala.math.Ordering)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]): [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).max(ord)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.max instead
+26. [**](../../akka/util/ByteString.html#maxBy[B](f:A=>B)(implicitcmp:scala.math.Ordering[B]):A "Permalink")  def maxBy\[B](f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> B)(implicit cmp: [Ordering](https://www.scala-lang.org/api/2.13.8/scala/math/Ordering.html#scala.math.Ordering)\[B]): [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).maxBy(f)(cmp)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.maxBy(...) instead
+27. [**](../../akka/util/ByteString.html#min(implicitord:scala.math.Ordering[A]):A "Permalink")  def min(implicit ord: [Ordering](https://www.scala-lang.org/api/2.13.8/scala/math/Ordering.html#scala.math.Ordering)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]): [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).min(ord)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.min instead
+28. [**](../../akka/util/ByteString.html#minBy[B](f:A=>B)(implicitcmp:scala.math.Ordering[B]):A "Permalink")  def minBy\[B](f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> B)(implicit cmp: [Ordering](https://www.scala-lang.org/api/2.13.8/scala/math/Ordering.html#scala.math.Ordering)\[B]): [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).minBy(f)(cmp)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.minBy(...) instead
+29. [**](../../akka/util/ByteString.html#mkString:String "Permalink")  def mkString: StringImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).mkString
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.mkString instead
+30. [**](../../akka/util/ByteString.html#mkString(sep:String):String "Permalink")  def mkString(sep: String): StringImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).mkString(sep)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.mkString instead
+31. [**](../../akka/util/ByteString.html#mkString(start:String,sep:String,end:String):String "Permalink")  def mkString(start: String, sep: String, end: String): StringImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).mkString(start, sep, end)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.mkString instead
+32. [**](../../akka/util/ByteString.html#nonEmpty:Boolean "Permalink")  def nonEmpty: [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).nonEmpty
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.nonEmpty instead
+33. [**](../../akka/util/ByteString.html#prefixLength(p:A=>Boolean):Int "Permalink") final  def prefixLength(p: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesSeqOpsAnnotations@deprecated @inline() Deprecated*(Since version 2\.13\.0\)* Use segmentLength instead of prefixLength
+34. [**](../../akka/util/ByteString.html#product(implicitnum:scala.math.Numeric[A]):A "Permalink")  def product(implicit num: [Numeric](https://www.scala-lang.org/api/2.13.8/scala/math/Numeric.html#scala.math.Numeric)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]): [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).product(num)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.product instead
+35. [**](../../akka/util/ByteString.html#reduce(f:(A,A)=>A):A "Permalink")  def reduce(f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)): [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).reduce(f)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.reduce(...) instead
+36. [**](../../akka/util/ByteString.html#reduceLeft(f:(A,A)=>A):A "Permalink")  def reduceLeft(f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)): [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).reduceLeft(f)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.reduceLeft(...) instead
+37. [**](../../akka/util/ByteString.html#reduceLeftOption(f:(A,A)=>A):Option[A] "Permalink")  def reduceLeftOption(f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)): [Option](https://www.scala-lang.org/api/2.13.8/scala/Option.html#scala.Option)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).reduceLeftOption(f)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.reduceLeftOption(...) instead
+38. [**](../../akka/util/ByteString.html#reduceOption(f:(A,A)=>A):Option[A] "Permalink")  def reduceOption(f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)): [Option](https://www.scala-lang.org/api/2.13.8/scala/Option.html#scala.Option)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).reduceOption(f)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.reduceOption(...) instead
+39. [**](../../akka/util/ByteString.html#reduceRight(f:(A,A)=>A):A "Permalink")  def reduceRight(f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)): [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).reduceRight(f)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.reduceRight(...) instead
+40. [**](../../akka/util/ByteString.html#reduceRightOption(f:(A,A)=>A):Option[A] "Permalink")  def reduceRightOption(f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)): [Option](https://www.scala-lang.org/api/2.13.8/scala/Option.html#scala.Option)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).reduceRightOption(f)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.reduceRightOption(...) instead
+41. [**](../../akka/util/ByteString.html#repr:C "Permalink") final  def repr: ByteStringDefinition ClassesIterableOpsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use coll instead of repr in a collection implementation, use the collection value itself from the outside
+42. [**](../../akka/util/ByteString.html#reverseMap[B](f:A=>B):CC[B] "Permalink")  def reverseMap\[B](f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> B): [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[B]Definition ClassesSeqOpsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .reverseIterator.map(f).to(...) instead of .reverseMap(f)
+43. [**](../../akka/util/ByteString.html#sameElements[B>:A](that:scala.collection.IterableOnce[B]):Boolean "Permalink")  def sameElements\[B \>: A](that: [IterableOnce](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnce.html#scala.collection.IterableOnce)\[B]): [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).sameElements(that)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.sameElements instead
+44. [**](../../akka/util/ByteString.html#seq:Iterable.this.type "Permalink")  def seq: ByteString.this.typeDefinition ClassesIterableAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Iterable.seq always returns the iterable itself
+45. [**](../../akka/util/ByteString.html#size:Int "Permalink")  def size: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).size
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.size instead
+46. [**](../../akka/util/ByteString.html#sum(implicitnum:scala.math.Numeric[A]):A "Permalink")  def sum(implicit num: [Numeric](https://www.scala-lang.org/api/2.13.8/scala/math/Numeric.html#scala.math.Numeric)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]): [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).sum(num)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.sum instead
+47. [**](../../akka/util/ByteString.html#to[C1](factory:scala.collection.Factory[A,C1]):C1 "Permalink")  def to\[C1](factory: [Factory](https://www.scala-lang.org/api/2.13.8/scala/collection/Factory.html#scala.collection.Factory)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), C1]): C1ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).to(factory)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.to(factory) instead
+48. [**](../../akka/util/ByteString.html#toArray[B>:A](implicitevidence$1:scala.reflect.ClassTag[B]):Array[B] "Permalink")  def toArray\[B \>: A](implicit arg0: [ClassTag](https://www.scala-lang.org/api/2.13.8/scala/reflect/ClassTag.html#scala.reflect.ClassTag)\[B]): [Array](https://www.scala-lang.org/api/2.13.8/scala/Array.html#scala.Array)\[B]ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).toArray(arg0)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.toArray
+49. [**](../../akka/util/ByteString.html#toBuffer[B>:A]:scala.collection.mutable.Buffer[B] "Permalink")  def toBuffer\[B \>: A]: [Buffer](https://www.scala-lang.org/api/2.13.8/scala/collection/mutable/Buffer.html#scala.collection.mutable.Buffer)\[B]ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).toBuffer
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.to(ArrayBuffer) instead
+50. [**](../../akka/util/ByteString.html#toIndexedSeq:scala.collection.IndexedSeq[A] "Permalink")  def toIndexedSeq: [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/IndexedSeq.html#scala.collection.IndexedSeq)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).toIndexedSeq
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.toIndexedSeq instead
+51. [**](../../akka/util/ByteString.html#toIterable:Iterable[A] "Permalink") final  def toIterable: [Iterable](https://www.scala-lang.org/api/2.13.8/scala/collection/Iterable.html#scala.collection.Iterable)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).toIterable
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated @inline() Deprecated*(Since version 2\.13\.0\)* Use .iterator.to(Iterable) instead
+52. [**](../../akka/util/ByteString.html#toIterable:Iterable.this.type "Permalink") final  def toIterable: ByteString.this.typeDefinition ClassesIterable → IterableOpsAnnotations@deprecated Deprecated*(Since version 2\.13\.7\)* toIterable is internal and will be made protected; its name is similar to `toList` or `toSeq`, but it doesn't copy non\-immutable collections
+53. [**](../../akka/util/ByteString.html#toIterator:Iterator[A] "Permalink")  def toIterator: [Iterator](https://www.scala-lang.org/api/2.13.8/scala/collection/Iterator.html#scala.collection.Iterator)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).toIterator
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated @inline() Deprecated*(Since version 2\.13\.0\)* Use .iterator instead
+54. [**](../../akka/util/ByteString.html#toIterator:Iterator[A] "Permalink") final  def toIterator: [Iterator](https://www.scala-lang.org/api/2.13.8/scala/collection/Iterator.html#scala.collection.Iterator)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]Definition ClassesIterableOnceOpsAnnotations@deprecated @inline() Deprecated*(Since version 2\.13\.0\)* Use .iterator instead of .toIterator
+55. [**](../../akka/util/ByteString.html#toList:List[A] "Permalink")  def toList: [List](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/List.html#scala.collection.immutable.List)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).toList
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.to(List) instead
+56. [**](../../akka/util/ByteString.html#toMap[K,V](implicitev:A<:<(K,V)):scala.collection.immutable.Map[K,V] "Permalink")  def toMap\[K, V](implicit ev: [\<:\<](https://www.scala-lang.org/api/2.13.8/scala/$less$colon$less.html#scala.%3C:%3C)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), (K, V)]): [Map](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/Map.html#scala.collection.immutable.Map)\[K, V]ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).toMap(ev)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.to(Map) instead
+57. [**](../../akka/util/ByteString.html#toSeq:Seq[A] "Permalink")  def toSeq: [Seq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/Seq.html#scala.collection.immutable.Seq)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).toSeq
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated @inline() Deprecated*(Since version 2\.13\.0\)* Use .iterator.to(Seq) instead
+58. [**](../../akka/util/ByteString.html#toSet[B>:A]:scala.collection.immutable.Set[B] "Permalink")  def toSet\[B \>: A]: [Set](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/Set.html#scala.collection.immutable.Set)\[B]ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).toSet
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated @inline() Deprecated*(Since version 2\.13\.0\)* Use .iterator.to(Set) instead
+59. [**](../../akka/util/ByteString.html#toStream:scala.collection.immutable.Stream[A] "Permalink")  def toStream: [Stream](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/Stream.html#scala.collection.immutable.Stream)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).toStream
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated @inline() Deprecated*(Since version 2\.13\.0\)* Use .iterator.to(LazyList) instead
+60. [**](../../akka/util/ByteString.html#toStream:scala.collection.immutable.Stream[A] "Permalink") final  def toStream: [Stream](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/Stream.html#scala.collection.immutable.Stream)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]Definition ClassesIterableOnceOpsAnnotations@deprecated @inline() Deprecated*(Since version 2\.13\.0\)* Use .to(LazyList) instead of .toStream
+61. [**](../../akka/util/ByteString.html#toTraversable:scala.collection.Traversable[A] "Permalink") final  def toTraversable: Traversable\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).toTraversable
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated @inline() Deprecated*(Since version 2\.13\.0\)* Use .iterator.to(Iterable) instead
+62. [**](../../akka/util/ByteString.html#toTraversable:scala.collection.Traversable[A] "Permalink") final  def toTraversable: Traversable\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]Definition ClassesIterableOpsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* toTraversable is internal and will be made protected; its name is similar to `toList` or `toSeq`, but it doesn't copy non\-immutable collections
+63. [**](../../akka/util/ByteString.html#toVector:scala.collection.immutable.Vector[A] "Permalink")  def toVector: [Vector](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/Vector.html#scala.collection.immutable.Vector)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).toVector
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated @inline() Deprecated*(Since version 2\.13\.0\)* Use .iterator.to(Vector) instead
+64. [**](../../akka/util/ByteString.html#union[B>:A](that:scala.collection.Seq[B]):CC[B] "Permalink") final  def union\[B \>: [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)](that: [Seq](https://www.scala-lang.org/api/2.13.8/scala/collection/Seq.html#scala.collection.Seq)\[B]): [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[B]Definition ClassesSeqOpsAnnotations@deprecated @inline() Deprecated*(Since version 2\.13\.0\)* Use `concat` instead
+65. [**](../../akka/util/ByteString.html#view(from:Int,until:Int):scala.collection.IndexedSeqView[A] "Permalink")  def view(from: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int), until: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): IndexedSeqView\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]Definition ClassesIndexedSeqOps → IterableOpsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .view.slice(from, until) instead of .view(from, until)
+66. [**](../../akka/util/ByteString.html#withFilter(f:A=>Boolean):Iterator[A] "Permalink")  def withFilter(f: ([Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)) \=\> [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)): [Iterator](https://www.scala-lang.org/api/2.13.8/scala/collection/Iterator.html#scala.collection.Iterator)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]ImplicitThis member is added by an implicit conversion from ByteString to[IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)] performed by method iterableOnceExtensionMethods in scala.collection.IterableOnce.ShadowingThis implicitly inherited member is shadowed by one or more members in this class.  
+To access this member you can use a [type ascription](https://stackoverflow.com/questions/2087250/what-is-the-purpose-of-type-ascription-in-scala):  
+
+```
+(byteString: IterableOnceExtensionMethods[Byte]).withFilter(f)
+```
+Definition ClassesIterableOnceExtensionMethodsAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use .iterator.withFilter(...) instead
+67. [**](../../akka/util/ByteString.html#→[B](y:B):(A,B) "Permalink")  def →\[B](y: B): (ByteString, B)ImplicitThis member is added by an implicit conversion from ByteString toArrowAssoc\[ByteString] performed by method ArrowAssoc in scala.Predef.Definition ClassesArrowAssocAnnotations@deprecated Deprecated*(Since version 2\.13\.0\)* Use `->` instead. If you still wish to display it as one character, consider using a font with programming ligatures such as Fira Code.
+### Inherited from [StrictOptimizedSeqOps](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/StrictOptimizedSeqOps.html#scala.collection.immutable.StrictOptimizedSeqOps)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq), ByteString]
+
+### Inherited from [StrictOptimizedSeqOps](https://www.scala-lang.org/api/2.13.8/scala/collection/StrictOptimizedSeqOps.html#scala.collection.StrictOptimizedSeqOps)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq), ByteString]
+
+### Inherited from [StrictOptimizedIterableOps](https://www.scala-lang.org/api/2.13.8/scala/collection/StrictOptimizedIterableOps.html#scala.collection.StrictOptimizedIterableOps)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq), ByteString]
+
+### Inherited from [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]
+
+### Inherited from [IndexedSeqOps](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeqOps.html#scala.collection.immutable.IndexedSeqOps)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq), ByteString]
+
+### Inherited from [IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/IndexedSeq.html#scala.collection.IndexedSeq)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]
+
+### Inherited from [IndexedSeqOps](https://www.scala-lang.org/api/2.13.8/scala/collection/IndexedSeqOps.html#scala.collection.IndexedSeqOps)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), \[\_][IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[\_], ByteString]
+
+### Inherited from [Seq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/Seq.html#scala.collection.immutable.Seq)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]
+
+### Inherited from [SeqOps](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/SeqOps.html#scala.collection.immutable.SeqOps)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), \[\_][IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[\_], ByteString]
+
+### Inherited from [Seq](https://www.scala-lang.org/api/2.13.8/scala/collection/Seq.html#scala.collection.Seq)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]
+
+### Inherited from [Equals](https://www.scala-lang.org/api/2.13.8/scala/Equals.html#scala.Equals)
+
+### Inherited from [SeqOps](https://www.scala-lang.org/api/2.13.8/scala/collection/SeqOps.html#scala.collection.SeqOps)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), \[\_][IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[\_], ByteString]
+
+### Inherited from [PartialFunction](https://www.scala-lang.org/api/2.13.8/scala/PartialFunction.html#scala.PartialFunction)\[[Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int), [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]
+
+### Inherited from ([Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)) \=\> [Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)
+
+### Inherited from [Iterable](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/Iterable.html#scala.collection.immutable.Iterable)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]
+
+### Inherited from [Iterable](https://www.scala-lang.org/api/2.13.8/scala/collection/Iterable.html#scala.collection.Iterable)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]
+
+### Inherited from [IterableFactoryDefaults](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableFactoryDefaults.html#scala.collection.IterableFactoryDefaults)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), \[x][IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[x]]
+
+### Inherited from [IterableOps](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOps.html#scala.collection.IterableOps)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), \[\_][IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[\_], ByteString]
+
+### Inherited from [IterableOnceOps](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceOps.html#scala.collection.IterableOnceOps)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte), \[\_][IndexedSeq](https://www.scala-lang.org/api/2.13.8/scala/collection/immutable/IndexedSeq.html#scala.collection.immutable.IndexedSeq)\[\_], ByteString]
+
+### Inherited from [IterableOnce](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnce.html#scala.collection.IterableOnce)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]
+
+### Inherited from [AnyRef](https://www.scala-lang.org/api/2.13.8/scala/AnyRef.html#scala.AnyRef)
+
+### Inherited from [Any](https://www.scala-lang.org/api/2.13.8/scala/Any.html#scala.Any)
+
+### Inherited by implicit conversion iterableOnceExtensionMethods fromByteString to [IterableOnceExtensionMethods](https://www.scala-lang.org/api/2.13.8/scala/collection/IterableOnceExtensionMethods.html#scala.collection.IterableOnceExtensionMethods)\[[Byte](https://www.scala-lang.org/api/2.13.8/scala/Byte.html#scala.Byte)]
+
+### Inherited by implicit conversion any2stringadd fromByteString to any2stringadd\[ByteString]
+
+### Inherited by implicit conversion StringFormat fromByteString to StringFormat\[ByteString]
+
+### Inherited by implicit conversion Ensuring fromByteString to Ensuring\[ByteString]
+
+### Inherited by implicit conversion ArrowAssoc fromByteString to ArrowAssoc\[ByteString]
+
+### Ungrouped
+
+## Related Pages (Internal Links)
+
+- https://doc.akka.io/api/akka-core/2.6/akka/index.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/BoundedBlockingQueue.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/BoxedType$.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/ByteIterator$.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/ByteIterator.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/ByteString$$ByteString1.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/ByteString$$ByteString1C.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/ByteString$$ByteStrings.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/ByteString$.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/ByteString.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/ByteStringBuilder.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/ClassLoaderObjectInputStream.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/CompactByteString$.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/CompactByteString.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/ConcurrentMultiMap.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/HashCode$.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/Helpers$.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/Index.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/LineNumbers$.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/ManifestInfo$.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/ManifestInfo.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/MessageBuffer$.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/MessageBuffer.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/MessageBufferMap.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/NanoTimeTokenBucket.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/PriorityQueueStabilizer$.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/PriorityQueueStabilizer.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/ReentrantGuard.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/StablePriorityBlockingQueue.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/StablePriorityQueue.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/Subclassification.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/Switch.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/Timeout$.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/Timeout.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/TypedMultiMap$.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/TypedMultiMap.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/UUIDComparator$.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/UUIDComparator.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/Unsafe.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/Version$.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/Version.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/WallClock$.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/WallClock.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/ccompat/index.html
+- https://doc.akka.io/api/akka-core/2.6/akka/util/index.html
+- https://doc.akka.io/api/akka-core/2.6/index.html
+
+---
+*Source: [https://doc.akka.io/api/akka-core/2.6/akka/util/ByteString.html](https://doc.akka.io/api/akka-core/2.6/akka/util/ByteString.html)*

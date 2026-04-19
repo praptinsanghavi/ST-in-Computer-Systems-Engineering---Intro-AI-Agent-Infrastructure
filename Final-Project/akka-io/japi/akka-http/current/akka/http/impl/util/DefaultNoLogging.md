@@ -1,0 +1,562 @@
+---
+description: ''
+knowledge_type: official_documentation
+scraped_at: '2026-04-05T23:34:42Z'
+section: japi
+site: akka-io
+source_url: https://doc.akka.io/japi/akka-http/current/akka/http/impl/util/DefaultNoLogging.html
+title: DefaultNoLogging
+---
+
+# DefaultNoLogging
+
+## Content
+
+Package [akka.http.impl.util](package-summary.html)
+## Class DefaultNoLogging
+
+- java.lang.Object
+- - akka.http.impl.util.DefaultNoLogging
+
+- ---
+
+```
+public class DefaultNoLogging
+extends java.lang.Object
+```
+
+INTERNAL API
+ 
+ A copy of NoLogging that can be used as a place\-holder for "logging not explicitly specified".
+ It can be matched on to be overridden with default behavior.
+
+- - ### Constructor Summary
+	
+	
+	
+	Constructors 
+	| Constructor | Description |
+	| `[DefaultNoLogging](#%3Cinit%3E())()` |  |
+
+	- ### Method Summary
+	
+	
+	
+	All Methods [Static Methods](javascript:show(1);) [Concrete Methods](javascript:show(8);) 
+	| Modifier and Type | Method | Description |
+	| `static void` | `[debug](#debug(java.lang.String))​(java.lang.String message)` |  |
+	| `static void` | `[debug](#debug(java.lang.String,java.lang.Object))​(java.lang.String template,  java.lang.Object arg1)` |  |
+	| `static void` | `[debug](#debug(java.lang.String,java.lang.Object,java.lang.Object))​(java.lang.String template,  java.lang.Object arg1,  java.lang.Object arg2)` |  |
+	| `static void` | `[debug](#debug(java.lang.String,java.lang.Object,java.lang.Object,java.lang.Object))​(java.lang.String template,  java.lang.Object arg1,  java.lang.Object arg2,  java.lang.Object arg3)` |  |
+	| `static void` | `[debug](#debug(java.lang.String,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object))​(java.lang.String template,  java.lang.Object arg1,  java.lang.Object arg2,  java.lang.Object arg3,  java.lang.Object arg4)` |  |
+	| `static void` | `[error](#error(java.lang.String))​(java.lang.String message)` |  |
+	| `static void` | `[error](#error(java.lang.String,java.lang.Object))​(java.lang.String template,  java.lang.Object arg1)` |  |
+	| `static void` | `[error](#error(java.lang.String,java.lang.Object,java.lang.Object))​(java.lang.String template,  java.lang.Object arg1,  java.lang.Object arg2)` |  |
+	| `static void` | `[error](#error(java.lang.String,java.lang.Object,java.lang.Object,java.lang.Object))​(java.lang.String template,  java.lang.Object arg1,  java.lang.Object arg2,  java.lang.Object arg3)` |  |
+	| `static void` | `[error](#error(java.lang.String,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object))​(java.lang.String template,  java.lang.Object arg1,  java.lang.Object arg2,  java.lang.Object arg3,  java.lang.Object arg4)` |  |
+	| `static void` | `[error](#error(java.lang.Throwable,java.lang.String))​(java.lang.Throwable cause,  java.lang.String message)` |  |
+	| `static void` | `[error](#error(java.lang.Throwable,java.lang.String,java.lang.Object))​(java.lang.Throwable cause,  java.lang.String template,  java.lang.Object arg1)` |  |
+	| `static void` | `[error](#error(java.lang.Throwable,java.lang.String,java.lang.Object,java.lang.Object))​(java.lang.Throwable cause,  java.lang.String template,  java.lang.Object arg1,  java.lang.Object arg2)` |  |
+	| `static void` | `[error](#error(java.lang.Throwable,java.lang.String,java.lang.Object,java.lang.Object,java.lang.Object))​(java.lang.Throwable cause,  java.lang.String template,  java.lang.Object arg1,  java.lang.Object arg2,  java.lang.Object arg3)` |  |
+	| `static void` | `[error](#error(java.lang.Throwable,java.lang.String,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object))​(java.lang.Throwable cause,  java.lang.String template,  java.lang.Object arg1,  java.lang.Object arg2,  java.lang.Object arg3,  java.lang.Object arg4)` |  |
+	| `static java.lang.String` | `[format](#format(java.lang.String,scala.collection.immutable.Seq))​(java.lang.String t,  scala.collection.immutable.Seq<java.lang.Object> arg)` |  |
+	| `static [DefaultNoLogging$](DefaultNoLogging$.html "class in akka.http.impl.util")` | `[getInstance](#getInstance())()` | Java API to return the reference to NoLogging |
+	| `static void` | `[info](#info(java.lang.String))​(java.lang.String message)` |  |
+	| `static void` | `[info](#info(java.lang.String,java.lang.Object))​(java.lang.String template,  java.lang.Object arg1)` |  |
+	| `static void` | `[info](#info(java.lang.String,java.lang.Object,java.lang.Object))​(java.lang.String template,  java.lang.Object arg1,  java.lang.Object arg2)` |  |
+	| `static void` | `[info](#info(java.lang.String,java.lang.Object,java.lang.Object,java.lang.Object))​(java.lang.String template,  java.lang.Object arg1,  java.lang.Object arg2,  java.lang.Object arg3)` |  |
+	| `static void` | `[info](#info(java.lang.String,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object))​(java.lang.String template,  java.lang.Object arg1,  java.lang.Object arg2,  java.lang.Object arg3,  java.lang.Object arg4)` |  |
+	| `static boolean` | `[isDebugEnabled](#isDebugEnabled())()` |  |
+	| `static boolean` | `[isEnabled](#isEnabled(akka.event.Logging.LogLevel))​(akka.event.Logging.LogLevel level)` |  |
+	| `static boolean` | `[isErrorEnabled](#isErrorEnabled())()` |  |
+	| `static boolean` | `[isInfoEnabled](#isInfoEnabled())()` |  |
+	| `static boolean` | `[isWarningEnabled](#isWarningEnabled())()` |  |
+	| `static void` | `[log](#log(akka.event.Logging.LogLevel,java.lang.String))​(akka.event.Logging.LogLevel level,  java.lang.String message)` |  |
+	| `static void` | `[log](#log(akka.event.Logging.LogLevel,java.lang.String,java.lang.Object))​(akka.event.Logging.LogLevel level,  java.lang.String template,  java.lang.Object arg1)` |  |
+	| `static void` | `[log](#log(akka.event.Logging.LogLevel,java.lang.String,java.lang.Object,java.lang.Object))​(akka.event.Logging.LogLevel level,  java.lang.String template,  java.lang.Object arg1,  java.lang.Object arg2)` |  |
+	| `static void` | `[log](#log(akka.event.Logging.LogLevel,java.lang.String,java.lang.Object,java.lang.Object,java.lang.Object))​(akka.event.Logging.LogLevel level,  java.lang.String template,  java.lang.Object arg1,  java.lang.Object arg2,  java.lang.Object arg3)` |  |
+	| `static void` | `[log](#log(akka.event.Logging.LogLevel,java.lang.String,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object))​(akka.event.Logging.LogLevel level,  java.lang.String template,  java.lang.Object arg1,  java.lang.Object arg2,  java.lang.Object arg3,  java.lang.Object arg4)` |  |
+	| `static scala.collection.immutable.Map<java.lang.String,​java.lang.Object>` | `[mdc](#mdc())()` |  |
+	| `protected static void` | `[notifyDebug](#notifyDebug(java.lang.String))​(java.lang.String message)` |  |
+	| `protected static void` | `[notifyError](#notifyError(java.lang.String))​(java.lang.String message)` |  |
+	| `protected static void` | `[notifyError](#notifyError(java.lang.Throwable,java.lang.String))​(java.lang.Throwable cause,  java.lang.String message)` |  |
+	| `protected static void` | `[notifyInfo](#notifyInfo(java.lang.String))​(java.lang.String message)` |  |
+	| `static void` | `[notifyLog](#notifyLog(akka.event.Logging.LogLevel,java.lang.String))​(akka.event.Logging.LogLevel level,  java.lang.String message)` |  |
+	| `protected static void` | `[notifyWarning](#notifyWarning(java.lang.String))​(java.lang.String message)` |  |
+	| `static void` | `[warning](#warning(java.lang.String))​(java.lang.String message)` |  |
+	| `static void` | `[warning](#warning(java.lang.String,java.lang.Object))​(java.lang.String template,  java.lang.Object arg1)` |  |
+	| `static void` | `[warning](#warning(java.lang.String,java.lang.Object,java.lang.Object))​(java.lang.String template,  java.lang.Object arg1,  java.lang.Object arg2)` |  |
+	| `static void` | `[warning](#warning(java.lang.String,java.lang.Object,java.lang.Object,java.lang.Object))​(java.lang.String template,  java.lang.Object arg1,  java.lang.Object arg2,  java.lang.Object arg3)` |  |
+	| `static void` | `[warning](#warning(java.lang.String,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object))​(java.lang.String template,  java.lang.Object arg1,  java.lang.Object arg2,  java.lang.Object arg3,  java.lang.Object arg4)` |  |
+	| `static void` | `[warning](#warning(java.lang.Throwable,java.lang.String))​(java.lang.Throwable cause,  java.lang.String message)` |  |
+	| `static void` | `[warning](#warning(java.lang.Throwable,java.lang.String,java.lang.Object))​(java.lang.Throwable cause,  java.lang.String template,  java.lang.Object arg1)` |  |
+	| `static void` | `[warning](#warning(java.lang.Throwable,java.lang.String,java.lang.Object,java.lang.Object))​(java.lang.Throwable cause,  java.lang.String template,  java.lang.Object arg1,  java.lang.Object arg2)` |  |
+	| `static void` | `[warning](#warning(java.lang.Throwable,java.lang.String,java.lang.Object,java.lang.Object,java.lang.Object))​(java.lang.Throwable cause,  java.lang.String template,  java.lang.Object arg1,  java.lang.Object arg2,  java.lang.Object arg3)` |  |
+	| `static void` | `[warning](#warning(java.lang.Throwable,java.lang.String,java.lang.Object,java.lang.Object,java.lang.Object,java.lang.Object))​(java.lang.Throwable cause,  java.lang.String template,  java.lang.Object arg1,  java.lang.Object arg2,  java.lang.Object arg3,  java.lang.Object arg4)` |  |
+	
+	
+		- ### Methods inherited from class java.lang.Object
+		
+		
+		`clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait`
+
+- - ### Constructor Detail
+	
+	
+	
+		- #### DefaultNoLogging
+		
+		
+		
+		```
+		public DefaultNoLogging()
+		```
+
+	- ### Method Detail
+	
+	
+	
+		- #### getInstance
+		
+		
+		
+		```
+		public static [DefaultNoLogging$](DefaultNoLogging$.html "class in akka.http.impl.util") getInstance()
+		```
+		
+		Java API to return the reference to NoLogging
+		
+		Returns:
+		The NoLogging instance
+		- #### isErrorEnabled
+		
+		
+		
+		```
+		public static final boolean isErrorEnabled()
+		```
+		- #### isWarningEnabled
+		
+		
+		
+		```
+		public static final boolean isWarningEnabled()
+		```
+		- #### isInfoEnabled
+		
+		
+		
+		```
+		public static final boolean isInfoEnabled()
+		```
+		- #### isDebugEnabled
+		
+		
+		
+		```
+		public static final boolean isDebugEnabled()
+		```
+		- #### notifyError
+		
+		
+		
+		```
+		protected static final void notifyError​(java.lang.String message)
+		```
+		- #### notifyError
+		
+		
+		
+		```
+		protected static final void notifyError​(java.lang.Throwable cause,
+		                                        java.lang.String message)
+		```
+		- #### notifyWarning
+		
+		
+		
+		```
+		protected static final void notifyWarning​(java.lang.String message)
+		```
+		- #### notifyInfo
+		
+		
+		
+		```
+		protected static final void notifyInfo​(java.lang.String message)
+		```
+		- #### notifyDebug
+		
+		
+		
+		```
+		protected static final void notifyDebug​(java.lang.String message)
+		```
+		- #### mdc
+		
+		
+		
+		```
+		public static scala.collection.immutable.Map<java.lang.String,​java.lang.Object> mdc()
+		```
+		- #### error
+		
+		
+		
+		```
+		public static void error​(java.lang.Throwable cause,
+		                         java.lang.String message)
+		```
+		- #### error
+		
+		
+		
+		```
+		public static void error​(java.lang.Throwable cause,
+		                         java.lang.String template,
+		                         java.lang.Object arg1)
+		```
+		- #### error
+		
+		
+		
+		```
+		public static void error​(java.lang.Throwable cause,
+		                         java.lang.String template,
+		                         java.lang.Object arg1,
+		                         java.lang.Object arg2)
+		```
+		- #### error
+		
+		
+		
+		```
+		public static void error​(java.lang.Throwable cause,
+		                         java.lang.String template,
+		                         java.lang.Object arg1,
+		                         java.lang.Object arg2,
+		                         java.lang.Object arg3)
+		```
+		- #### error
+		
+		
+		
+		```
+		public static void error​(java.lang.Throwable cause,
+		                         java.lang.String template,
+		                         java.lang.Object arg1,
+		                         java.lang.Object arg2,
+		                         java.lang.Object arg3,
+		                         java.lang.Object arg4)
+		```
+		- #### error
+		
+		
+		
+		```
+		public static void error​(java.lang.String message)
+		```
+		- #### error
+		
+		
+		
+		```
+		public static void error​(java.lang.String template,
+		                         java.lang.Object arg1)
+		```
+		- #### error
+		
+		
+		
+		```
+		public static void error​(java.lang.String template,
+		                         java.lang.Object arg1,
+		                         java.lang.Object arg2)
+		```
+		- #### error
+		
+		
+		
+		```
+		public static void error​(java.lang.String template,
+		                         java.lang.Object arg1,
+		                         java.lang.Object arg2,
+		                         java.lang.Object arg3)
+		```
+		- #### error
+		
+		
+		
+		```
+		public static void error​(java.lang.String template,
+		                         java.lang.Object arg1,
+		                         java.lang.Object arg2,
+		                         java.lang.Object arg3,
+		                         java.lang.Object arg4)
+		```
+		- #### warning
+		
+		
+		
+		```
+		public static void warning​(java.lang.Throwable cause,
+		                           java.lang.String message)
+		```
+		- #### warning
+		
+		
+		
+		```
+		public static void warning​(java.lang.Throwable cause,
+		                           java.lang.String template,
+		                           java.lang.Object arg1)
+		```
+		- #### warning
+		
+		
+		
+		```
+		public static void warning​(java.lang.Throwable cause,
+		                           java.lang.String template,
+		                           java.lang.Object arg1,
+		                           java.lang.Object arg2)
+		```
+		- #### warning
+		
+		
+		
+		```
+		public static void warning​(java.lang.Throwable cause,
+		                           java.lang.String template,
+		                           java.lang.Object arg1,
+		                           java.lang.Object arg2,
+		                           java.lang.Object arg3)
+		```
+		- #### warning
+		
+		
+		
+		```
+		public static void warning​(java.lang.Throwable cause,
+		                           java.lang.String template,
+		                           java.lang.Object arg1,
+		                           java.lang.Object arg2,
+		                           java.lang.Object arg3,
+		                           java.lang.Object arg4)
+		```
+		- #### warning
+		
+		
+		
+		```
+		public static void warning​(java.lang.String message)
+		```
+		- #### warning
+		
+		
+		
+		```
+		public static void warning​(java.lang.String template,
+		                           java.lang.Object arg1)
+		```
+		- #### warning
+		
+		
+		
+		```
+		public static void warning​(java.lang.String template,
+		                           java.lang.Object arg1,
+		                           java.lang.Object arg2)
+		```
+		- #### warning
+		
+		
+		
+		```
+		public static void warning​(java.lang.String template,
+		                           java.lang.Object arg1,
+		                           java.lang.Object arg2,
+		                           java.lang.Object arg3)
+		```
+		- #### warning
+		
+		
+		
+		```
+		public static void warning​(java.lang.String template,
+		                           java.lang.Object arg1,
+		                           java.lang.Object arg2,
+		                           java.lang.Object arg3,
+		                           java.lang.Object arg4)
+		```
+		- #### info
+		
+		
+		
+		```
+		public static void info​(java.lang.String message)
+		```
+		- #### info
+		
+		
+		
+		```
+		public static void info​(java.lang.String template,
+		                        java.lang.Object arg1)
+		```
+		- #### info
+		
+		
+		
+		```
+		public static void info​(java.lang.String template,
+		                        java.lang.Object arg1,
+		                        java.lang.Object arg2)
+		```
+		- #### info
+		
+		
+		
+		```
+		public static void info​(java.lang.String template,
+		                        java.lang.Object arg1,
+		                        java.lang.Object arg2,
+		                        java.lang.Object arg3)
+		```
+		- #### info
+		
+		
+		
+		```
+		public static void info​(java.lang.String template,
+		                        java.lang.Object arg1,
+		                        java.lang.Object arg2,
+		                        java.lang.Object arg3,
+		                        java.lang.Object arg4)
+		```
+		- #### debug
+		
+		
+		
+		```
+		public static void debug​(java.lang.String message)
+		```
+		- #### debug
+		
+		
+		
+		```
+		public static void debug​(java.lang.String template,
+		                         java.lang.Object arg1)
+		```
+		- #### debug
+		
+		
+		
+		```
+		public static void debug​(java.lang.String template,
+		                         java.lang.Object arg1,
+		                         java.lang.Object arg2)
+		```
+		- #### debug
+		
+		
+		
+		```
+		public static void debug​(java.lang.String template,
+		                         java.lang.Object arg1,
+		                         java.lang.Object arg2,
+		                         java.lang.Object arg3)
+		```
+		- #### debug
+		
+		
+		
+		```
+		public static void debug​(java.lang.String template,
+		                         java.lang.Object arg1,
+		                         java.lang.Object arg2,
+		                         java.lang.Object arg3,
+		                         java.lang.Object arg4)
+		```
+		- #### log
+		
+		
+		
+		```
+		public static void log​(akka.event.Logging.LogLevel level,
+		                       java.lang.String message)
+		```
+		- #### log
+		
+		
+		
+		```
+		public static void log​(akka.event.Logging.LogLevel level,
+		                       java.lang.String template,
+		                       java.lang.Object arg1)
+		```
+		- #### log
+		
+		
+		
+		```
+		public static void log​(akka.event.Logging.LogLevel level,
+		                       java.lang.String template,
+		                       java.lang.Object arg1,
+		                       java.lang.Object arg2)
+		```
+		- #### log
+		
+		
+		
+		```
+		public static void log​(akka.event.Logging.LogLevel level,
+		                       java.lang.String template,
+		                       java.lang.Object arg1,
+		                       java.lang.Object arg2,
+		                       java.lang.Object arg3)
+		```
+		- #### log
+		
+		
+		
+		```
+		public static void log​(akka.event.Logging.LogLevel level,
+		                       java.lang.String template,
+		                       java.lang.Object arg1,
+		                       java.lang.Object arg2,
+		                       java.lang.Object arg3,
+		                       java.lang.Object arg4)
+		```
+		- #### isEnabled
+		
+		
+		
+		```
+		public static final boolean isEnabled​(akka.event.Logging.LogLevel level)
+		```
+		- #### notifyLog
+		
+		
+		
+		```
+		public static final void notifyLog​(akka.event.Logging.LogLevel level,
+		                                   java.lang.String message)
+		```
+		- #### format
+		
+		
+		
+		```
+		public static java.lang.String format​(java.lang.String t,
+		                                      scala.collection.immutable.Seq<java.lang.Object> arg)
+		```
+
+## Related Pages (Internal Links)
+
+- https://doc.akka.io/japi/akka-http/current/akka/http/impl/util/DefaultNoLogging$.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/impl/util/package-summary.html
+
+---
+*Source: [https://doc.akka.io/japi/akka-http/current/akka/http/impl/util/DefaultNoLogging.html](https://doc.akka.io/japi/akka-http/current/akka/http/impl/util/DefaultNoLogging.html)*

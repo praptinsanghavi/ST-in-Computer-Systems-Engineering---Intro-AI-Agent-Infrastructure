@@ -1,0 +1,98 @@
+---
+description: ''
+knowledge_type: official_documentation
+scraped_at: '2026-04-06T00:42:14Z'
+section: japi
+site: akka-io
+source_url: https://doc.akka.io/japi/akka-http/current/akka/http/scaladsl/testkit/Specs2Utils.html
+title: Specs2Utils
+---
+
+# Specs2Utils
+
+## Content
+
+Package [akka.http.scaladsl.testkit](package-summary.html)
+## Interface Specs2Utils
+
+- All Superinterfaces:
+`[MarshallingTestUtils](MarshallingTestUtils.html "interface in akka.http.scaladsl.testkit")`
+
+All Known Subinterfaces:
+`[Specs2RouteTest](Specs2RouteTest.html "interface in akka.http.scaladsl.testkit")`
+
+---
+
+```
+public interface Specs2Utils
+extends [MarshallingTestUtils](MarshallingTestUtils.html "interface in akka.http.scaladsl.testkit")
+```
+
+- - ### Method Summary
+	
+	
+	
+	All Methods [Instance Methods](javascript:show(2);) [Abstract Methods](javascript:show(4);) 
+	| Modifier and Type | Method | Description |
+	| `<T> org.specs2.matcher.Matcher<scala.concurrent.Future<T>>` | `[evaluateTo](#evaluateTo(T,org.specs2.concurrent.ExecutionEnv))​(T value,  org.specs2.concurrent.ExecutionEnv ee)` |  |
+	| `org.specs2.matcher.Matcher<scala.concurrent.Future<?>>` | `[haveFailedWith](#haveFailedWith(java.lang.Throwable,org.specs2.concurrent.ExecutionEnv))​(java.lang.Throwable t,  org.specs2.concurrent.ExecutionEnv ee)` |  |
+	| `<T> org.specs2.matcher.Matcher<[HttpEntity](../model/HttpEntity.html "interface in akka.http.scaladsl.model")>` | `[unmarshalTo](#unmarshalTo(scala.util.Try,akka.http.scaladsl.unmarshalling.Unmarshaller,scala.concurrent.ExecutionContext,akka.stream.Materializer))​(scala.util.Try<T> value,  [Unmarshaller](../unmarshalling/Unmarshaller.html "interface in akka.http.scaladsl.unmarshalling")<[HttpEntity](../model/HttpEntity.html "interface in akka.http.scaladsl.model"),​T> evidence$2,  scala.concurrent.ExecutionContext ec,  akka.stream.Materializer mat)` |  |
+	| `<T> org.specs2.matcher.Matcher<[HttpEntity](../model/HttpEntity.html "interface in akka.http.scaladsl.model")>` | `[unmarshalToValue](#unmarshalToValue(T,akka.http.scaladsl.unmarshalling.Unmarshaller,scala.concurrent.ExecutionContext,akka.stream.Materializer))​(T value,  [Unmarshaller](../unmarshalling/Unmarshaller.html "interface in akka.http.scaladsl.unmarshalling")<[HttpEntity](../model/HttpEntity.html "interface in akka.http.scaladsl.model"),​T> evidence$1,  scala.concurrent.ExecutionContext ec,  akka.stream.Materializer mat)` |  |
+	
+	
+		- ### Methods inherited from interface akka.http.scaladsl.testkit.[MarshallingTestUtils](MarshallingTestUtils.html "interface in akka.http.scaladsl.testkit")
+		
+		
+		`[marshal](MarshallingTestUtils.html#marshal(T,akka.http.scaladsl.marshalling.Marshaller,scala.concurrent.ExecutionContext,akka.stream.Materializer)), [marshallingTimeout](MarshallingTestUtils.html#marshallingTimeout()), [marshalToResponse](MarshallingTestUtils.html#marshalToResponse(T,akka.http.scaladsl.model.HttpRequest,akka.http.scaladsl.marshalling.Marshaller,scala.concurrent.ExecutionContext)), [marshalToResponseForRequestAccepting](MarshallingTestUtils.html#marshalToResponseForRequestAccepting(T,scala.collection.immutable.Seq,akka.http.scaladsl.marshalling.Marshaller,scala.concurrent.ExecutionContext)), [testConfig](MarshallingTestUtils.html#testConfig()), [unmarshal](MarshallingTestUtils.html#unmarshal(akka.http.scaladsl.model.HttpEntity,akka.http.scaladsl.unmarshalling.Unmarshaller,scala.concurrent.ExecutionContext,akka.stream.Materializer)), [unmarshalValue](MarshallingTestUtils.html#unmarshalValue(akka.http.scaladsl.model.HttpEntity,akka.http.scaladsl.unmarshalling.Unmarshaller,scala.concurrent.ExecutionContext,akka.stream.Materializer))`
+
+- - ### Method Detail
+	
+	
+	
+		- #### evaluateTo
+		
+		
+		
+		```
+		<T> org.specs2.matcher.Matcher<scala.concurrent.Future<T>> evaluateTo​(T value,
+		                                                                      org.specs2.concurrent.ExecutionEnv ee)
+		```
+		- #### haveFailedWith
+		
+		
+		
+		```
+		org.specs2.matcher.Matcher<scala.concurrent.Future<?>> haveFailedWith​(java.lang.Throwable t,
+		                                                                      org.specs2.concurrent.ExecutionEnv ee)
+		```
+		- #### unmarshalTo
+		
+		
+		
+		```
+		<T> org.specs2.matcher.Matcher<[HttpEntity](../model/HttpEntity.html "interface in akka.http.scaladsl.model")> unmarshalTo​(scala.util.Try<T> value,
+		                                                       [Unmarshaller](../unmarshalling/Unmarshaller.html "interface in akka.http.scaladsl.unmarshalling")<[HttpEntity](../model/HttpEntity.html "interface in akka.http.scaladsl.model"),​T> evidence$2,
+		                                                       scala.concurrent.ExecutionContext ec,
+		                                                       akka.stream.Materializer mat)
+		```
+		- #### unmarshalToValue
+		
+		
+		
+		```
+		<T> org.specs2.matcher.Matcher<[HttpEntity](../model/HttpEntity.html "interface in akka.http.scaladsl.model")> unmarshalToValue​(T value,
+		                                                            [Unmarshaller](../unmarshalling/Unmarshaller.html "interface in akka.http.scaladsl.unmarshalling")<[HttpEntity](../model/HttpEntity.html "interface in akka.http.scaladsl.model"),​T> evidence$1,
+		                                                            scala.concurrent.ExecutionContext ec,
+		                                                            akka.stream.Materializer mat)
+		```
+
+## Related Pages (Internal Links)
+
+- https://doc.akka.io/japi/akka-http/current/akka/http/scaladsl/model/HttpEntity.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/scaladsl/testkit/MarshallingTestUtils.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/scaladsl/testkit/Specs2RouteTest.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/scaladsl/testkit/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/scaladsl/unmarshalling/Unmarshaller.html
+
+---
+*Source: [https://doc.akka.io/japi/akka-http/current/akka/http/scaladsl/testkit/Specs2Utils.html](https://doc.akka.io/japi/akka-http/current/akka/http/scaladsl/testkit/Specs2Utils.html)*

@@ -1,0 +1,120 @@
+Java Lambda Expressions
+1
+
+
+
+Lambda Expressions were added in Java 8.
+
+
+
+A lambda expression is a short block of code which takes in parameters and
+returns a value.
+
+
+
+Lambda expressions are similar to methods, but they do not need a name
+and they can be implemented right in the body of a method.
+
+2
+
+Using Lambda Expressions
+3
+
+
+
+Lambda expressions are usually passed as parameters to a function:
+
+Consumer Interface
+4
+
+Lambda expressions can be stored in variables if the variable's type is an interface
+which has only one method.
+ The lambda expression should have the same number of parameters and the same
+return type as that method.
+ Java has many of these kinds of interfaces built in, such as the Consumer interface
+(found in the java.util package) used by lists.
+
+
+5
+
+Functionalities of Lambda Expression
+6
+
+
+
+Lambda Expressions implement the only abstract function and therefore
+implement functional interfaces lambda expressions are added in Java 8
+and provide the below functionalities.
+
+
+Functional Interfaces:
+ A functional interface is an interface that contains only one abstract method.
+
+
+
+Code as Data:
+ Treat functionality as a method argument.
+
+
+
+Class Independence:
+ Create functions without defining a class.
+
+
+
+Pass and Execute:
+ Pass lambda expressions as objects and execute on demand.
+
+7
+
+8
+
+Lambda Expression Parameters
+9
+
+
+
+There are three Lambda Expression Parameters are mentioned below:
+ Zero Parameter
+ Single Parameter
+ Multiple Parameters
+
+10
+
+11
+
+12
+
+Review Question:
+13
+
+Based on the syntax rules just shown, which of the following is/are NOT
+valid lambda expressions?
+1. () -> {};
+2. () -> “some string”;
+3. () -> { return “some string”;};
+4. (Integer i) -> return “some string” + i;
+5. (String s) -> {“some string”;};
+
+
+Answer:
+14
+
+
+4 and 5 are invalid lambdas, the rest are valid.
+
+Details:
+1. This lambda has no parameters and returns void.
+It’s similar to a method with an empty body: public void run() { }.
+2. This lambda has no parameters and returns a String as an expression.
+3. This lambda has no parameters and returns a String (using an explicit return
+statement, within a block).
+4. return is a control-flow statement. To make this lambda valid, curly braces are
+required as follows: (Integer i) -> { return “some string” + i; }.
+5. “some string” is an expression, not a statement. To make this lambda valid,
+you can remove the curly braces and semicolon as follows:
+(String s) -> “some string”.
+Or if you prefer, you can use an explicit return statement as follows:
+(String s) -> { return “some string”; }.
+
+

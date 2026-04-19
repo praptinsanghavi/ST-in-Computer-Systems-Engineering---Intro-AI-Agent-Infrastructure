@@ -1,0 +1,844 @@
+Working with text data
+1
+
+
+   Preparing text for large language model training
+   Splitting text into word and subword tokens
+   Byte pair encoding as a more advanced way of tokenizing text
+   Sampling training examples with a sliding window approach
+   Converting tokens into vectors that feed into a large language model
+LLM Models
+2
+
+
+   So far, we’ve covered the general structure of large language models
+    (LLMs) and learned that they are pretrained on vast amounts of text.
+
+   Specifically, our focus was on decoder-only LLMs based on the transformer
+    architecture, which underlies the models used in ChatGPT and other
+    popular GPT-like LLMs.
+
+   During the pretraining stage, LLMs process text one word at a time.
+Training LLMs
+3
+
+
+   Training LLMs with millions to billions of parameters using a next-word
+    prediction task yields models with impressive capabilities.
+
+   These models can then be further finetuned to follow general instructions or
+    perform specific target tasks.
+
+   But before we can implement and train LLMs, we need to prepare the
+    training dataset, as illustrated in figure 2.1.
+Figure 2.1 The three main stages of coding an LLM
+4
+Preparing input text for training LLMs
+5
+
+
+   This involves splitting text into individual word and subword tokens, which
+    can then be encoded into vector representations for the LLM.
+
+   You’ll also learn about advanced tokenization schemes like byte pair
+    encoding, which is utilized in popular LLMs like GPT.
+
+   Lastly, we’ll implement a sampling and data-loading strategy to produce the
+    input-output pairs necessary for training LLMs.
+Understanding word embeddings
+6
+
+
+   Deep neural network models, including LLMs, cannot process raw text directly.
+
+   Since text is categorical, it isn’t compatible with the mathematical operations
+    used to implement and train neural networks.
+
+   Therefore, we need a way to represent words as continuous-valued vectors.
+
+   The concept of converting data into a vector format is often referred to as
+    embedding.
+Embedding
+7
+
+
+   Using a specific neural network layer or another pretrained neural network
+    model, we can embed different data types
+     for example, video, audio, and text, as illustrated in figure 2.2.
+
+
+   However, it’s important to note that different data formats require distinct
+    embedding models.
+
+   For example, an embedding model designed for text would not be suitable
+    for embedding audio or video data.
+Figure 2.2 Vector Representation
+8
+
+
+
+
+Deep learning models cannot process data formats like video, audio, and text in their raw form.
+Thus, we use an embedding model to transform this raw data into a dense vector representation that
+deep learning architectures can easily understand and process.
+Specifically, this figure illustrates the process of converting raw data into a 3-dimensional numerical vector.
+Primary Purpose of Embeddings
+9
+
+
+   At its core, an embedding is a mapping from discrete objects, such as
+    words, images, or even entire documents, to points in a continuous vector
+    space—the primary purpose of embeddings is to convert nonnumeric data
+    into a format that neural networks can process.
+
+   While word embeddings are the most common form of text embedding,
+    there are also embeddings for sentences, paragraphs, or whole documents.
+
+   Sentence or paragraph embeddings are popular choices for retrieval-
+    augmented generation.
+Retrieval-augmented generation
+10
+
+
+    Retrieval-augmented generation combines generation (like producing text)
+     with retrieval (like searching an external knowledge base) to pull relevant
+     information when generating text, which is a technique that is beyond the
+     scope of this class.
+
+    Since our goal is to train GPT-like LLMs, which learn to generate text one
+     word at a time, we will focus on word embeddings.
+Algorithms
+11
+
+
+    Several algorithms and frameworks have been developed to generate word
+     embeddings.
+
+    One of the earlier and most popular examples is the Word2Vec approach.
+
+    Word2Vec trained neural network architecture to generate word embeddings by
+     predicting the context of a word given the target word or vice versa.
+
+    The main idea behind Word2Vec is that words that appear in similar contexts
+     tend to have similar meanings.
+
+    Consequently, when projected into two-dimensional word embeddings for
+     visualization purposes, similar terms are clustered together, shown in figure 2.3
+Figure 2.3 Two-dimensional scatterplot for visualization
+12
+
+
+
+
+If word embeddings are two-dimensional, we can plot them in a two-dimensional scatterplot for
+visualization purposes as shown here.
+When using word embedding techniques, such as Word2Vec, words corresponding to similar concepts
+often appear close to each other in the embedding space.
+For instance, different types of birds appear closer to each other than in countries and cities.
+Word embeddings can have varying dimensions
+13
+
+
+    Word embeddings can have varying dimensions, from one to thousands.
+
+    A higher dimensionality might capture more nuanced relationships but at the
+     cost of computational efficiency.
+
+    While we can use pretrained models such as Word2Vec to generate
+     embeddings for machine learning models, LLMs commonly produce their
+     own embeddings that are part of the input layer and are updated during
+     training.
+Embeddings are optimized to the specific task and data at hand
+14
+
+
+    The advantage of optimizing the embeddings as part of the LLM training
+     instead of using Word2Vec is that the embeddings are optimized to the
+     specific task and data at hand.
+
+    We will implement such embedding layers later.
+
+    LLMs can also create contextualized output embeddings, as we discuss in
+     the next lecture.
+High-dimensional embeddings present a challenge
+15
+
+
+    Unfortunately, high-dimensional embeddings present a challenge for
+     visualization because our sensory perception and common graphical
+     representations are inherently limited to 3 dimensions or fewer.
+
+    This is why figure 2.3 shows 2-dimensional embeddings in a 2-dimensional plot
+
+    However, when working with LLMs, we typically use embeddings with a much
+     higher dimensionality.
+
+    For both GPT-2 and GPT-3, the embedding size (often referred to as the
+     dimensionality of the model’s hidden states) varies based on the specific model
+     variant and size.
+
+    It is a tradeoff between performance and efficiency.
+Embedding Size
+16
+
+
+    The smallest GPT-2 models (117M and 125M parameters) use an
+     embedding size of 768 dimensions to provide concrete examples.
+
+    The largest GPT-3 model (175B parameters) uses an embedding size of
+     12,288 dimensions.
+Tokenizing text
+17
+
+
+    Let’s discuss how we split input text into individual tokens, a required
+     preprocessing step for creating embeddings for an LLM.
+
+    These tokens are either individual words or special characters, including
+     punctuation characters, as shown in figure 2.4.
+Figure 2.4 View of the text processing steps in the context of an LLM
+18
+
+
+
+
+Here, we split an input text into individual tokens, which are either words or special characters, such as
+punctuation characters.
+The text to be tokenized for LLM training
+19
+
+
+    The text we will tokenize for LLM training is “The Verdict,” a short story by Edith
+     Wharton, which has been released into the public domain and is thus permitted
+     to be used for LLM training tasks.
+
+
+    The text is available on Wikisource at https://en.wikisource.org/wiki/The_Verdict
+     and you can copy-paste it into a text file "the-verdict.txt".
+
+
+    Alternatively, you can find this "the-verdict.txt" file in this book’s GitHub
+     repository at https://mng.bz/Adng
+Listing 2.1 Reading in a short story as text sample
+20
+How can we best split this text to obtain a list of tokens?
+21
+
+
+    It’s common to process millions of articles and hundreds of thousands of
+     books—many gigabytes of text—when working with LLMs.
+
+    However, for educational purposes, it’s sufficient to work with smaller text
+     samples like a single book to illustrate the main ideas behind the text
+     processing steps and to make it possible to run it in a reasonable time on
+     consumer hardware.
+
+    How can we best split this text to obtain a list of tokens?
+      For this, we go on a small excursion and use Python’s regular
+       expression library re for illustration purposes.
+22
+23
+Encoding whitespaces as separate characters
+24
+
+
+    When developing a simple tokenizer, whether we should encode
+     whitespaces as separate characters or just remove them depends on our
+     application and its requirements.
+
+    Removing whitespaces reduces the memory and computing requirements.
+
+    However, keeping whitespaces can be useful if we train models that are
+     sensitive to the exact structure of the text (for example, Python code, which
+     is sensitive to indentation and spacing).
+
+    Here, we remove whitespaces for simplicity and brevity of the tokenized
+     outputs.
+
+    Later, we will switch to a tokenization scheme that includes whitespaces.
+25
+Figure 2.5 The tokenization scheme
+26
+
+
+
+
+As we can see based on the results summarized above, the tokenization scheme can
+now handle the various special characters in the text successfully.
+
+The tokenization scheme we implemented so far splits text into individual words and
+punctuation characters.
+
+In this specific example, the sample text gets split into 10 individual tokens.
+27
+Converting tokens into token IDs
+28
+
+
+    Next, let’s convert these tokens from a string to an integer representation to
+     produce the token IDs.
+
+    This conversion is an intermediate step before converting the token IDs into
+     embedding vectors.
+
+    To map the previously generated tokens into token IDs, we have to build a
+     vocabulary first.
+
+    This vocabulary defines how we map each unique word and special
+     character to a unique integer, as shown in figure 2.6.
+Figure 2.6 Building a vocabulary by tokenizing the entire text
+29
+
+
+
+
+We build a vocabulary by tokenizing the entire text in a training dataset into individual tokens.
+These individual tokens are then sorted alphabetically, and duplicate tokens are removed.
+The tokens are then aggregated into a vocabulary to map each unique token to a unique integer value.
+The vocabulary is purposely small and contains no punctuation or special characters for simplicity.
+Creating a list of unique tokens
+30
+Listing 2.2 Creating a vocabulary
+31
+
+
+
+
+As we can see, the dictionary contains individual tokens associated with unique integer labels.
+Our next goal is to apply this vocabulary to convert new text into token IDs (figure 2.7).
+Figure 2.7 Converting the text tokens into token IDs
+32
+
+
+
+
+The vocabulary is built from the entire training set and can be applied to the training set itself and any new text.
+The depicted vocabulary contains no punctuation or special characters for simplicity.
+Inverse Version
+33
+
+
+    When we want to convert the outputs of an LLM from numbers back into
+     text, we need a way to turn token IDs into text.
+
+    For this, we can create an inverse version of the vocabulary that maps
+     token IDs back to the corresponding text tokens.
+
+    Let’s implement a complete tokenizer class with an encode method that
+     splits text into tokens and carries out the string-to-integer mapping to
+     produce token IDs via the vocabulary.
+
+    In addition, we’ll implement a decode method that carries out the reverse
+     integer-to-string mapping to convert the token IDs back into text.
+34
+Figure 2.8 Encode and Decode Methods
+35
+
+
+
+
+encode(text) splits the text into individual tokens, and converts the tokens into token IDs via the vocabulary.
+decode(ids) converts the token IDs back into text tokens, and concatenates the text tokens into natural text.
+36
+37
+38
+Adding special context tokens
+39
+
+
+    We need to modify the tokenizer to handle unknown words.
+
+    We also need to address the usage and addition of special context tokens
+     that can enhance a model’s understanding of context or other relevant
+     information in the text.
+
+    These special tokens can include markers for unknown words and
+     document boundaries, for example.
+
+    In particular, we will modify the vocabulary and tokenizer,
+     SimpleTokenizerV2, to support two new tokens, <|unk|> and
+     <|endoftext|>, as illustrated in figure 2.9.
+Figure 2.9 Adding special tokens to a vocabulary
+40
+
+
+
+
+We add an <|unk|> token to represent new and unknown words that were not part of the training data.
+Furthermore, we add an <|endoftext|> token that we can use to separate two unrelated text sources.
+<|unk|> token
+41
+
+
+    We can modify the tokenizer to use an <|unk|> token if it encounters a
+     word that is not part of the vocabulary.
+
+    Furthermore, we add a token between unrelated texts.
+
+    For example, when training GPT-like LLMs on multiple independent
+     documents or books, it is common to insert a token before each document
+     or book that follows a previous text source, as illustrated in figure 2.10.
+
+    This helps the LLM understand that although these text sources are
+     concatenated for training, they are, in fact, unrelated.
+Figure 2.10 <|endoftext|> token between multiple text sources
+42
+
+
+
+
+When working with multiple independent text source, we add <|endoftext|> tokens between these texts.
+These <|endoftext|> tokens act as markers, signaling the start or end of a particular segment.
+This allows for more effective processing and understanding by the LLM.
+43
+Based on the code output, we can confirm that the two new special tokens
+were indeed successfully incorporated into the vocabulary.
+44
+Listing 2.4 A simple text tokenizer that handles unknown words
+45
+
+
+
+
+           #1 Replaces unknown words by <|unk|> tokens
+           #2 Replaces spaces before the specified punctuations
+46
+47
+48
+Some researchers also consider additional special tokens
+49
+
+
+    [BOS] (beginning of sequence)
+        This token marks the start of a text.
+        It signifies to the LLM where a piece of content begins.
+    [EOS] (end of sequence)
+        This token is positioned at the end of a text and is especially useful when
+         concatenating multiple unrelated texts, similar to <|endoftext|>.
+        For instance, when combining two different Wikipedia articles or books, the
+         [EOS] token indicates where one ends and the next begins.
+    [PAD] (padding)
+        When training LLMs with batch sizes larger than one, the batch might contain
+         texts of varying lengths.
+        To ensure all texts have the same length, the shorter texts are extended or
+         “padded” using the [PAD] token, up to the length of the longest text in the batch.
+Tokens in GPT models
+50
+
+
+    The tokenizer used for GPT models does not need any of these tokens; it only
+     uses an <|endoftext|> token for simplicity.
+
+
+    <|endoftext|> is analogous to the [EOS] token.
+
+
+    <|endoftext|> is also used for padding.
+
+
+    However, as we’ll explore in subsequent lectures, when training on batched
+     inputs, we typically use a mask, meaning we don’t attend to padded tokens.
+
+
+    Thus, the specific token chosen for padding becomes insignificant.
+The Tokenizer used for GPT Models
+51
+
+
+    Moreover, the tokenizer used for GPT models also doesn’t use an <|unk|>
+     token for out-of-vocabulary words.
+
+    Instead, GPT models use a byte pair encoding tokenizer, which breaks
+     words down into subword units, which we will discuss next.
+Tokenization
+52
+
+
+    Natural Language Processing (NLP) is a subfield of artificial intelligence that
+     gives the ability to machine understand and process human languages.
+    Tokenization is the process of dividing the text into a collection of tokens from a
+     string of text.
+    Tokenization is often the first step in natural language processing tasks such as
+     text classification, named entity recognition, and sentiment analysis.
+    The resulting tokens are typically used as input to further processing steps,
+     such as vectorization, where the tokens are converted into numerical
+     representations for machine learning models to use.
+    The BPE tokenizer was used to train LLMs such as GPT-2, GPT-3, and the
+     original model used in ChatGPT.
+Byte-Pair Encoding (BPE) is a compression algorithm
+53
+
+
+    BPE is a compression algorithm used in Natural Language Processing (NLP) to
+     represent large vocabulary with a small set of subword units.
+
+    It was introduced by Sennrich et al. in 2016 and has been widely used in various
+     NLP tasks such as machine translation, text classification, and text generation.
+
+    The basic idea of BPE is to iteratively merge the most frequent pair of consecutive
+     bytes or characters in a text corpus until a predefined vocabulary size is reached.
+
+    The resulting subword units can be used to represent the original text in a more
+     compact and efficient way.
+Concepts related to BPE:
+54
+
+
+    Vocabulary:
+      A set of subword units that can be used to represent a text corpus.
+
+    Byte:
+      A unit of digital information that typically consists of eight bits.
+
+    Character:
+      A symbol that represents a written or printed letter or numeral.
+
+    Frequency:
+      The number of times a byte or character occurs in a text corpus.
+
+    Merge:
+      The process of combining two consecutive bytes or characters to create
+        a new subword unit.
+Steps involved in BPE:
+55
+
+
+    Initialize the vocabulary with all the bytes or characters in the text corpus
+
+    Calculate the frequency of each byte (or character) in the text corpus.
+
+    Repeat the following steps until the desired vocabulary size is reached:
+     1)   Find the most frequent pair of consecutive bytes in the text corpus
+     2)   Merge the pair to create a new subword unit
+     3)   Update the frequency counts of all the bytes containing the merged pair
+     4)   Add the new subword unit to the vocabulary
+
+    Represent the text corpus using the subword units in the vocabulary.
+How Byte-Pair Encoding (BPE) works:
+56
+
+
+    Suppose we have a text corpus with the following four words: “ab”, “bc”,
+     “bcd”, and “cde”.
+
+    The initial vocabulary consists of all the bytes or characters in the text
+     corpus: {“a”, “b”, “c”, “d”, “e”}.
+57
+58
+59
+60
+61
+62
+63
+64
+The output represents the frequency count
+65
+
+
+    The output represents the frequency count of merged pairs of characters found
+     in the given corpus using byte pair encoding (BPE) with 230 iterations.
+
+
+    Each key-value pair in the dictionary indicates a merged pair of characters
+     along with its frequency count in the corpus.
+
+
+    This process iteratively merges the most frequent pair of characters until the
+     specified number of iterations is reached.
+BPE Algorithm
+66
+
+
+    The algorithm underlying BPE breaks down words that aren’t in its
+     predefined vocabulary into smaller subword units or even individual
+     characters, enabling it to handle out-of-vocabulary words.
+
+    So, thanks to the BPE algorithm, if the tokenizer encounters an unfamiliar
+     word during tokenization, it can represent it as a sequence of subword
+     tokens or characters, as illustrated in figure 2.11.
+Figure 2.11 BPE breaks down unknown words into subwords
+67
+
+
+
+
+BPE tokenizers break down unknown words into subwords and individual characters.
+This way, a BPE tokenizer can parse any word and doesn’t need to replace unknown words with special
+tokens, such as <|unk|>.
+The ability to break down unknown words into individual characters ensures that the tokenizer and,
+consequently, the LLM that is trained with it can process any text, even if it contains words that were not
+present in its training data.
+BPE builds its vocabulary
+68
+
+
+    BPE builds its vocabulary by iteratively merging frequent characters into
+     subwords and frequent subwords into words.
+
+    For example, BPE starts with adding all individual single characters to its
+     vocabulary (“a,” “b,” etc.).
+
+    In the next stage, it merges character combinations that frequently occur
+     together into subwords.
+
+    For example, “d” and “e” may be merged into the subword “de,” which is
+     common in many English words like “define,” “depend,” “made,” and “hidden.”
+
+    The merges are determined by a frequency cutoff.
+Data sampling with a sliding window
+69
+
+
+    The next step in creating the embeddings for the LLM is to generate the input–
+     target pairs required for training an LLM.
+
+
+    What do these input–target pairs look like? As we already learned, LLMs are
+     pretrained by predicting the next word in a text, as depicted in figure 2.12.
+Figure 2.12 LLM’s prediction task during training is to predict the next word
+70
+
+
+
+
+Given a text sample, extract input blocks as subsamples that serve as input to the LLM, and the LLM’s
+prediction task during training is to predict the next word that follows the input block.
+During training, we mask out all words that are past the target.
+Note that the text shown in this figure must undergo tokenization before the LLM can process it; however,
+this figure omits the tokenization step for clarity.
+Creating token embeddings
+71
+
+
+    The last step in preparing the input text for LLM training is to convert the
+     token IDs into embedding vectors, as shown in figure 2.15.
+
+    As a preliminary step, we must initialize these embedding weights with
+     random values.
+
+    This initialization serves as the starting point for the LLM’s learning process.
+
+    In the following lectures, we will optimize the embedding weights as part of
+     the LLM training.
+Figure 2.15 Converting token IDs into embedding vectors
+72
+
+
+
+
+Preparation involves tokenizing text, converting tokens to IDs, and converting IDs into embedding vectors
+Here, we consider the previously created token IDs to create the token embedding vectors.
+Embedding is necessary
+73
+
+    A continuous vector representation, or embedding, is necessary since GPT-
+     like LLMs are deep neural networks trained with the backpropagation
+     algorithm.
+Word Embeddings
+74
+
+
+    Word Embeddings are numeric representations of words in a lower-
+     dimensional space, capturing semantic and syntactic information.
+    They play a vital role in Natural Language Processing (NLP) tasks.
+What is Word Embedding in NLP?
+75
+
+
+    Word Embedding is an approach for representing words and documents.
+
+
+    Word Embedding or Word Vector is a numeric vector input that represents a
+     word in a lower-dimensional space.
+
+
+    It allows words with similar meanings to have a similar representation.
+
+
+    Word Embeddings are a method of extracting features out of text so that we
+     can input those features into a machine learning model to work with text data.
+
+
+    They try to preserve syntactical and semantic information.
+Word Embeddings
+76
+
+
+    The methods such as Bag of Words (BOW), CountVectorizer and TFIDF
+     rely on the word count in a sentence but do not save any syntactical or
+     semantic information.
+    In these algorithms, the size of the vector is the number of elements in the
+     vocabulary.
+    We can get a sparse matrix if most of the elements are zero.
+    Large input vectors will mean a huge number of weights which will result in
+     high computation required for training.
+    Word Embeddings give a solution to these problems.
+Need for Word Embedding?
+77
+
+
+    To reduce dimensionality
+    To use a word to predict the words around it.
+    Inter-word semantics must be captured.
+How are Word Embeddings used?
+78
+
+
+    They are used as input to machine learning models.
+
+    Take the words  Give their numeric representation  Use in training or
+     inference.
+
+    To represent or visualize any underlying patterns of usage in the corpus that
+     was used to train them.
+79
+Approaches for Text Representation
+80
+
+
+1. Traditional Approach
+The conventional method involves compiling a list of distinct terms and giving
+each one a unique integer value, or id. and after that, insert each word’s
+distinct id into the sentence.
+Every vocabulary word is handled as a feature in this instance.
+Thus, a large vocabulary will result in an extremely large feature size.
+   1.1. One-Hot Encoding
+   1.2. Bag of Word (Bow)
+   1.3. Term frequency-inverse document frequency (TF-IDF)
+
+2. Neural Approach
+   2.1. Word2Vec
+   2.2. Continuous Bag of Words(CBOW)
+   2.3. Skip-Gram
+Pretrained Word-Embedding
+81
+
+
+    Pre-trained word embeddings are representations of words that are learned
+     from large corpora and are made available for reuse in various natural
+     language processing (NLP) tasks.
+    These embeddings capture semantic relationships between words, allowing
+     the model to understand similarities and relationships between different
+     words in a meaningful way.
+
+1)    GloVe
+2)    Fasttext
+3)    BERT (Bidirectional Encoder Representations from Transformers)
+Considerations for Deploying Word Embedding Models
+82
+
+
+    You need to use the exact same pipeline during deploying your model as
+     were used to create the training data for the word embedding. If you use a
+     different tokenizer or different method of handling white space, punctuation
+     etc. you might end up with incompatible inputs.
+
+    Words in your input that doesn’t have a pre-trained vector. Such words are
+     known as Out of Vocabulary Word(oov). What you can do is replace those
+     words with “UNK” which means unknown and then handle them separately.
+
+    Dimension mis-match: Vectors can be of many lengths. If you train a model
+     with vectors of length say 400 and then try to apply vectors of length 1000
+     at inference time, you will run into errors. So make sure to use the same
+     dimensions throughout.
+Advantages of Word Embeddings
+83
+
+
+    It is much faster to train than hand build models like WordNet (which uses
+     graph embeddings).
+
+    Almost all modern NLP applications start with an embedding layer.
+
+    It Stores an approximation of meaning.
+Disadvantages of Word Embeddings
+84
+
+
+    It can be memory intensive.
+
+    It is corpus dependent. Any underlying bias will have an effect on your
+     model.
+
+    It cannot distinguish between homophones. Eg: brake/break, cell/sell,
+     weather/whether etc.
+Conclusion
+85
+
+
+    In conclusion, word embedding techniques such as TF-IDF, Word2Vec, and
+     GloVe play a crucial role in natural language processing by representing
+     words in a lower-dimensional space, capturing semantic and syntactic
+     information.
+1. Does GPT use word embeddings?
+86
+
+
+    GPT uses context-based embeddings rather than traditional word
+     embeddings.
+
+    It captures word meaning in the context of the entire sentence.
+2. What is the difference between Bert and word embeddings?
+87
+
+
+    BERT is contextually aware, considering the entire sentence, while
+     traditional word embeddings, like Word2Vec, treat each word independently.
+3. What are the two types of word embedding?
+88
+
+
+    Word embeddings can be broadly evaluated in two categories, intrinsic and
+     extrinsic.
+
+    For intrinsic evaluation, word embeddings are used to calculate or predict
+     semantic similarity between words, terms, or sentences.
+4. How does word vectorization work?
+89
+
+
+    Word vectorization converts words into numerical vectors, capturing
+     semantic relationships.
+
+    Techniques like TF-IDF, Word2Vec, and GloVe are common.
+5. What are the benefits of word embeddings?
+90
+
+
+    Word embeddings offer semantic understanding, capture context, and
+     enhance NLP tasks.
+
+    They reduce dimensionality, speed up training, and aid in language pattern
+     recognition.
+Summary
+91
+
+    LLMs require textual data to be converted into numerical vectors, known as
+     embeddings, since they can’t process raw text.
+    Embeddings transform discrete data (like words or images) into continuous
+     vector spaces, making them compatible with neural network operations.
+    As the first step, raw text is broken into tokens, which can be words or
+     characters.
+    Then, the tokens are converted into integer representations, termed token IDs.
+    Special tokens, such as <|unk|> and <|endoftext|>, can be added to enhance
+     the model’s understanding and handle various contexts, such as unknown
+     words or marking the boundary between unrelated texts.
+Cont’d
+92
+
+    The byte pair encoding (BPE) tokenizer used for LLMs like GPT-2 and GPT-3
+     can efficiently handle unknown words by breaking them down into subword
+     units or individual characters.
+    We use a sliding window approach on tokenized data to generate input–target
+     pairs for LLM training.
+    Embedding layers in PyTorch function as a lookup operation, retrieving vectors
+     corresponding to token IDs. The resulting embedding vectors provide
+     continuous representations of tokens, which is crucial for training deep learning
+     models like LLMs.
+    While token embeddings provide consistent vector representations for each
+     token, they lack a sense of the token’s position in a sequence.
+       To rectify this, two main types of positional embeddings exist:
+          absolute and relative.
+    OpenAI’s GPT models utilize absolute positional embeddings, which are added
+     to the token embedding vectors and are optimized during the model training.
+

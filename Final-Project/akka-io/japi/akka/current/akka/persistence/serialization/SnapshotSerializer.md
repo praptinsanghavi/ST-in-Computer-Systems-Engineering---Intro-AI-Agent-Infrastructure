@@ -1,0 +1,184 @@
+---
+description: ''
+knowledge_type: official_documentation
+scraped_at: '2026-04-05T21:26:13Z'
+section: japi
+site: akka-io
+source_url: https://doc.akka.io/japi/akka/current/akka/persistence/serialization/SnapshotSerializer.html
+title: SnapshotSerializer
+---
+
+# SnapshotSerializer
+
+## Content
+
+Package [akka.persistence.serialization](package-summary.html)
+## Class SnapshotSerializer
+
+- java.lang.Object
+- - akka.persistence.serialization.SnapshotSerializer
+
+- All Implemented Interfaces:
+`[BaseSerializer](../../serialization/BaseSerializer.html "interface in akka.serialization")`, `[Serializer](../../serialization/Serializer.html "interface in akka.serialization")`
+
+---
+
+```
+public class SnapshotSerializer
+extends java.lang.Object
+implements [BaseSerializer](../../serialization/BaseSerializer.html "interface in akka.serialization")
+```
+
+[`Snapshot`](Snapshot.html "class in akka.persistence.serialization") serializer.
+
+- - ### Constructor Summary
+	
+	
+	
+	Constructors 
+	| Constructor | Description |
+	| `[SnapshotSerializer](#%3Cinit%3E(akka.actor.ExtendedActorSystem))​([ExtendedActorSystem](../../actor/ExtendedActorSystem.html "class in akka.actor") system)` |  |
+
+	- ### Method Summary
+	
+	
+	
+	All Methods [Instance Methods](javascript:show(2);) [Concrete Methods](javascript:show(8);) 
+	| Modifier and Type | Method | Description |
+	| `protected void` | `[akka$serialization$BaseSerializer$_setter_$identifier_$eq](#akka$serialization$BaseSerializer$_setter_$identifier_$eq(int))​(int x$1)` | Globally unique serialization identifier configured in the `reference.conf`. |
+	| `java.lang.Object` | `[fromBinary](#fromBinary(byte%5B%5D,scala.Option))​(byte[] bytes,  scala.Option<java.lang.Class<?>> manifest)` | Deserializes a [`Snapshot`](Snapshot.html "class in akka.persistence.serialization"). |
+	| `int` | `[identifier](#identifier())()` | Globally unique serialization identifier configured in the `reference.conf`. |
+	| `boolean` | `[includeManifest](#includeManifest())()` | Returns whether this serializer needs a manifest in the fromBinary method |
+	| `[ExtendedActorSystem](../../actor/ExtendedActorSystem.html "class in akka.actor")` | `[system](#system())()` | Actor system which is required by most serializer implementations. |
+	| `byte[]` | `[toBinary](#toBinary(java.lang.Object))​(java.lang.Object o)` | Serializes a [`Snapshot`](Snapshot.html "class in akka.persistence.serialization"). |
+	
+	
+		- ### Methods inherited from class java.lang.Object
+		
+		
+		`clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait`
+		- ### Methods inherited from interface akka.serialization.[BaseSerializer](../../serialization/BaseSerializer.html "interface in akka.serialization")
+		
+		
+		`[identifierFromConfig](../../serialization/BaseSerializer.html#identifierFromConfig()), [SerializationIdentifiers](../../serialization/BaseSerializer.html#SerializationIdentifiers())`
+		- ### Methods inherited from interface akka.serialization.[Serializer](../../serialization/Serializer.html "interface in akka.serialization")
+		
+		
+		`[fromBinary](../../serialization/Serializer.html#fromBinary(byte%5B%5D)), [fromBinary](../../serialization/Serializer.html#fromBinary(byte%5B%5D,java.lang.Class))`
+
+- - ### Constructor Detail
+	
+	
+	
+		- #### SnapshotSerializer
+		
+		
+		
+		```
+		public SnapshotSerializer​([ExtendedActorSystem](../../actor/ExtendedActorSystem.html "class in akka.actor") system)
+		```
+
+	- ### Method Detail
+	
+	
+	
+		- #### akka$serialization$BaseSerializer$\_setter\_$identifier\_$eq
+		
+		
+		
+		```
+		protected void akka$serialization$BaseSerializer$_setter_$identifier_$eq​(int x$1)
+		```
+		
+		Description copied from interface: `[BaseSerializer](../../serialization/BaseSerializer.html#akka$serialization$BaseSerializer$_setter_$identifier_$eq(int))`
+		Globally unique serialization identifier configured in the `reference.conf`.
+		 
+		 See `Serializer.identifier`.
+		
+		
+		
+		Specified by:
+		`[akka$serialization$BaseSerializer$_setter_$identifier_$eq](../../serialization/BaseSerializer.html#akka$serialization$BaseSerializer$_setter_$identifier_$eq(int))` in interface `[BaseSerializer](../../serialization/BaseSerializer.html "interface in akka.serialization")`
+		- #### fromBinary
+		
+		
+		
+		```
+		public java.lang.Object fromBinary​(byte[] bytes,
+		                                   scala.Option<java.lang.Class<?>> manifest)
+		```
+		
+		Deserializes a [`Snapshot`](Snapshot.html "class in akka.persistence.serialization"). Delegates deserialization of snapshot `data` to a matching
+		 `akka.serialization.Serializer`.
+		
+		Specified by:
+		`[fromBinary](../../serialization/Serializer.html#fromBinary(byte%5B%5D,scala.Option))` in interface `[Serializer](../../serialization/Serializer.html "interface in akka.serialization")`
+		- #### identifier
+		
+		
+		
+		```
+		public int identifier()
+		```
+		
+		Description copied from interface: `[BaseSerializer](../../serialization/BaseSerializer.html#identifier())`
+		Globally unique serialization identifier configured in the `reference.conf`.
+		 
+		 See `Serializer.identifier`.
+		
+		
+		
+		Specified by:
+		`[identifier](../../serialization/BaseSerializer.html#identifier())` in interface `[BaseSerializer](../../serialization/BaseSerializer.html "interface in akka.serialization")`
+		Specified by:
+		`[identifier](../../serialization/Serializer.html#identifier())` in interface `[Serializer](../../serialization/Serializer.html "interface in akka.serialization")`
+		- #### includeManifest
+		
+		
+		
+		```
+		public boolean includeManifest()
+		```
+		
+		Description copied from interface: `[Serializer](../../serialization/Serializer.html#includeManifest())`
+		Returns whether this serializer needs a manifest in the fromBinary method
+		
+		Specified by:
+		`[includeManifest](../../serialization/Serializer.html#includeManifest())` in interface `[Serializer](../../serialization/Serializer.html "interface in akka.serialization")`
+		- #### system
+		
+		
+		
+		```
+		public [ExtendedActorSystem](../../actor/ExtendedActorSystem.html "class in akka.actor") system()
+		```
+		
+		Description copied from interface: `[BaseSerializer](../../serialization/BaseSerializer.html#system())`
+		Actor system which is required by most serializer implementations.
+		
+		Specified by:
+		`[system](../../serialization/BaseSerializer.html#system())` in interface `[BaseSerializer](../../serialization/BaseSerializer.html "interface in akka.serialization")`
+		- #### toBinary
+		
+		
+		
+		```
+		public byte[] toBinary​(java.lang.Object o)
+		```
+		
+		Serializes a [`Snapshot`](Snapshot.html "class in akka.persistence.serialization"). Delegates serialization of snapshot `data` to a matching
+		 `akka.serialization.Serializer`.
+		
+		Specified by:
+		`[toBinary](../../serialization/Serializer.html#toBinary(java.lang.Object))` in interface `[Serializer](../../serialization/Serializer.html "interface in akka.serialization")`
+
+## Related Pages (Internal Links)
+
+- https://doc.akka.io/japi/akka/current/akka/actor/ExtendedActorSystem.html
+- https://doc.akka.io/japi/akka/current/akka/persistence/serialization/Snapshot.html
+- https://doc.akka.io/japi/akka/current/akka/persistence/serialization/package-summary.html
+- https://doc.akka.io/japi/akka/current/akka/serialization/BaseSerializer.html
+- https://doc.akka.io/japi/akka/current/akka/serialization/Serializer.html
+
+---
+*Source: [https://doc.akka.io/japi/akka/current/akka/persistence/serialization/SnapshotSerializer.html](https://doc.akka.io/japi/akka/current/akka/persistence/serialization/SnapshotSerializer.html)*

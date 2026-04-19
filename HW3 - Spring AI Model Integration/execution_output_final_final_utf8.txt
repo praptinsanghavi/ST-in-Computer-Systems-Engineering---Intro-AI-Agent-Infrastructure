@@ -1,0 +1,21 @@
+﻿--- Chat Model ---
+Why couldn't the bicycle stand up by itself?
+
+Because it was two tired!
+
+--- Embedding Model ---
+Dimensions: 1536
+Preview: -0.021832699 -0.007037575 -0.028643254
+
+--- Image Model ---
+<html><body><h1>Generated Image</h1><img src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-hmSzGCO0ndE6B2UKwdaIvOW9/user-Xn3pcsvjRkjZhxWIfjvW4cm8/img-LPwvg3c2LwrDCZbOW3VBj2iB.png?st=2026-02-16T17%3A36%3A30Z&se=2026-02-16T19%3A36%3A30Z&sp=r&sv=2026-02-06&sr=b&rscd=inline&rsct=image/png&skoid=8eb2c87c-0531-4dab-acb3-b5e2adddce6c&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-02-16T11%3A45%3A23Z&ske=2026-02-17T11%3A45%3A23Z&sks=b&skv=2026-02-06&sig=k6TZDSKmoq1HGDiv4bxU7PvmepRKTTVdDzGHs8tUxOQ%3D" alt="Generated Image" style="max-width:500px;"><br><a href="https://oaidalleapiprodscus.blob.core.windows.net/private/org-hmSzGCO0ndE6B2UKwdaIvOW9/user-Xn3pcsvjRkjZhxWIfjvW4cm8/img-LPwvg3c2LwrDCZbOW3VBj2iB.png?st=2026-02-16T17%3A36%3A30Z&se=2026-02-16T19%3A36%3A30Z&sp=r&sv=2026-02-06&sr=b&rscd=inline&rsct=image/png&skoid=8eb2c87c-0531-4dab-acb3-b5e2adddce6c&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-02-16T11%3A45%3A23Z&ske=2026-02-17T11%3A45%3A23Z&sks=b&skv=2026-02-06&sig=k6TZDSKmoq1HGDiv4bxU7PvmepRKTTVdDzGHs8tUxOQ%3D">Direct Link</a></body></html>
+
+--- Speech Model ---
+Generated audio size: 13920 bytes
+Speech generated (binary output not shown)
+
+--- Document Embedding Model ---
+DocumentEmbeddingModel not available (fallback to EmbeddingModel). Dimensions: 1536
+
+--- Moderation Model ---
+Error: The remote server returned an error: (500) Internal Server Error.

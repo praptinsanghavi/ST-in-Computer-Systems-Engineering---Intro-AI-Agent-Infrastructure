@@ -1,0 +1,139 @@
+---
+description: ''
+knowledge_type: official_documentation
+scraped_at: '2026-04-05T18:21:58Z'
+section: japi
+site: akka-io
+source_url: https://doc.akka.io/japi/akka-http/current/
+title: Overview
+---
+
+# Overview
+
+## Content
+
+Packages 
+| Package | Description |
+| [akka.http](akka/http/package-summary.html) |  |
+| --- | --- |
+| [akka.http.caching](akka/http/caching/package-summary.html) |  |
+| [akka.http.caching.impl.settings](akka/http/caching/impl/settings/package-summary.html) |  |
+| [akka.http.caching.javadsl](akka/http/caching/javadsl/package-summary.html) |  |
+| [akka.http.caching.scaladsl](akka/http/caching/scaladsl/package-summary.html) |  |
+| [akka.http.ccompat](akka/http/ccompat/package-summary.html) |  |
+| [akka.http.impl](akka/http/impl/package-summary.html) |  |
+| [akka.http.impl.engine](akka/http/impl/engine/package-summary.html) |  |
+| [akka.http.impl.engine.client](akka/http/impl/engine/client/package-summary.html) |  |
+| [akka.http.impl.engine.client.pool](akka/http/impl/engine/client/pool/package-summary.html) |  |
+| [akka.http.impl.engine.http2](akka/http/impl/engine/http2/package-summary.html) |  |
+| [akka.http.impl.engine.http2\.client](akka/http/impl/engine/http2/client/package-summary.html) |  |
+| [akka.http.impl.engine.http2\.framing](akka/http/impl/engine/http2/framing/package-summary.html) |  |
+| [akka.http.impl.engine.http2\.hpack](akka/http/impl/engine/http2/hpack/package-summary.html) |  |
+| [akka.http.impl.engine.http2\.util](akka/http/impl/engine/http2/util/package-summary.html) |  |
+| [akka.http.impl.engine.parsing](akka/http/impl/engine/parsing/package-summary.html) |  |
+| [akka.http.impl.engine.rendering](akka/http/impl/engine/rendering/package-summary.html) |  |
+| [akka.http.impl.engine.server](akka/http/impl/engine/server/package-summary.html) |  |
+| [akka.http.impl.engine.ws](akka/http/impl/engine/ws/package-summary.html) |  |
+| [akka.http.impl.model](akka/http/impl/model/package-summary.html) |  |
+| [akka.http.impl.model.parser](akka/http/impl/model/parser/package-summary.html) |  |
+| [akka.http.impl.settings](akka/http/impl/settings/package-summary.html) |  |
+| [akka.http.impl.util](akka/http/impl/util/package-summary.html) |  |
+| [akka.http.javadsl](akka/http/javadsl/package-summary.html) |  |
+| [akka.http.javadsl.coding](akka/http/javadsl/coding/package-summary.html) |  |
+| [akka.http.javadsl.common](akka/http/javadsl/common/package-summary.html) |  |
+| [akka.http.javadsl.marshallers.jackson](akka/http/javadsl/marshallers/jackson/package-summary.html) |  |
+| [akka.http.javadsl.marshalling](akka/http/javadsl/marshalling/package-summary.html) |  |
+| [akka.http.javadsl.marshalling.sse](akka/http/javadsl/marshalling/sse/package-summary.html) |  |
+| [akka.http.javadsl.model](akka/http/javadsl/model/package-summary.html) |  |
+| [akka.http.javadsl.model.headers](akka/http/javadsl/model/headers/package-summary.html) |  |
+| [akka.http.javadsl.model.sse](akka/http/javadsl/model/sse/package-summary.html) |  |
+| [akka.http.javadsl.model.ws](akka/http/javadsl/model/ws/package-summary.html) |  |
+| [akka.http.javadsl.server](akka/http/javadsl/server/package-summary.html) |  |
+| [akka.http.javadsl.server.directives](akka/http/javadsl/server/directives/package-summary.html) |  |
+| [akka.http.javadsl.settings](akka/http/javadsl/settings/package-summary.html) |  |
+| [akka.http.javadsl.testkit](akka/http/javadsl/testkit/package-summary.html) |  |
+| [akka.http.javadsl.unmarshalling](akka/http/javadsl/unmarshalling/package-summary.html) |  |
+| [akka.http.javadsl.unmarshalling.sse](akka/http/javadsl/unmarshalling/sse/package-summary.html) |  |
+| [akka.http.jwt.internal](akka/http/jwt/internal/package-summary.html) |  |
+| [akka.http.jwt.javadsl](akka/http/jwt/javadsl/package-summary.html) |  |
+| [akka.http.jwt.javadsl.server.directives](akka/http/jwt/javadsl/server/directives/package-summary.html) |  |
+| [akka.http.jwt.scaladsl](akka/http/jwt/scaladsl/package-summary.html) |  |
+| [akka.http.jwt.scaladsl.server.directives](akka/http/jwt/scaladsl/server/directives/package-summary.html) |  |
+| [akka.http.scaladsl](akka/http/scaladsl/package-summary.html) |  |
+| [akka.http.scaladsl.client](akka/http/scaladsl/client/package-summary.html) |  |
+| [akka.http.scaladsl.coding](akka/http/scaladsl/coding/package-summary.html) |  |
+| [akka.http.scaladsl.common](akka/http/scaladsl/common/package-summary.html) |  |
+| [akka.http.scaladsl.marshallers.sprayjson](akka/http/scaladsl/marshallers/sprayjson/package-summary.html) |  |
+| [akka.http.scaladsl.marshallers.xml](akka/http/scaladsl/marshallers/xml/package-summary.html) |  |
+| [akka.http.scaladsl.marshalling](akka/http/scaladsl/marshalling/package-summary.html) |  |
+| [akka.http.scaladsl.marshalling.sse](akka/http/scaladsl/marshalling/sse/package-summary.html) |  |
+| [akka.http.scaladsl.model](akka/http/scaladsl/model/package-summary.html) |  |
+| [akka.http.scaladsl.model.headers](akka/http/scaladsl/model/headers/package-summary.html) |  |
+| [akka.http.scaladsl.model.http2](akka/http/scaladsl/model/http2/package-summary.html) |  |
+| [akka.http.scaladsl.model.sse](akka/http/scaladsl/model/sse/package-summary.html) |  |
+| [akka.http.scaladsl.model.ws](akka/http/scaladsl/model/ws/package-summary.html) |  |
+| [akka.http.scaladsl.server](akka/http/scaladsl/server/package-summary.html) |  |
+| [akka.http.scaladsl.server.directives](akka/http/scaladsl/server/directives/package-summary.html) |  |
+| [akka.http.scaladsl.server.util](akka/http/scaladsl/server/util/package-summary.html) |  |
+| [akka.http.scaladsl.settings](akka/http/scaladsl/settings/package-summary.html) |  |
+| [akka.http.scaladsl.testkit](akka/http/scaladsl/testkit/package-summary.html) |  |
+| [akka.http.scaladsl.unmarshalling](akka/http/scaladsl/unmarshalling/package-summary.html) |  |
+| [akka.http.scaladsl.unmarshalling.sse](akka/http/scaladsl/unmarshalling/sse/package-summary.html) |  |
+| [akka.http.scaladsl.util](akka/http/scaladsl/util/package-summary.html) |  |
+| [akka.http.shaded.com.twitter.hpack](akka/http/shaded/com/twitter/hpack/package-summary.html) | [HPACK: Header Compression for HTTP/2](http://tools.ietf.org/html/rfc7541) |
+
+## Related Pages (Internal Links)
+
+- https://doc.akka.io/japi/akka-http/current/akka/http/caching/impl/settings/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/caching/javadsl/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/caching/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/caching/scaladsl/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/ccompat/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/impl/engine/client/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/impl/engine/client/pool/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/impl/engine/http2/client/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/impl/engine/http2/framing/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/impl/engine/http2/hpack/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/impl/engine/http2/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/impl/engine/http2/util/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/impl/engine/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/impl/engine/parsing/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/impl/engine/rendering/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/impl/engine/server/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/impl/engine/ws/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/impl/model/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/impl/model/parser/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/impl/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/impl/settings/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/impl/util/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/javadsl/coding/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/javadsl/common/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/javadsl/marshallers/jackson/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/javadsl/marshalling/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/javadsl/marshalling/sse/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/javadsl/model/headers/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/javadsl/model/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/javadsl/model/sse/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/javadsl/model/ws/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/javadsl/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/javadsl/server/directives/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/javadsl/server/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/javadsl/settings/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/javadsl/testkit/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/javadsl/unmarshalling/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/javadsl/unmarshalling/sse/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/jwt/internal/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/jwt/javadsl/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/jwt/javadsl/server/directives/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/jwt/scaladsl/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/jwt/scaladsl/server/directives/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/scaladsl/client/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/scaladsl/coding/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/scaladsl/common/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/scaladsl/marshallers/sprayjson/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/scaladsl/marshallers/xml/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/scaladsl/marshalling/package-summary.html
+
+---
+*Source: [https://doc.akka.io/japi/akka-http/current/](https://doc.akka.io/japi/akka-http/current/)*

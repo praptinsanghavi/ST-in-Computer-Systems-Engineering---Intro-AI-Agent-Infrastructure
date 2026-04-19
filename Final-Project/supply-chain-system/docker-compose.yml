@@ -1,0 +1,76 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: supplychain-postgres
+    environment:
+      POSTGRES_DB: supplychain
+      POSTGRES_USER: sc_user
+      POSTGRES_PASSWORD: sc_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U sc_user -d supplychain" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  node1:
+    build: .
+    container_name: supplychain-node1
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      AKKA_PORT: "2551"
+      AKKA_HOSTNAME: "node1"
+      AKKA_SEED_NODE1_HOST: "node1"
+      AKKA_SEED_NODE2_HOST: "node2"
+      HTTP_PORT: "8080"
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: "5432"
+      POSTGRES_DB: supplychain
+      POSTGRES_USER: sc_user
+      POSTGRES_PASSWORD: sc_pass
+      LLM_MODE: mock
+      AKKA_CLUSTER_ROLE: frontend
+    ports:
+      - "8080:8080"
+      - "2551:2551"
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:8080/health || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+  node2:
+    build: .
+    container_name: supplychain-node2
+    depends_on:
+      postgres:
+        condition: service_healthy
+      node1:
+        condition: service_healthy
+    environment:
+      AKKA_PORT: "2552"
+      AKKA_HOSTNAME: "node2"
+      AKKA_SEED_NODE1_HOST: "node1"
+      AKKA_SEED_NODE2_HOST: "node2"
+      HTTP_PORT: "8081"
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: "5432"
+      POSTGRES_DB: supplychain
+      POSTGRES_USER: sc_user
+      POSTGRES_PASSWORD: sc_pass
+      LLM_MODE: mock
+      AKKA_CLUSTER_ROLE: backend
+    ports:
+      - "8081:8081"
+      - "2552:2552"
+
+volumes:
+  pgdata:

@@ -1,0 +1,299 @@
+Spring AI
+1
+
+
+   Spring AI is an application framework for AI engineering.
+   Its goal is to apply to the AI domain Spring ecosystem design principles such as
+    portability and modular design and promote using POJOs as the building
+    blocks of an application to the AI domain.
+   At its core, Spring AI addresses the fundamental challenge of AI integration:
+    Connecting your enterprise Data and APIs with the AI Models.
+Spring AI provides the following features:
+2
+
+
+   Support for all major AI Model providers such as Anthropic, OpenAI,
+    Microsoft, Amazon, Google, and Ollama.
+   Supported model types include:
+    1. Chat Completion
+
+    2. Embedding
+
+    3. Text to Image
+
+    4. Audio Transcription
+
+    5. Text to Speech
+
+    6. Moderation
+1. Chat Model API
+3
+
+
+   The Chat Model API offers developers the ability to integrate AI-powered chat
+    completion capabilities into their applications.
+
+
+   It leverages pre-trained language models, such as GPT, to generate human-like
+    responses to user inputs in natural language.
+
+
+   The API typically works by sending a prompt or partial conversation to the AI
+    model, which then generates a completion or continuation of the conversation
+    based on its training data and understanding of natural language patterns.
+
+
+   The completed response is then returned to the application, which can present
+    it to the user or use it for further processing.
+The Spring AI Chat Model API
+4
+
+
+   The Spring AI Chat Model API is designed to be a simple and portable interface
+    for interacting with various AI Models, allowing developers to switch between
+    different models with minimal code changes.
+
+
+   This design aligns with Spring’s philosophy of modularity and
+    interchangeability.
+
+
+   Also, with the help of companion classes like Prompt for input encapsulation
+    and ChatResponse for output handling, the Chat Model API unifies the
+    communication with AI Models.
+
+   It manages the complexity of request preparation and response parsing,
+    offering a direct and simplified API interaction.
+ChatModel
+5
+StreamingChatModel
+6
+Prompt
+7
+Message
+8
+MediaContent
+9
+10
+Spring AI Message API
+11
+
+
+    The chat completion endpoint, distinguish between message categories
+     based on conversational roles, effectively mapped by the MessageType.
+
+    For instance, OpenAI recognizes message categories for distinct
+     conversational roles such as system, user, function, or assistant.
+
+    While the term MessageType might imply a specific message format, in this
+     context it effectively designates the role a message plays in the dialogue.
+
+    For AI models that do not use specific roles, the UserMessage
+     implementation acts as a standard category, typically representing user-
+     generated inquiries or instructions.
+ChatOptions
+12
+Spring AI provides a sophisticated system
+13
+
+
+    Spring AI provides a sophisticated system for configuring and using Chat
+     Models.
+
+    It allows for default configurations to be set at start-up, while also providing
+     the flexibility to override these settings on a per-request basis.
+
+    This approach enables developers to easily work with different AI models
+     and adjust parameters as needed, all within a consistent interface provided
+     by the Spring AI framework.
+14
+15
+16
+17
+18
+19
+20
+Chat Models Comparison
+21
+
+
+    This table compares various Chat Models supported by Spring AI, detailing
+     their capabilities:
+       Multimodality: The types of input the model can process (e.g., text,
+        image, audio, video).
+       Tools/Function Calling: Whether the model supports function calling or
+        tool use.
+       Streaming: If the model offers streaming responses.
+       Retry: Support for retry mechanisms.
+       Observability: Features for monitoring and debugging.
+       Built-in JSON: Native support for JSON output.
+       Local deployment: Whether the model can be run locally.
+       OpenAI API Compatibility: If the model is compatible with OpenAI’s API.
+22
+2. Embeddings Model API
+23
+Primary Goals
+24
+
+
+    The design of the EmbeddingModel interface centers around two primary goals:
+      Portability:
+         This interface ensures easy adaptability across various embedding models.
+         It allows developers to switch between different embedding techniques or
+          models with minimal code changes.
+         This design aligns with Spring’s philosophy of modularity and
+          interchangeability.
+      Simplicity:
+         EmbeddingModel simplifies the process of converting text to embeddings.
+         By providing straightforward methods like embed(String text) and
+          embed(Document document), it takes the complexity out of dealing with raw
+          text data and embedding algorithms.
+         This design choice makes it easier for developers, especially those new to AI,
+          to utilize embeddings in their applications without delving deep into the
+          underlying mechanics.
+API Overview
+25
+
+
+    The Embedding Model API is built on top of the generic Spring AI Model
+     API, which is a part of the Spring AI library.
+
+    As such, the EmbeddingModel interface extends the Model interface, which
+     provides a standard set of methods for interacting with AI models.
+
+    The EmbeddingRequest and EmbeddingResponse classes extend from the
+     ModelRequest and ModelResponse are used to encapsulate the input and
+     output of the embedding models, respectively.
+
+    The Embedding API in turn is used by higher-level components to
+     implement Embedding Models for specific embedding models, such as
+     OpenAI, Titan, Azure OpenAI, Ollie, and others.
+26
+3. Image Model API
+27
+28
+Available Implementations
+29
+
+
+    ImageModel implementations are provided for the following Model
+     providers:
+       OpenAI Image Generation
+
+       Azure OpenAI Image Generation
+
+       StabilityAI Image Generation
+
+       ZhiPuAI Image Generation
+Azure OpenAI Image Generation
+30
+
+
+    Spring AI supports DALL-E, the Image generation model from Azure OpenAI.
+    Obtain your Azure OpenAI endpoint and api-key from the Azure OpenAI Service
+     section on the Azure Portal.
+    Spring AI defines a configuration property named spring.ai.azure.openai.api-key
+     that you should set to the value of the API Key obtained from Azure.
+    There is also a configuration property named spring.ai.azure.openai.endpoint that
+     you should set to the endpoint URL obtained when provisioning your model in
+     Azure.
+    Exporting environment variables is one way to set these configuration properties:
+    export SPRING_AI_AZURE_OPENAI_API_KEY=<INSERT KEY HERE>
+    export SPRING_AI_AZURE_OPENAI_ENDPOINT=<INSERT ENDPOINT URL HERE>
+31
+4. Audio Models
+32
+
+
+    Spring AI provides support for OpenAI’s Transcription API.
+
+    When additional providers for Transcription are implemented, a common
+     AudioTranscriptionModel interface will be extracted.
+33
+Runtime Options
+34
+
+
+    The AzureOpenAiAudioTranscriptionOptions class provides the options to
+     use when making a transcription. On start-up, the options specified by
+     spring.ai.azure.openai.audio.transcription are used, but you can override
+     these at runtime.
+AzureOpenAiAudioTranscriptionOptions.TranscriptResponseFormat
+responseFormat =
+AzureOpenAiAudioTranscriptionOptions.TranscriptResponseFormat.VTT;
+
+AzureOpenAiAudioTranscriptionOptions transcriptionOptions =
+AzureOpenAiAudioTranscriptionOptions.builder().language("en") .prompt("Ask
+not this, but ask that")
+.temperature(0f)
+.responseFormat(this.responseFormat)
+.build();
+
+AudioTranscriptionPrompt transcriptionRequest = new
+AudioTranscriptionPrompt(audioFile, this.transcriptionOptions);
+
+AudioTranscriptionResponse response =
+azureOpenAiTranscriptionModel.call(this.transcriptionRequest);
+
+35
+Next, create a AzureOpenAiAudioTranscriptionModel
+36
+
+var openAIClient = new OpenAIClientBuilder().credential(new
+AzureKeyCredential(System.getenv("AZURE_OPENAI_API_KEY")))
+.endpoint(System.getenv("AZURE_OPENAI_ENDPOINT")).buildClient();
+var azureOpenAiAudioTranscriptionModel = new
+AzureOpenAiAudioTranscriptionModel(this.openAIClient, null);
+
+var transcriptionOptions = AzureOpenAiAudioTranscriptionOptions.builder()
+.responseFormat(TranscriptResponseFormat.TEXT)
+.temperature(0f)
+.build();
+
+var audioFile = new FileSystemResource("/path/to/your/resource/speech/jfk.flac");
+AudioTranscriptionPrompt transcriptionRequest = new
+AudioTranscriptionPrompt(this.audioFile, this.transcriptionOptions);
+AudioTranscriptionResponse response =
+this.azureOpenAiAudioTranscriptionModel.call(this.transcriptionRequest);
+37
+38
+39
+5. Text-To-Speech (TTS) API
+40
+
+
+    Spring AI provides support for OpenAI’s Speech API.
+
+    When additional providers for Speech are implemented, a common
+     SpeechModel and StreamingSpeechModel interface will be extracted.
+41
+42
+43
+44
+6. Moderation
+45
+
+
+    Spring AI supports OpenAI’s Moderation model, which allows you to detect
+     potentially harmful or sensitive content in text.
+
+    Prerequisites
+      Create an OpenAI account and obtain an API key.
+
+      You can sign up at the OpenAI signup page and generate an API key on
+        the API Keys page.
+      Add the spring-ai-openai dependency to your project’s build file.
+Runtime Options
+46
+
+
+    The OpenAiModerationOptions class provides the options to use when
+     making a moderation request.
+
+    On start-up, the options specified by spring.ai.openai.moderation are used,
+     but you can override these at runtime.
+47
+48
+Next, create an OpenAiModerationModel:
+49
+

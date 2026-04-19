@@ -1,0 +1,36 @@
+﻿[INFO] Error stacktraces are turned on.
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------< com.example:demo >--------------------------
+[INFO] Building demo 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.4.0:clean (default-clean) @ demo ---
+[INFO] Deleting C:\Users\prapt\OneDrive\Desktop\DESKTOP\All Folders\Northeastern University\Semester 4\CSYE 7374 - Intro AI Agent Infrastructure\ST-in-Computer-Systems-Engineering---Intro-AI-Agent-Infrastructure\HW3\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ demo ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ demo ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 7 source files with javac [debug parameters release 17] to target\classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ demo ---
+[INFO] skip non existing resourceDirectory C:\Users\prapt\OneDrive\Desktop\DESKTOP\All Folders\Northeastern University\Semester 4\CSYE 7374 - Intro AI Agent Infrastructure\ST-in-Computer-Systems-Engineering---Intro-AI-Agent-Infrastructure\HW3\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ demo ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.5.2:test (default-test) @ demo ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ demo ---
+[INFO] Building jar: C:\Users\prapt\OneDrive\Desktop\DESKTOP\All Folders\Northeastern University\Semester 4\CSYE 7374 - Intro AI Agent Infrastructure\ST-in-Computer-Systems-Engineering---Intro-AI-Agent-Infrastructure\HW3\target\demo-0.0.1-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.872 s
+[INFO] Finished at: 2026-02-16T15:35:11-05:00
+[INFO] ------------------------------------------------------------------------

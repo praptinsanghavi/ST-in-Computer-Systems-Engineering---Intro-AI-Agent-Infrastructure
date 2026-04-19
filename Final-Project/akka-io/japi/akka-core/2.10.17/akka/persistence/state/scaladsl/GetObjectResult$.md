@@ -1,0 +1,132 @@
+---
+description: ''
+knowledge_type: official_documentation
+scraped_at: '2026-04-06T15:47:38Z'
+section: japi
+site: akka-io
+source_url: https://doc.akka.io/japi/akka-core/2.10.17/akka/persistence/state/scaladsl/GetObjectResult$.html
+title: GetObjectResult$
+---
+
+# GetObjectResult$
+
+## Content
+
+Package [akka.persistence.state.scaladsl](package-summary.html)
+## Class GetObjectResult$
+
+- java.lang.Object
+- - akka.persistence.state.scaladsl.GetObjectResult$
+
+- All Implemented Interfaces:
+`java.io.Serializable`
+
+---
+
+```
+public class GetObjectResult$
+extends java.lang.Object
+implements java.io.Serializable
+```
+
+See Also:
+[Serialized Form](../../../../serialized-form.html#akka.persistence.state.scaladsl.GetObjectResult$)
+
+- - ### Field Summary
+	
+	
+	
+	Fields 
+	| Modifier and Type | Field | Description |
+	| `static [GetObjectResult$](GetObjectResult$.html "class in akka.persistence.state.scaladsl")` | `[MODULE$](#MODULE$)` | Static reference to the singleton instance of this Scala object. |
+
+	- ### Constructor Summary
+	
+	
+	
+	Constructors 
+	| Constructor | Description |
+	| `[GetObjectResult$](#%3Cinit%3E())()` |  |
+
+	- ### Method Summary
+	
+	
+	
+	All Methods [Instance Methods](javascript:show(2);) [Concrete Methods](javascript:show(8);) 
+	| Modifier and Type | Method | Description |
+	| `<A> [GetObjectResult](GetObjectResult.html "class in akka.persistence.state.scaladsl")<A>` | `[apply](#apply(scala.Option,long))​(scala.Option<A> value,  long revision)` |  |
+	| `java.lang.String` | `[toString](#toString())()` |  |
+	| `<A> scala.Option<scala.Tuple2<scala.Option<A>,​java.lang.Object>>` | `[unapply](#unapply(akka.persistence.state.scaladsl.GetObjectResult))​([GetObjectResult](GetObjectResult.html "class in akka.persistence.state.scaladsl")<A> x$0)` |  |
+	
+	
+		- ### Methods inherited from class java.lang.Object
+		
+		
+		`clone, equals, finalize, getClass, hashCode, notify, notifyAll, wait, wait, wait`
+
+- - ### Field Detail
+	
+	
+	
+		- #### MODULE$
+		
+		
+		
+		```
+		public static final [GetObjectResult$](GetObjectResult$.html "class in akka.persistence.state.scaladsl") MODULE$
+		```
+		
+		Static reference to the singleton instance of this Scala object.
+
+	- ### Constructor Detail
+	
+	
+	
+		- #### GetObjectResult$
+		
+		
+		
+		```
+		public GetObjectResult$()
+		```
+
+	- ### Method Detail
+	
+	
+	
+		- #### toString
+		
+		
+		
+		```
+		public final java.lang.String toString()
+		```
+		
+		
+		Overrides:
+		`toString` in class `java.lang.Object`
+		- #### apply
+		
+		
+		
+		```
+		public <A> [GetObjectResult](GetObjectResult.html "class in akka.persistence.state.scaladsl")<A> apply​(scala.Option<A> value,
+		                                    long revision)
+		```
+		- #### unapply
+		
+		
+		
+		```
+		public <A> scala.Option<scala.Tuple2<scala.Option<A>,​java.lang.Object>> unapply​([GetObjectResult](GetObjectResult.html "class in akka.persistence.state.scaladsl")<A> x$0)
+		```
+
+## Related Pages (Internal Links)
+
+- https://doc.akka.io/japi/akka-core/2.10.17/akka/persistence/state/scaladsl/GetObjectResult$.html
+- https://doc.akka.io/japi/akka-core/2.10.17/akka/persistence/state/scaladsl/GetObjectResult.html
+- https://doc.akka.io/japi/akka-core/2.10.17/akka/persistence/state/scaladsl/package-summary.html
+- https://doc.akka.io/japi/akka-core/2.10.17/serialized-form.html
+
+---
+*Source: [https://doc.akka.io/japi/akka-core/2.10.17/akka/persistence/state/scaladsl/GetObjectResult$.html](https://doc.akka.io/japi/akka-core/2.10.17/akka/persistence/state/scaladsl/GetObjectResult$.html)*

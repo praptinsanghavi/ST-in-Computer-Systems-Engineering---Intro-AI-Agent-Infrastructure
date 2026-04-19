@@ -1,0 +1,101 @@
+Multithreading in Java
+
+   Multithreading in Java is a feature that enables a program to run multiple
+    threads simultaneously, allowing tasks to execute in parallel and utilize the
+    CPU more efficiently.
+
+
+   A thread is a lightweight, independent unit of execution inside a program
+    (process).
+
+
+   A process can have multiple threads.
+   Each thread runs independently but shares the same memory.
+Example: Imagine a restaurant kitchen
+2
+
+
+   Multiple chefs (threads) are preparing different dishes at the same time.
+   This speeds up service and utilizes all available resources (CPU).
+Creating Threads in Java
+3
+
+
+   In Java, there are several ways to create and run threads.
+   Each approach has its own use cases, and choosing the right one depends
+    on how your application is structured.
+    1. Extending the Thread class
+
+    2. Implementing the Runnable interface
+
+    3. Using lambda expressions (Java 8 and later)
+1. Extending the Thread Class
+4
+
+
+   One of the simplest ways to create a thread in Java is by extending the
+    built-in Thread class and overriding its run() method.
+   This method contains the code that should run in the new thread.
+2. Implementing the Runnable Interface
+5
+
+
+   A more flexible way to create threads is to implement the Runnable
+    interface.
+   This separates the task from the thread itself, which is useful when you
+    want your class to extend another class.
+3. Using Lambda Expressions (Java 8+)
+6
+
+
+   If you’re using Java 8 or later, you can simplify thread creation using lambda
+    expressions.
+   This is ideal for short, one-off tasks where you don’t want to write a full
+    class.
+Thread Creation Comparison
+7
+Why Use Multithreading in Java?
+8
+
+
+   Multithreading offers several key advantages:
+     Improved Performance:
+
+        Threads can run in parallel on multi-core processors, making efficient use
+          of system resources.
+     Responsive Applications:
+
+        Multithreading helps keep user interfaces responsive by offloading long-
+          running tasks to background threads.
+     Resource Sharing:
+
+        Threads share memory and resources, enabling faster context switching
+          and inter-thread communication.
+     Asynchronous Processing:
+
+        Tasks like file I/O, network requests, or database operations can run
+          independently of the main application flow.
+Real-World Use Cases of Multithreading
+9
+
+
+   Multithreading is widely used in modern Java applications across many
+    domains:
+     Web Servers:
+
+       Handle multiple client requests concurrently.
+     GUI Applications:
+
+       Keep the UI responsive during background operations.
+     Games:
+
+       Manage rendering, physics calculations, and input handling in parallel.
+     Real-Time Systems:
+
+       Perform time-sensitive tasks simultaneously.
+     Data Processing Pipelines:
+
+       Parallelize large-scale data computations and I/O operations.
+10
+11
+

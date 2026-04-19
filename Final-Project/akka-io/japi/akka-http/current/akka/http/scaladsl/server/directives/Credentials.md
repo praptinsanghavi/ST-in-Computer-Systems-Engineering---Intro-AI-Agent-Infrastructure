@@ -1,0 +1,96 @@
+---
+description: ''
+knowledge_type: official_documentation
+scraped_at: '2026-04-06T00:40:24Z'
+section: japi
+site: akka-io
+source_url: https://doc.akka.io/japi/akka-http/current/akka/http/scaladsl/server/directives/Credentials.Provided$.html
+title: Credentials.Provided$
+---
+
+# Credentials.Provided$
+
+## Content
+
+Package [akka.http.scaladsl.server.directives](package-summary.html)
+## Class Credentials.Provided$
+
+- java.lang.Object
+- - akka.http.scaladsl.server.directives.Credentials.Provided$
+
+- All Implemented Interfaces:
+`java.io.Serializable`
+
+Enclosing interface:
+[Credentials](Credentials.html "interface in akka.http.scaladsl.server.directives")
+
+---
+
+```
+public static class Credentials.Provided$
+extends java.lang.Object
+implements java.io.Serializable
+```
+
+See Also:
+[Serialized Form](../../../../../serialized-form.html#akka.http.scaladsl.server.directives.Credentials.Provided$)
+
+- - ### Field Summary
+	
+	
+	
+	Fields 
+	| Modifier and Type | Field | Description |
+	| `static [Credentials.Provided$](Credentials.Provided$.html "class in akka.http.scaladsl.server.directives")` | `[MODULE$](#MODULE$)` | Static reference to the singleton instance of this Scala object. |
+
+	- ### Constructor Summary
+	
+	
+	
+	Constructors 
+	| Constructor | Description |
+	| `[Provided$](#%3Cinit%3E())()` |  |
+
+	- ### Method Summary
+	
+	
+		- ### Methods inherited from class java.lang.Object
+		
+		
+		`clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait`
+
+- - ### Field Detail
+	
+	
+	
+		- #### MODULE$
+		
+		
+		
+		```
+		public static final [Credentials.Provided$](Credentials.Provided$.html "class in akka.http.scaladsl.server.directives") MODULE$
+		```
+		
+		Static reference to the singleton instance of this Scala object.
+
+	- ### Constructor Detail
+	
+	
+	
+		- #### Provided$
+		
+		
+		
+		```
+		public Provided$()
+		```
+
+## Related Pages (Internal Links)
+
+- https://doc.akka.io/japi/akka-http/current/akka/http/scaladsl/server/directives/Credentials.Provided$.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/scaladsl/server/directives/Credentials.html
+- https://doc.akka.io/japi/akka-http/current/akka/http/scaladsl/server/directives/package-summary.html
+- https://doc.akka.io/japi/akka-http/current/serialized-form.html
+
+---
+*Source: [https://doc.akka.io/japi/akka-http/current/akka/http/scaladsl/server/directives/Credentials.Provided$.html](https://doc.akka.io/japi/akka-http/current/akka/http/scaladsl/server/directives/Credentials.Provided$.html)*

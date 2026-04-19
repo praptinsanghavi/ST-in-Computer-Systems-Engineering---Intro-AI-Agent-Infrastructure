@@ -1,0 +1,239 @@
+---
+description: ''
+knowledge_type: official_documentation
+scraped_at: '2026-04-05T18:25:47Z'
+section: reference
+site: akka-io
+source_url: https://doc.akka.io/reference/views/concepts/data-types.html
+title: 'Data Types :: Akka Documentation'
+---
+
+# Data Types :: Akka Documentation
+
+## Content
+
+# Data Types
+
+The View query language supports a range of data types that map to Java types in your View components. This page explains the supported data types, how they’re used in queries, and how they map between the query language and Java.
+
+## Supported Data Types
+
+View queries support the following data types:
+
+| Query Data Type | Java Type | Description |
+| --- | --- | --- |
+| Text | `String` | Text strings of any length |
+| Integer | `int` / `Integer` | 32\-bit signed integers |
+| Long | `long` / `Long` | 64\-bit signed integers |
+| Float | `float` / `Float` | 32\-bit floating point numbers |
+| Double | `double` / `Double` | 64\-bit floating point numbers |
+| Boolean | `boolean` / `Boolean` | True or false values |
+| Lists | `Collection<T>` and derived types | Collections of values |
+| Timestamp | `java.time.Instant` | Point in time with microsecond precision. Supported range: `1970-01-01T00:00:00Z` (`Instant.EPOCH`) to `9999-12-31T23:59:59.999Z`. Note that `Instant.MIN` and `Instant.MAX` are outside this range and cannot be used as query parameters or stored in view state |
+| Date and Time | `java.time.ZonedDateTime` | Date and time with timezone information |
+| Decimal numbers | `java.math.BigDecimal` | Suitable for finance, currency. |
+
+## Type Mapping
+
+When executing queries, the View system automatically maps between Java types and query data types:
+
+### From Java to Query
+
+- `String` → Text
+- `int`/`Integer` → Integer
+- `long`/`Long` → Long
+- `float`/`Float` → Float
+- `double`/`Double` → Double
+- `boolean`/`Boolean` → Boolean
+- `Collection<T>` → List of the mapped type of `T`
+- `java.time.Instant` → Timestamp
+- `java.time.ZonedDateTime` → Date and time
+- `java.math.BigDecimal` → Numeric
+- Custom types → Complex structure based on fields
+
+### From Query to Java
+
+When query results are mapped to Java objects, the reverse mapping occurs. Fields in your response types must be compatible with the corresponding data in the query result.
+
+## Literals in Queries
+
+Different data types have specific literal formats in queries:
+
+### Text Literals
+
+Text literals are enclosed in single quotes:
+
+```
+WHERE name = 'John'
+WHERE status = 'active'
+```
+
+### Numeric Literals
+
+Numeric literals are written without quotes:
+
+```
+WHERE price = 99.99
+WHERE quantity = 5
+```
+
+It is also possible to explicitly describe the type of a literal:
+
+```
+WHERE price = 99.99::numeric
+WHERE quantity = 5::float
+```
+
+### Boolean Literals
+
+Boolean literals are written as `true` or `false`:
+
+```
+WHERE active = true
+WHERE discontinued = false
+```
+
+### Timestamp Literals
+
+Timestamp literals are written as ISO\-8601 formatted strings in single quotes:
+
+```
+WHERE createdTime > '2023-01-01T00:00:00Z'
+```
+
+The supported range for timestamp values is `1970-01-01T00:00:00Z` (`Instant.EPOCH`) to `9999-12-31T23:59:59.999Z`. Values outside this range — including `Instant.MIN` and `Instant.MAX` — are rejected with an error.
+
+## Type Conversion
+
+The View query language generally requires exact type matches:
+
+- You cannot directly compare values of different types (e.g., a text value with a numeric value)
+- When working with numeric types, some automatic conversion may occur (e.g., Integer to Long)
+- Special handling applies to NULL values, which are compared using `IS NULL` and `IS NOT NULL`
+
+## Complex and Nested Types
+
+Views support complex and nested data structures:
+
+### Nested Objects
+
+Nested objects are represented using dot notation:
+
+```
+WHERE address.city = 'New York'
+WHERE customer.contact.email = :email
+```
+
+### Collection Types
+
+Collection fields can be:
+
+- Selected in results: `SELECT tags AS productTags`
+- Used with the `= ANY` operator: `WHERE :tag = ANY(tags)`
+- Created with the `collect()` function: `collect(name) AS productNames`
+
+For more details see [Array Types](array-types.html)
+
+## Optional Fields
+
+Fields in a view type can be optional, represented in Java as:
+
+- Java’s non\-primitive types (e.g., `Integer` instead of `int`)
+- `java.util.Optional<T>` wrapper
+- Nested classes with potentially null fields
+
+Optional fields can be queried using the `IS NULL` and `IS NOT NULL` operators:
+
+```
+WHERE phoneNumber IS NULL
+WHERE address IS NOT NULL
+```
+
+## Parameters
+
+Query parameters use the same type system as other values in the query. For example:
+
+```
+WHERE category = :categoryParam
+WHERE price < :maxPrice
+WHERE tags = ANY(:tagList)
+```
+
+The Java type of the parameter must be compatible with how it’s used in the query.
+
+## Related Features
+
+- [Comparison Operators](../syntax/operators/comparison.html) \- Type\-compatible comparisons
+- [IS NULL / IS NOT NULL](../syntax/operators/is-null.html) \- Working with optional values
+- [Optional Fields](optional-fields.html) \- Detailed information about handling optional data
+- [Result Mapping](result-mapping.html) \- How query results map to Java types
+- [Array Types](array-types.html) \- Working with collection data in views
+
+## Code Examples
+
+### Example 1: Text Literals
+
+```sql
+WHERE name = 'John'
+WHERE status = 'active'
+```
+
+### Example 2: Numeric Literals
+
+```sql
+WHERE price = 99.99
+WHERE quantity = 5
+```
+
+### Example 3: Numeric Literals
+
+```sql
+WHERE price = 99.99::numeric
+WHERE quantity = 5::float
+```
+
+### Example 4: Boolean Literals
+
+```sql
+WHERE active = true
+WHERE discontinued = false
+```
+
+### Example 5: Timestamp Literals
+
+```sql
+WHERE createdTime > '2023-01-01T00:00:00Z'
+```
+
+### Example 6: Nested Objects
+
+```sql
+WHERE address.city = 'New York'
+WHERE customer.contact.email = :email
+```
+
+### Example 7: Optional Fields
+
+```sql
+WHERE phoneNumber IS NULL
+WHERE address IS NOT NULL
+```
+
+### Example 8: Parameters
+
+```sql
+WHERE category = :categoryParam
+WHERE price < :maxPrice
+WHERE tags = ANY(:tagList)
+```
+
+## Related Pages (Internal Links)
+
+- https://doc.akka.io/reference/views/concepts/array-types.html
+- https://doc.akka.io/reference/views/concepts/optional-fields.html
+- https://doc.akka.io/reference/views/concepts/result-mapping.html
+- https://doc.akka.io/reference/views/syntax/operators/comparison.html
+- https://doc.akka.io/reference/views/syntax/operators/is-null.html
+
+---
+*Source: [https://doc.akka.io/reference/views/concepts/data-types.html](https://doc.akka.io/reference/views/concepts/data-types.html)*

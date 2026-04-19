@@ -1,0 +1,10 @@
+﻿--- Chat Model ---
+Why couldn't the bicycle stand up by itself?
+
+Because it was two-tired!
+
+--- Embedding Model ---
+Dimensions: 1536
+Preview: -0.021832699 -0.007037575 -0.028643254
+
+--- Image Model ---

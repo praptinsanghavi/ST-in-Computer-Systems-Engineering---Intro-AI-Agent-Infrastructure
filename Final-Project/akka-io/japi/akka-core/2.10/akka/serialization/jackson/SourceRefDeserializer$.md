@@ -1,0 +1,112 @@
+---
+description: ''
+knowledge_type: official_documentation
+scraped_at: '2026-04-05T20:17:22Z'
+section: japi
+site: akka-io
+source_url: https://doc.akka.io/japi/akka-core/2.10/akka/serialization/jackson/SourceRefDeserializer$.html
+title: SourceRefDeserializer$
+---
+
+# SourceRefDeserializer$
+
+## Content
+
+Package [akka.serialization.jackson](package-summary.html)
+## Class SourceRefDeserializer$
+
+- java.lang.Object
+- - akka.serialization.jackson.SourceRefDeserializer$
+
+- All Implemented Interfaces:
+`java.io.Serializable`
+
+---
+
+```
+public class SourceRefDeserializer$
+extends java.lang.Object
+implements java.io.Serializable
+```
+
+INTERNAL API
+
+See Also:
+[Serialized Form](../../../serialized-form.html#akka.serialization.jackson.SourceRefDeserializer$)
+
+- - ### Field Summary
+	
+	
+	
+	Fields 
+	| Modifier and Type | Field | Description |
+	| `static [SourceRefDeserializer$](SourceRefDeserializer$.html "class in akka.serialization.jackson")` | `[MODULE$](#MODULE$)` | Static reference to the singleton instance of this Scala object. |
+
+	- ### Constructor Summary
+	
+	
+	
+	Constructors 
+	| Constructor | Description |
+	| `[SourceRefDeserializer$](#%3Cinit%3E())()` |  |
+
+	- ### Method Summary
+	
+	
+	
+	All Methods [Instance Methods](javascript:show(2);) [Concrete Methods](javascript:show(8);) 
+	| Modifier and Type | Method | Description |
+	| `akka.serialization.jackson.SourceRefDeserializer` | `[instance](#instance())()` |  |
+	
+	
+		- ### Methods inherited from class java.lang.Object
+		
+		
+		`clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait`
+
+- - ### Field Detail
+	
+	
+	
+		- #### MODULE$
+		
+		
+		
+		```
+		public static final [SourceRefDeserializer$](SourceRefDeserializer$.html "class in akka.serialization.jackson") MODULE$
+		```
+		
+		Static reference to the singleton instance of this Scala object.
+
+	- ### Constructor Detail
+	
+	
+	
+		- #### SourceRefDeserializer$
+		
+		
+		
+		```
+		public SourceRefDeserializer$()
+		```
+
+	- ### Method Detail
+	
+	
+	
+		- #### instance
+		
+		
+		
+		```
+		public akka.serialization.jackson.SourceRefDeserializer instance()
+		```
+
+## Related Pages (Internal Links)
+
+- https://doc.akka.io/japi/akka-core/2.10/akka/serialization/jackson/SourceRefDeserializer$.html
+- https://doc.akka.io/japi/akka-core/2.10/akka/serialization/jackson/package-summary.html
+- https://doc.akka.io/japi/akka-core/2.10/serialized-form.html
+
+---
+*Source: [https://doc.akka.io/japi/akka-core/2.10/akka/serialization/jackson/SourceRefDeserializer$.html](https://doc.akka.io/japi/akka-core/2.10/akka/serialization/jackson/SourceRefDeserializer$.html)*

@@ -1,0 +1,67 @@
+---
+description: ''
+knowledge_type: official_documentation
+scraped_at: '2026-04-05T18:21:10Z'
+section: reference
+site: akka-io
+source_url: https://doc.akka.io/reference/cli/akka-cli/akka_local_cluster.html
+title: 'akka local cluster :: Akka Documentation'
+---
+
+# akka local cluster :: Akka Documentation
+
+## Content
+
+# akka local cluster
+
+Start and manage a local Akka cluster
+
+## Synopsis
+
+Start and manage a local Akka cluster for development and testing.
+
+This command must be run from an Akka SDK project directory (a directory containing a pom.xml file).
+
+Prerequisites:
+
+- Maven installed on your system, or the Maven wrapper (mvnw) present in your project
+- Docker installed and running (used to launch Akka Persistence backed by PostgreSQL)
+
+```
+akka local cluster [flags]
+```
+
+## Options
+
+```
+  -D, --define stringArray   Pass -D properties to Maven (e.g., -Dfoo=bar)
+  -h, --help                 help for cluster
+  -n, --num-nodes int        Number of nodes to start (1-3)
+```
+
+## Options inherited from parent commands
+
+```
+      --cache-file string   location of cache file (default "~/.akka/cache.yaml")
+      --config string       location of config file (default "~/.akka/config.yaml")
+      --context string      configuration context to use
+      --disable-prompt      Disable all interactive prompts when running akka commands. If input is required, defaults will be used, or an error will be raised.
+                            This is equivalent to setting the environment variable AKKA_DISABLE_PROMPTS to true.
+  -o, --output string       set output format to one of [text,json,json-compact,go-template=] (default "text")
+      --page-mode string    the mode for paging, either paged, buffered or auto. (default "auto")
+  -q, --quiet               set quiet output (helpful when used as part of a script)
+      --timeout duration    client command timeout (default 10s)
+      --use-grpc-web        use grpc-web when talking to Akka APIs. This is useful when behind corporate firewalls that decrypt traffic but don't support HTTP/2.
+  -v, --verbose             set verbose output
+```
+
+## SEE ALSO
+
+- [akka local](akka_local.html) \- Interact with and manage Akka services running locally.
+
+## Related Pages (Internal Links)
+
+- https://doc.akka.io/reference/cli/akka-cli/akka_local.html
+
+---
+*Source: [https://doc.akka.io/reference/cli/akka-cli/akka_local_cluster.html](https://doc.akka.io/reference/cli/akka-cli/akka_local_cluster.html)*

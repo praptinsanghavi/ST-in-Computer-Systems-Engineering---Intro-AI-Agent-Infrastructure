@@ -1,0 +1,19 @@
+﻿--- Chat Model ---
+Why did the scarecrow win an award? Because he was outstanding in his field!
+
+--- Embedding Model ---
+Dimensions: 1536
+Preview: -0.021832699 -0.007037575 -0.028643254
+
+--- Image Model ---
+<html><body><h1>Generated Image</h1><img src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-hmSzGCO0ndE6B2UKwdaIvOW9/user-Xn3pcsvjRkjZhxWIfjvW4cm8/img-Xwezu5gftRpAzIdMrlq3Ftt7.png?st=2026-02-16T17%3A24%3A56Z&se=2026-02-16T19%3A24%3A56Z&sp=r&sv=2026-02-06&sr=b&rscd=inline&rsct=image/png&skoid=8eb2c87c-0531-4dab-acb3-b5e2adddce6c&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-02-16T07%3A57%3A20Z&ske=2026-02-17T07%3A57%3A20Z&sks=b&skv=2026-02-06&sig=17sbMembh3jO6tLXqMJi85b%2Bwz1TkYrkkzSxuA5T5x4%3D" alt="Generated Image" style="max-width:500px;"><br><a href="https://oaidalleapiprodscus.blob.core.windows.net/private/org-hmSzGCO0ndE6B2UKwdaIvOW9/user-Xn3pcsvjRkjZhxWIfjvW4cm8/img-Xwezu5gftRpAzIdMrlq3Ftt7.png?st=2026-02-16T17%3A24%3A56Z&se=2026-02-16T19%3A24%3A56Z&sp=r&sv=2026-02-06&sr=b&rscd=inline&rsct=image/png&skoid=8eb2c87c-0531-4dab-acb3-b5e2adddce6c&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-02-16T07%3A57%3A20Z&ske=2026-02-17T07%3A57%3A20Z&sks=b&skv=2026-02-06&sig=17sbMembh3jO6tLXqMJi85b%2Bwz1TkYrkkzSxuA5T5x4%3D">Direct Link</a></body></html>
+
+--- Speech Model ---
+Generated audio size: 13920 bytes
+Speech generated (binary output not shown)
+
+--- Document Embedding Model ---
+DocumentEmbeddingModel is not available (likely not implemented by OpenAI starter).
+
+--- Moderation Model ---
+Error: The remote server returned an error: (500) Internal Server Error.

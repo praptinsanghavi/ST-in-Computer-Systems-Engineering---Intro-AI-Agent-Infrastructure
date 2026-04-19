@@ -1,0 +1,110 @@
+# 🏛️ Supply Chain Command Center: Distributed AI Agent System
+**Comprehensive Engineering Documentation**
+
+---
+
+## 📑 1. Summary of Topics
+This project implements a **Distributed Digital Twin** of a multi-tier supply chain. It addresses several high-level Computer Systems and AI Agent Infrastructure topics:
+*   **Actor Model Concurrency**: Leveraging Akka Typed for high-throughput, non-blocking message processing.
+*   **Distributed Cluster Sharding**: Managing entity lifecycle across multiple JVM nodes with location transparency.
+*   **Agentic Reasoning (GraphRAG)**: Combining Large Language Models with Graph Theory to solve the "Cascading Failure" problem in logistics.
+*   **Event Sourcing & Persistence**: Implementing a "No-Loss" architecture where every state mutation is an immutable event.
+
+---
+
+## 🛠️ 2. Tools & Technologies Used
+| Category | Technology | Purpose |
+| :--- | :--- | :--- |
+| **Language** | Scala 2.13 | High-concurrency functional programming. |
+| **Distributed Core** | Akka Typed (2.6.x) | Core actor framework for modeling entities. |
+| **Scale** | Akka Cluster Sharding | Distributing `Truck`, `Warehouse`, and `Store` actors across nodes. |
+| **Persistence** | Akka Persistence JDBC | Event journaling to PostgreSQL for auditability. |
+| **API** | Akka HTTP | Providing a RESTful ingress for disruption reports. |
+| **Intelligence** | OpenAI (GPT-4o) | Natural language interpretation and recovery planning. |
+| **Graph Logic** | Scopt/Custom Graph | Dijkstra's algorithm for topological impact analysis. |
+| **Frontend** | React, Vite, Framer Motion | Real-time observability and visual command center. |
+
+---
+
+## 🚀 3. Core Features: How, Where, & Why
+
+### A. Real-time Disruption Interpretation
+*   **How**: The `LLMInterpreterActor` uses a multi-layered prompt strategy to extract `entityId`, `eventType`, and `impactMagnitude` from raw user input.
+*   **Where**: [LLMInterpreterActor.scala](./supply-chain-system/src/main/scala/com/supplychain/actors/workflow/LLMInterpreterActor.scala) and [PromptBuilder.scala](./supply-chain-system/src/main/scala/com/supplychain/llm/PromptBuilder.scala).
+*   **Why**: Logistics "ground truth" often arrives in unstructured forms (emails, news reports, radio). An agent that can "read" these and convert them to system commands is critical for modern logistics.
+
+### B. Topological "Ripple Effect" Analysis
+*   **How**: Implements **Dijkstra’s Algorithm** on an adjacency-list graph representating the supply chain. When a node fails, the graph is traversed to find all "reachable" downstream nodes.
+*   **Where**: [SupplyChainGraph.scala](./supply-chain-system/src/main/scala/com/supplychain/graph/SupplyChainGraph.scala).
+*   **Why**: In a global network, a delay in a single supplier can hit 500+ stores. The graph logic automates the "Impact Search" that normally takes human teams hours.
+
+### C. Sharded Digital Twins (Swiggy DSP Pattern)
+*   **How**: Every physical entity (e.g., Warehouse W1) is a Persistent Actor registered via `ClusterSharding`.
+*   **Where**: [GuardianActor.scala](./supply-chain-system/src/main/scala/com/supplychain/actors/GuardianActor.scala).
+*   **Why**: **Industry Validation:** Swiggy's Data Science Platform (DSP) uses this exact pattern to manage real-time delivery predictions. Sharding ensures that as your supply chain grows to 10M entities, you simply add more horizontal nodes to the cluster.
+
+---
+
+## 🌳 4. Akka Actor Hierarchy
+
+```mermaid
+graph TD
+    System[ActorSystem Root]
+    System --> Guardian[Guardian Actor: Infrastructure Wired]
+    Guardian --> Manager[SimulationManager: Request Router]
+    Manager -- spawns --> CaseActor[DisruptionCaseActor: Work Flow Logic]
+    
+    subgraph Workflow_Layer
+        CaseActor --> Interpreter[LLM Interpreter: Thinking]
+        CaseActor --> ImpactAgg[Impact Aggregator: Graph Logic]
+    end
+    
+    subgraph Distributed_Edge
+        ImpactAgg -- "sharding.entityRefFor" --> Shards[Sharded Domain Entities]
+        Shards --> Supplier[SupplierActor]
+        Shards --> Warehouse[WarehouseActor]
+        Shards --> Truck[TruckActor]
+        Shards --> Store[StoreActor]
+    end
+```
+
+*   **How**: We use a `Parent-Child` pattern for workflows. `DisruptionCaseActor` acts as the supervisor for the specific case.
+*   **Where**: Defined across the `actors` and `workflow` packages.
+*   **Why**: Ensures **Fault Isolation**. If the LLM service times out, only the `Interpreter` child fails and restarts; the main `CaseActor` and other sharded entities remain unaffected.
+
+---
+
+## 💡 5. Other Engineering Features
+
+### Asynchronous Ask & PipeToSelf
+*   **How**: We use `ctx.pipeToSelf` for all Future-returning operations (like LLM calls).
+*   **Where**: [LLMInterpreterActor.scala](./supply-chain-system/src/main/scala/com/supplychain/actors/workflow/LLMInterpreterActor.scala).
+*   **Why**: This is the single most important pattern in Akka. It ensures the actor never blocks its thread while waiting for a response, preventing "Dead Reckoning" and thread exhaustion.
+
+### CORS-Enabled Management Dashboard
+*   **How**: Implemented a custom CORS handler in the Akka HTTP layer to allow cross-origin requests from the React development server.
+*   **Where**: [Routes.scala](./supply-chain-system/src/main/scala/com/supplychain/http/Routes.scala).
+*   **Why**: Enables a split-tier development workflow where the UI and Backend can evolve independently while still interacting locally.
+
+---
+
+## 🌟 6. Showcase: Why This Matters (For Professors/Recruiters)
+
+1.  **Production Depth**: This isn't just a "Hello World" actor app. It uses **Artery** (UDP/TCP) for networking, **Cluster Sharding** for scale, and **JDBC Persistence** for real-world data durability.
+2.  **AI Utility**: The LLM isn't a bolt-on; it's a core "Worker Actor" that performs schema extraction, demonstrating how AI can be integrated into high-reliability actor systems.
+3.  **Location Transparency**: Our domain actors use `RecipientRef`. This is a top-tier concept where an actor doesn't know (or care) if the message it sent is going to a local thread or a machine in another data center.
+
+---
+
+## 📸 7. Visual Interface Guide
+
+*   **Command Center**: A premium dark-mode dashboard providing a "Deep Space" aesthetic.
+*   **Impact Highlighting**: Pulsing red nodes on the topological SVG map indicate where the LLM + Graph logic has identified a critical failure.
+*   **Recovery Feed**: Priority-ordered mitigation cards describing AI-suggested recovery steps (e.g., "Reroute T3 to W2").
+
+---
+
+## 📜 8. Future Roadmap
+*   **Multi-Agent Negotiation**: Adding "Contract" actors where Suppliers and Warehouses can negotiate prices/delivery during a crisis.
+*   **Real-time Telemetry**: Integrating Akka Management for cluster visualization.
+*   **Edge Deployment**: Deploying store-level agents to IoT edge devices.

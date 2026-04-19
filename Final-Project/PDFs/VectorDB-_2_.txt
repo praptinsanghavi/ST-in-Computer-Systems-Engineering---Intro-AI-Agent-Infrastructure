@@ -1,0 +1,269 @@
+Unstructured Data
+1
+
+
+   Most of the millions of terabytes of data we generate each day is
+    unstructured.
+
+   Think of the meal photos you snap, the PDFs shared at work, or the
+    podcasts you save but may never listen to.
+
+   None of it fits neatly into rows and columns.
+
+   Unstructured data lacks a strict format or schema, making it challenging for
+    conventional databases to manage.
+
+   Yet, this unstructured data holds immense potential for AI, machine
+    learning, and modern search engines.
+What Is a Vector Database?
+2
+
+
+   A Vector Database is a specialized system designed to efficiently handle
+    high-dimensional vector data.
+
+   It excels at indexing, querying, and retrieving this data, enabling advanced
+    analysis and similarity searches that traditional databases cannot easily
+    perform.
+OLTP and OLAP Databases
+3
+
+
+   Traditional OLTP and OLAP databases have been the backbone of data
+    storage for decades.They are great at managing structured data with well-
+    defined schemas, like name, address, phone number, and purchase history.
+The Challenge with Traditional Databases
+4
+
+
+   But when data can’t be easily categorized, like the content inside a PDF file,
+    things start to get complicated.
+
+   You can always store the PDF file as raw data, perhaps with some metadata
+    attached.
+     However, the database still wouldn’t be able to understand what’s inside the
+       document, categorize it, or even search for the information that it contains.
+
+   Also, this applies to more than just PDF documents.
+   Think about the vast amounts of text, audio, and image data you generate
+    every day.
+
+   If a database can’t grasp the meaning of this data, how can you search for or
+    find relationships within the data?
+Vector databases
+5
+
+   Vector databases allow you to understand the context or conceptual
+    similarity of unstructured data by representing them as vectors, enabling
+    advanced analysis and retrieval based on data similarity.
+When to Use a Vector Database?
+6
+
+
+    Feature          OLTP Database                OLAP Database                 Vector Database
+    Data Structure   Rows and columns             Rows and columns              Vectors
+    Type of Data     Structured                   Structured/Partially          Unstructured
+                                                  Unstructured
+    Query Method     SQL-based (Transactional     SQL-based (Aggregations,      Vector Search (Similarity-
+                     Queries)                     Analytical Queries)           Based)
+    Storage Focus    Schema-based, optimized for Schema-based, optimized for    Context and Semantics
+                     updates                      reads
+    Performance      Optimized for high-volume    Optimized for complex         Optimized for unstructured
+                     transactions                 analytical queries            data retrieval
+    Use Cases        Inventory, order processing, Business intelligence, data   Similarity search,
+                     CRM                          warehousing                   recommendations, RAG,
+                                                                                anomaly detection, etc.
+What is a Vector?
+7
+
+
+   When a machine needs to process unstructured data - an image, a piece of text, or
+    an audio file, it first has to translate that data into a format it can work with: vectors.
+
+   A vector is a numerical representation of data that can capture the context and
+    semantics of data.
+
+   When you deal with unstructured data, traditional databases struggle to understand
+    its meaning.
+      However, a vector can translate that data into something a machine can process
+
+
+   For example, a vector generated from text can represent relationships and
+    meaning between words, making it possible for a machine to compare and
+    understand their context.
+Three key elements to define a vector
+8
+
+
+   There are three key elements that define a vector in a vector database:
+    1. the ID
+    2. the dimensions
+    3. payload
+
+   Each one of these parts plays an important role in how vectors are stored,
+    retrieved, and interpreted.
+
+   These components work together to represent a vector effectively within the
+    system.
+
+   Together, they form a point, which is the core unit of data stored and
+    retrieved in a vector database.
+1. The ID: Your Vector’s Unique Identifier
+9
+
+
+   Just like in a relational database, each vector in a vector database gets a
+    unique ID.
+   Think of it as your vector’s name tag, a primary key that ensures the vector
+    can be easily found later.
+   When a vector is added to the database, the ID is created automatically.
+   While the ID itself doesn’t play a part in the similarity search (which
+    operates on the vector’s numerical data), it is essential for associating the
+    vector with its corresponding “real-world” data, whether that’s a document,
+    an image, or a sound file.
+   After a search is performed and similar vectors are found, their IDs are
+    returned.
+   These can then be used to fetch additional details or metadata tied to the
+    result.
+2. The Dimensions: The Core Representation of the Data
+10
+
+
+    At the core of every vector is a set of numbers, which together form a
+     representation of the data in a multi-dimensional space.
+
+    These numbers are generated by embedding models, such as deep
+     learning algorithms, and capture the essential patterns or relationships
+     within the data.
+
+    That’s why the term embedding is often used interchangeably with vector
+     when referring to the output of these models.
+From Text to Vectors: How Does It Work?
+11
+
+
+    To represent textual data, for example, an embedding will encapsulate the
+     nuances of language, such as semantics and context within its dimensions.
+Comparing two similar sentences
+12
+
+
+    For that reason, when comparing two similar sentences, their embeddings
+     will turn out to be very similar, because they have similar linguistic
+     elements.
+
+    That’s the beauty of embeddings.
+
+    The complexity of the data is distilled into something that can be compared
+     across a multi-dimensional space.
+13
+3. The Payload: Adding Context with Metadata
+14
+
+
+    Sometimes you’re going to need more than just numbers to fully understand
+     or refine a search.
+
+    While the dimensions capture the essence of the data, the payload holds
+     metadata for structured information.
+
+    It could be textual data like descriptions, tags, categories, or it could be
+     numerical values like dates or prices.
+
+    This extra information is vital when you want to filter or rank search results
+     based on criteria that aren’t directly encoded in the vector.
+
+    This metadata is invaluable when you need to apply additional filters or
+     sorting criteria.
+Example:
+15
+
+    For example, if you’re searching
+     for a picture of a dog, the vector
+     helps the database find images
+     that are visually similar.
+
+    But let’s say you want results
+     showing only images taken within
+     the last year, or those tagged with
+     “vacation.”
+
+    The payload can help you narrow
+     down those results by ignoring
+     vectors that doesn’t match your
+     query vector filtering criteria.
+The Architecture of a Vector Database: Entities and Relations
+16
+Collections
+17
+
+
+    A collection is essentially a group of vectors (or “points”) that are logically
+     grouped together based on similarity or a specific task.
+
+    Every vector within a collection shares the same dimensionality and can be
+     compared using a single metric.
+
+    Avoid creating multiple collections unless necessary; instead, consider
+     techniques like sharding for scaling across nodes or multitenancy for
+     handling different use cases within the same infrastructure.
+Distance Metrics
+18
+
+
+    These metrics defines how similarity between vectors is calculated.
+
+    The choice of distance metric is made when creating a collection and the
+     right choice depends on the type of data you’re working with and how the
+     vectors were created.
+Here are the three most common distance metrics:
+19
+
+
+    Euclidean Distance:
+      The straight-line path. It’s like measuring the physical distance between two
+       points in space.
+      Pick this one when the actual distance (like spatial data) matters
+    Cosine Similarity:
+      This one is about the angle, not the length. It measures how two vectors
+       point in the same direction, so it works well for text or documents when you
+       care more about meaning than magnitude.
+      For example, if two things are similar, opposite, or unrelated.
+    Dot Product:
+      This looks at how much two vectors align.
+      It’s popular in recommendation systems where you’re interested in how
+       much two things “agree” with each other
+20
+RAM-Based and Memmap Storage
+21
+
+
+    By default, Qdrant stores vectors in RAM, delivering incredibly fast access for
+     datasets that fit comfortably in memory.
+    But when your dataset exceeds RAM capacity, Qdrant offers Memmap as an
+     alternative.
+    Memmap allows you to store vectors on disk, yet still access them efficiently by
+     mapping the data directly into memory if you have enough RAM.
+    To enable it, you only need to set "on_disk": true when you are creating a collection
+SDKs
+22
+
+
+    Qdrant offers a range of SDKs.
+
+    You can use the programming language you’re most comfortable with,
+     whether you’re coding in Python, Go, Rust, Javascript/Typescript, C# or
+     Java.
+
+          https://github.com/qdrant/java-client
+The Core Functionalities of Vector Databases
+23
+
+
+    When you think of a traditional database, the operations are familiar: you
+     create, read, update, and delete records.
+
+    These are the fundamentals. And guess what? In many ways, vector
+     databases work the same way, but the operations are translated for the
+     complexity of vectors.
+

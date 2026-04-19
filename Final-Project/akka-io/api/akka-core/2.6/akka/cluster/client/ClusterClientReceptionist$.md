@@ -1,0 +1,188 @@
+---
+description: Akka 2.6.21 - akka.cluster.client.ClusterClientReceptionist
+knowledge_type: official_documentation
+scraped_at: '2026-04-06T14:13:22Z'
+section: api
+site: akka-io
+source_url: https://doc.akka.io/api/akka/current/akka/cluster/client/ClusterClientReceptionist$.html
+title: Akka 2.6.21 - akka.cluster.client.ClusterClientReceptionist
+---
+
+# Akka 2.6.21 - akka.cluster.client.ClusterClientReceptionist
+
+> **Summary:** Akka 2.6.21 - akka.cluster.client.ClusterClientReceptionist
+
+## Content
+
+Akka2\.6\.21 \< Back****# Packages
+
+- [**](../../../index.html "Permalink")  package [root](../../../index.html)Definition Classes[root](../../../index.html)
+- [**](../../../akka/index.html "Permalink")  package [akka](../../index.html)Definition Classes[root](../../../index.html)
+- [**](../../../akka/cluster/index.html "Permalink")  package [cluster](../index.html)Definition Classes[akka](../../index.html)
+- [**](../../../akka/cluster/client/index.html "Permalink")  package [client](index.html)Definition Classes[cluster](../index.html)
+- [**](../../../akka/cluster/client/protobuf/index.html "Permalink")  package [protobuf](protobuf/index.html)Definition Classes[client](index.html)
+- [ClusterClient](ClusterClient.html "This actor is intended to be used on an external node that is not member of the cluster.")
+- [ClusterClientInteraction](ClusterClientInteraction.html "Declares a super type for all events emitted by the ClusterReceptionist.")
+- [ClusterClientMessage](ClusterClientMessage.html "Marker trait for remote messages with special serializer.")
+- [ClusterClientReceptionist](ClusterClientReceptionist.html "Extension that starts ClusterReceptionist and accompanying akka.cluster.pubsub.DistributedPubSubMediator with settings defined in config section akka.cluster.client.receptionist.")
+- [ClusterClientSettings](ClusterClientSettings.html)
+- [ClusterClientUnreachable](ClusterClientUnreachable.html "Emitted to the Akka event stream when a cluster client was previously connected but then not seen for some time.")
+- [ClusterClientUp](ClusterClientUp.html "Emitted to the Akka event stream when a cluster client has interacted with a receptionist.")
+- [ClusterClients](ClusterClients.html "The reply to GetClusterClients.")
+- [ClusterReceptionist](ClusterReceptionist.html "ClusterClient connects to this actor to retrieve.")
+- [ClusterReceptionistSettings](ClusterReceptionistSettings.html)
+- [ContactPointAdded](ContactPointAdded.html "Emitted to a subscriber when contact points have been received by the ClusterClient and a new one has been added.")
+- [ContactPointChange](ContactPointChange.html "Declares a super type for all events emitted by the ClusterClient in relation to contact points being added or removed.")
+- [ContactPointRemoved](ContactPointRemoved.html "Emitted to a subscriber when contact points have been received by the ClusterClient and a new one has been added.")
+- [ContactPoints](ContactPoints.html "The reply to GetContactPoints.")
+- [GetClusterClients](GetClusterClients.html)
+- [GetContactPoints](GetContactPoints.html)
+- [SubscribeClusterClients](SubscribeClusterClients.html)
+- [SubscribeContactPoints](SubscribeContactPoints.html)
+- [UnsubscribeClusterClients](UnsubscribeClusterClients.html)
+- [UnsubscribeContactPoints](UnsubscribeContactPoints.html)
+[o](ClusterClientReceptionist.html "See companion class")[akka](../../index.html).[cluster](../index.html).[client](index.html)
+
+# [ClusterClientReceptionist](ClusterClientReceptionist.html "See companion class")[**](../../../akka/cluster/client/ClusterClientReceptionist$.html "Permalink")
+
+### Companion [class ClusterClientReceptionist](ClusterClientReceptionist.html "See companion class")
+
+#### object ClusterClientReceptionist extends [ExtensionId](../../actor/ExtensionId.html)\[[ClusterClientReceptionist](ClusterClientReceptionist.html)] with [ExtensionIdProvider](../../actor/ExtensionIdProvider.html)
+
+Annotations@deprecated Deprecated*(Since version 2\.6\.0\)* Use Akka gRPC instead, see https://doc.akka.io/libraries/akka\-core/2\.6/cluster\-client.html\#migration\-to\-akka\-grpc
+
+Source[ClusterClient.scala](https://github.com/akka/akka/tree/v2.6.21//akka-cluster-tools/src/main/scala/akka/cluster/client/ClusterClient.scala#L560)Linear Supertypes[ExtensionIdProvider](../../actor/ExtensionIdProvider.html), [ExtensionId](../../actor/ExtensionId.html)\[[ClusterClientReceptionist](ClusterClientReceptionist.html)], [AnyRef](https://www.scala-lang.org/api/2.13.8/scala/AnyRef.html#scala.AnyRef), [Any](https://www.scala-lang.org/api/2.13.8/scala/Any.html#scala.Any)****Ordering1. Alphabetic
+2. By Inheritance
+Inherited  
+1. ClusterClientReceptionist
+2. ExtensionIdProvider
+3. ExtensionId
+4. AnyRef
+5. Any
+1. Hide All
+2. Show All
+Visibility1. Public
+2. Protected
+### Value Members
+
+1. [**](../../../akka/cluster/client/ClusterClientReceptionist$.html#!=(x$1:Any):Boolean "Permalink") final  def !\=(arg0: [Any](https://www.scala-lang.org/api/2.13.8/scala/Any.html#scala.Any)): [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition ClassesAnyRef → Any
+2. [**](../../../akka/cluster/client/ClusterClientReceptionist$.html###:Int "Permalink") final  def \#\#: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition ClassesAnyRef → Any
+3. [**](../../../akka/cluster/client/ClusterClientReceptionist$.html#==(x$1:Any):Boolean "Permalink") final  def \=\=(arg0: [Any](https://www.scala-lang.org/api/2.13.8/scala/Any.html#scala.Any)): [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition ClassesAnyRef → Any
+4. [**](../../../akka/cluster/client/ClusterClientReceptionist$.html#apply(system:akka.actor.ClassicActorSystemProvider):T "Permalink")  def apply(system: [ClassicActorSystemProvider](../../actor/ClassicActorSystemProvider.html)): [ClusterClientReceptionist](ClusterClientReceptionist.html)Returns an instance of the extension identified by this ExtensionId instance.
+
+Returns an instance of the extension identified by this ExtensionId instance.
+
+Definition Classes[ExtensionId](../../actor/ExtensionId.html)
+5. [**](../../../akka/cluster/client/ClusterClientReceptionist$.html#apply(system:akka.actor.ActorSystem):T "Permalink")  def apply(system: [ActorSystem](../../actor/ActorSystem.html)): [ClusterClientReceptionist](ClusterClientReceptionist.html)Returns an instance of the extension identified by this ExtensionId instance.
+
+Returns an instance of the extension identified by this ExtensionId instance.
+
+Definition Classes[ExtensionId](../../actor/ExtensionId.html)
+6. [**](../../../akka/cluster/client/ClusterClientReceptionist$.html#asInstanceOf[T0]:T0 "Permalink") final  def asInstanceOf\[T0]: T0Definition ClassesAny
+7. [**](../../../akka/cluster/client/ClusterClientReceptionist$.html#clone():Object "Permalink")  def clone(): [AnyRef](https://www.scala-lang.org/api/2.13.8/scala/AnyRef.html#scala.AnyRef)Attributesprotected\[lang] Definition ClassesAnyRefAnnotations@throws(classOf\[java.lang.CloneNotSupportedException]) @native() @HotSpotIntrinsicCandidate()
+8. [**](../../../akka/cluster/client/ClusterClientReceptionist$.html#createExtension(system:akka.actor.ExtendedActorSystem):akka.cluster.client.ClusterClientReceptionist "Permalink")  def createExtension(system: [ExtendedActorSystem](../../actor/ExtendedActorSystem.html)): [ClusterClientReceptionist](ClusterClientReceptionist.html)Is used by Akka to instantiate the Extension identified by this ExtensionId,
+internal use only.
+
+Is used by Akka to instantiate the Extension identified by this ExtensionId,
+internal use only.
+
+Definition ClassesClusterClientReceptionist → [ExtensionId](../../actor/ExtensionId.html)
+9. [**](../../../akka/cluster/client/ClusterClientReceptionist$.html#eq(x$1:AnyRef):Boolean "Permalink") final  def eq(arg0: [AnyRef](https://www.scala-lang.org/api/2.13.8/scala/AnyRef.html#scala.AnyRef)): [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition ClassesAnyRef
+10. [**](../../../akka/cluster/client/ClusterClientReceptionist$.html#equals(other:Any):Boolean "Permalink") final  def equals(other: [Any](https://www.scala-lang.org/api/2.13.8/scala/Any.html#scala.Any)): [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition Classes[ExtensionId](../../actor/ExtensionId.html) → AnyRef → Any
+11. [**](../../../akka/cluster/client/ClusterClientReceptionist$.html#get(system:akka.actor.ClassicActorSystemProvider):akka.cluster.client.ClusterClientReceptionist "Permalink")  def get(system: [ClassicActorSystemProvider](../../actor/ClassicActorSystemProvider.html)): [ClusterClientReceptionist](ClusterClientReceptionist.html)Returns an instance of the extension identified by this ExtensionId instance.
+
+Returns an instance of the extension identified by this ExtensionId instance.
+Java API
+For extensions written in Scala that are to be used from Java also,
+this method should be overridden to get correct return type.
+
+```
+override def get(system: ClassicActorSystemProvider): TheExtension = super.get(system)
+```
+Definition ClassesClusterClientReceptionist → [ExtensionId](../../actor/ExtensionId.html)
+12. [**](../../../akka/cluster/client/ClusterClientReceptionist$.html#get(system:akka.actor.ActorSystem):akka.cluster.client.ClusterClientReceptionist "Permalink")  def get(system: [ActorSystem](../../actor/ActorSystem.html)): [ClusterClientReceptionist](ClusterClientReceptionist.html)Returns an instance of the extension identified by this ExtensionId instance.
+
+Returns an instance of the extension identified by this ExtensionId instance.
+Java API
+For extensions written in Scala that are to be used from Java also,
+this method should be overridden to get correct return type.
+
+```
+override def get(system: ActorSystem): TheExtension = super.get(system)
+```
+Definition ClassesClusterClientReceptionist → [ExtensionId](../../actor/ExtensionId.html)
+13. [**](../../../akka/cluster/client/ClusterClientReceptionist$.html#getClass():Class[_] "Permalink") final  def getClass(): [Class](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html#java.lang.Class)\[\_ \<: [AnyRef](https://www.scala-lang.org/api/2.13.8/scala/AnyRef.html#scala.AnyRef)]Definition ClassesAnyRef → AnyAnnotations@native() @HotSpotIntrinsicCandidate()
+14. [**](../../../akka/cluster/client/ClusterClientReceptionist$.html#hashCode():Int "Permalink") final  def hashCode(): [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)Definition Classes[ExtensionId](../../actor/ExtensionId.html) → AnyRef → Any
+15. [**](../../../akka/cluster/client/ClusterClientReceptionist$.html#isInstanceOf[T0]:Boolean "Permalink") final  def isInstanceOf\[T0]: [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition ClassesAny
+16. [**](../../../akka/cluster/client/ClusterClientReceptionist$.html#lookup:akka.cluster.client.ClusterClientReceptionist.type "Permalink")  def lookup: ClusterClientReceptionistReturns the canonical ExtensionId for this Extension
+
+Returns the canonical ExtensionId for this Extension
+
+Definition ClassesClusterClientReceptionist → [ExtensionIdProvider](../../actor/ExtensionIdProvider.html)
+17. [**](../../../akka/cluster/client/ClusterClientReceptionist$.html#ne(x$1:AnyRef):Boolean "Permalink") final  def ne(arg0: [AnyRef](https://www.scala-lang.org/api/2.13.8/scala/AnyRef.html#scala.AnyRef)): [Boolean](https://www.scala-lang.org/api/2.13.8/scala/Boolean.html#scala.Boolean)Definition ClassesAnyRef
+18. [**](../../../akka/cluster/client/ClusterClientReceptionist$.html#notify():Unit "Permalink") final  def notify(): [Unit](https://www.scala-lang.org/api/2.13.8/scala/Unit.html#scala.Unit)Definition ClassesAnyRefAnnotations@native() @HotSpotIntrinsicCandidate()
+19. [**](../../../akka/cluster/client/ClusterClientReceptionist$.html#notifyAll():Unit "Permalink") final  def notifyAll(): [Unit](https://www.scala-lang.org/api/2.13.8/scala/Unit.html#scala.Unit)Definition ClassesAnyRefAnnotations@native() @HotSpotIntrinsicCandidate()
+20. [**](../../../akka/cluster/client/ClusterClientReceptionist$.html#synchronized[T0](x$1:=>T0):T0 "Permalink") final  def synchronized\[T0](arg0: \=\> T0): T0Definition ClassesAnyRef
+21. [**](../../../akka/cluster/client/ClusterClientReceptionist$.html#toString():String "Permalink")  def toString(): [String](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#java.lang.String)Definition ClassesAnyRef → Any
+22. [**](../../../akka/cluster/client/ClusterClientReceptionist$.html#wait(x$1:Long,x$2:Int):Unit "Permalink") final  def wait(arg0: [Long](https://www.scala-lang.org/api/2.13.8/scala/Long.html#scala.Long), arg1: [Int](https://www.scala-lang.org/api/2.13.8/scala/Int.html#scala.Int)): [Unit](https://www.scala-lang.org/api/2.13.8/scala/Unit.html#scala.Unit)Definition ClassesAnyRefAnnotations@throws(classOf\[java.lang.InterruptedException])
+23. [**](../../../akka/cluster/client/ClusterClientReceptionist$.html#wait(x$1:Long):Unit "Permalink") final  def wait(arg0: [Long](https://www.scala-lang.org/api/2.13.8/scala/Long.html#scala.Long)): [Unit](https://www.scala-lang.org/api/2.13.8/scala/Unit.html#scala.Unit)Definition ClassesAnyRefAnnotations@throws(classOf\[java.lang.InterruptedException]) @native()
+24. [**](../../../akka/cluster/client/ClusterClientReceptionist$.html#wait():Unit "Permalink") final  def wait(): [Unit](https://www.scala-lang.org/api/2.13.8/scala/Unit.html#scala.Unit)Definition ClassesAnyRefAnnotations@throws(classOf\[java.lang.InterruptedException])
+### Deprecated Value Members
+
+1. [**](../../../akka/cluster/client/ClusterClientReceptionist$.html#finalize():Unit "Permalink")  def finalize(): [Unit](https://www.scala-lang.org/api/2.13.8/scala/Unit.html#scala.Unit)Attributesprotected\[lang] Definition ClassesAnyRefAnnotations@throws(classOf\[java.lang.Throwable]) @Deprecated Deprecated
+### Inherited from [ExtensionIdProvider](../../actor/ExtensionIdProvider.html)
+
+### Inherited from [ExtensionId](../../actor/ExtensionId.html)\[[ClusterClientReceptionist](ClusterClientReceptionist.html)]
+
+### Inherited from [AnyRef](https://www.scala-lang.org/api/2.13.8/scala/AnyRef.html#scala.AnyRef)
+
+### Inherited from [Any](https://www.scala-lang.org/api/2.13.8/scala/Any.html#scala.Any)
+
+### Ungrouped
+
+## Related Pages (Internal Links)
+
+- https://doc.akka.io/api/akka-core/2.6/akka/actor/ActorSystem.html
+- https://doc.akka.io/api/akka-core/2.6/akka/actor/ClassicActorSystemProvider.html
+- https://doc.akka.io/api/akka-core/2.6/akka/actor/ExtendedActorSystem.html
+- https://doc.akka.io/api/akka-core/2.6/akka/actor/ExtensionId.html
+- https://doc.akka.io/api/akka-core/2.6/akka/actor/ExtensionIdProvider.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/ClusterClient$.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/ClusterClient.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/ClusterClientInteraction.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/ClusterClientMessage.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/ClusterClientReceptionist$.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/ClusterClientReceptionist.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/ClusterClientSettings$.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/ClusterClientSettings.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/ClusterClientUnreachable.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/ClusterClientUp.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/ClusterClients.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/ClusterReceptionist$.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/ClusterReceptionist.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/ClusterReceptionistSettings$.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/ClusterReceptionistSettings.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/ContactPointAdded.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/ContactPointChange.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/ContactPointRemoved.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/ContactPoints.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/GetClusterClients$.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/GetClusterClients.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/GetContactPoints$.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/GetContactPoints.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/SubscribeClusterClients$.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/SubscribeClusterClients.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/SubscribeContactPoints$.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/SubscribeContactPoints.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/UnsubscribeClusterClients$.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/UnsubscribeClusterClients.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/UnsubscribeContactPoints$.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/UnsubscribeContactPoints.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/index.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/protobuf/index.html
+- https://doc.akka.io/api/akka-core/2.6/akka/cluster/index.html
+- https://doc.akka.io/api/akka-core/2.6/akka/index.html
+- https://doc.akka.io/api/akka-core/2.6/index.html
+
+---
+*Source: [https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/ClusterClientReceptionist$.html](https://doc.akka.io/api/akka-core/2.6/akka/cluster/client/ClusterClientReceptionist$.html)*

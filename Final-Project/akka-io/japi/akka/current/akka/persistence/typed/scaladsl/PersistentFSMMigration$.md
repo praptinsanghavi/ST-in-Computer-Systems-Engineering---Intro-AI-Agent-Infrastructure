@@ -1,0 +1,115 @@
+---
+description: ''
+knowledge_type: official_documentation
+scraped_at: '2026-04-05T21:31:03Z'
+section: japi
+site: akka-io
+source_url: https://doc.akka.io/japi/akka/current/akka/persistence/typed/scaladsl/PersistentFSMMigration$.html
+title: PersistentFSMMigration$
+---
+
+# PersistentFSMMigration$
+
+## Content
+
+Package [akka.persistence.typed.scaladsl](package-summary.html)
+## Class PersistentFSMMigration$
+
+- java.lang.Object
+- - akka.persistence.typed.scaladsl.PersistentFSMMigration$
+
+- ---
+
+```
+public class PersistentFSMMigration$
+extends java.lang.Object
+```
+
+Helper functions for migration from PersistentFSM to Persistence Typed
+
+- - ### Field Summary
+	
+	
+	
+	Fields 
+	| Modifier and Type | Field | Description |
+	| `static [PersistentFSMMigration$](PersistentFSMMigration$.html "class in akka.persistence.typed.scaladsl")` | `[MODULE$](#MODULE$)` | Static reference to the singleton instance of this Scala object. |
+
+	- ### Constructor Summary
+	
+	
+	
+	Constructors 
+	| Constructor | Description |
+	| `[PersistentFSMMigration$](#%3Cinit%3E())()` |  |
+
+	- ### Method Summary
+	
+	
+	
+	All Methods [Instance Methods](javascript:show(2);) [Concrete Methods](javascript:show(8);) 
+	| Modifier and Type | Method | Description |
+	| `<State> [SnapshotAdapter](../SnapshotAdapter.html "interface in akka.persistence.typed")<State>` | `[snapshotAdapter](#snapshotAdapter(scala.Function3))​(scala.Function3<java.lang.String,​java.lang.Object,​scala.Option<scala.concurrent.duration.FiniteDuration>,​State> adapt)` | Create a snapshot adapter that will adapt snapshots created by a PersistentFSM into  the correct State type of a [`EventSourcedBehavior`](EventSourcedBehavior.html "interface in akka.persistence.typed.scaladsl") |
+	
+	
+		- ### Methods inherited from class java.lang.Object
+		
+		
+		`clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait`
+
+- - ### Field Detail
+	
+	
+	
+		- #### MODULE$
+		
+		
+		
+		```
+		public static final [PersistentFSMMigration$](PersistentFSMMigration$.html "class in akka.persistence.typed.scaladsl") MODULE$
+		```
+		
+		Static reference to the singleton instance of this Scala object.
+
+	- ### Constructor Detail
+	
+	
+	
+		- #### PersistentFSMMigration$
+		
+		
+		
+		```
+		public PersistentFSMMigration$()
+		```
+
+	- ### Method Detail
+	
+	
+	
+		- #### snapshotAdapter
+		
+		
+		
+		```
+		public <State> [SnapshotAdapter](../SnapshotAdapter.html "interface in akka.persistence.typed")<State> snapshotAdapter​(scala.Function3<java.lang.String,​java.lang.Object,​scala.Option<scala.concurrent.duration.FiniteDuration>,​State> adapt)
+		```
+		
+		Create a snapshot adapter that will adapt snapshots created by a PersistentFSM into
+		 the correct State type of a [`EventSourcedBehavior`](EventSourcedBehavior.html "interface in akka.persistence.typed.scaladsl")
+		
+		Parameters:
+		`adapt` \- Takes in the state identifier, snapshot persisted by the PersistentFSM and the state timeout and
+		 returns the `State` that should be given to the the [`EventSourcedBehavior`](EventSourcedBehavior.html "interface in akka.persistence.typed.scaladsl")
+		Returns:
+		A `SnapshotAdapter` to be used with a [`EventSourcedBehavior`](EventSourcedBehavior.html "interface in akka.persistence.typed.scaladsl")
+
+## Related Pages (Internal Links)
+
+- https://doc.akka.io/japi/akka/current/akka/persistence/typed/SnapshotAdapter.html
+- https://doc.akka.io/japi/akka/current/akka/persistence/typed/scaladsl/EventSourcedBehavior.html
+- https://doc.akka.io/japi/akka/current/akka/persistence/typed/scaladsl/PersistentFSMMigration$.html
+- https://doc.akka.io/japi/akka/current/akka/persistence/typed/scaladsl/package-summary.html
+
+---
+*Source: [https://doc.akka.io/japi/akka/current/akka/persistence/typed/scaladsl/PersistentFSMMigration$.html](https://doc.akka.io/japi/akka/current/akka/persistence/typed/scaladsl/PersistentFSMMigration$.html)*

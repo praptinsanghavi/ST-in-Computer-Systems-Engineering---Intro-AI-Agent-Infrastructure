@@ -1,0 +1,328 @@
+---
+description: Akka 2.10.17 - akka.actor.CoordinatedShutdown
+knowledge_type: official_documentation
+scraped_at: '2026-04-05T19:20:19Z'
+section: api
+site: akka-io
+source_url: https://doc.akka.io/api/akka-core/current/akka/actor/CoordinatedShutdown$.html
+title: Akka 2.10.17 - akka.actor.CoordinatedShutdown
+---
+
+# Akka 2.10.17 - akka.actor.CoordinatedShutdown
+
+> **Summary:** Akka 2.10.17 - akka.actor.CoordinatedShutdown
+
+## Content
+
+Akka2\.10\.17 \< Back****# Packages
+
+- [**](../../index.html "Permalink")  package [root](../../index.html)Definition Classes[root](../../index.html)
+- [**](../../akka/index.html "Permalink")  package [akka](../index.html)Definition Classes[root](../../index.html)
+- [**](../../akka/actor/index.html "Permalink")  package [actor](index.html)Definition Classes[akka](../index.html)
+- [**](../../akka/actor/dungeon/index.html "Permalink")  package [dungeon](dungeon/index.html)Definition Classes[actor](index.html)
+- [**](../../akka/actor/setup/index.html "Permalink")  package [setup](setup/index.html)Definition Classes[actor](index.html)
+- [**](../../akka/actor/testkit/index.html "Permalink")  package [testkit](testkit/index.html)Definition Classes[actor](index.html)
+- [**](../../akka/actor/typed/index.html "Permalink")  package [typed](typed/index.html)Definition Classes[actor](index.html)
+- [AbstractActor](AbstractActor.html "Java API: compatible with lambda expressions")
+- [AbstractActorWithStash](AbstractActorWithStash.html "Java API: compatible with lambda expressions")
+- [AbstractActorWithTimers](AbstractActorWithTimers.html "Java API: Support for scheduled self messages via TimerScheduler.")
+- [AbstractActorWithUnboundedStash](AbstractActorWithUnboundedStash.html "Java API: compatible with lambda expressions")
+- [AbstractActorWithUnrestrictedStash](AbstractActorWithUnrestrictedStash.html "Java API: compatible with lambda expressions")
+- [AbstractExtensionId](AbstractExtensionId.html "Java API for ExtensionId")
+- [AbstractFSM](AbstractFSM.html "Java API: compatible with lambda expressions")
+- [AbstractFSMWithStash](AbstractFSMWithStash.html "Java API: compatible with lambda expressions")
+- [AbstractLoggingActor](AbstractLoggingActor.html "Java API: compatible with lambda expressions")
+- [AbstractLoggingFSM](AbstractLoggingFSM.html "Java API: compatible with lambda expressions")
+- [AbstractScheduler](AbstractScheduler.html "An Akka scheduler service.")
+- [AbstractSchedulerBase](AbstractSchedulerBase.html)
+- [Actor](Actor.html "Actor base trait that should be extended by or mixed to create an Actor with the semantics of the 'Actor Model': https://en.wikipedia.org/wiki/Actor_model")
+- [ActorContext](ActorContext.html "The actor context - the view of the actor cell from the actor.")
+- [ActorIdentity](ActorIdentity.html "Reply to akka.actor.Identify.")
+- [ActorInitializationException](ActorInitializationException.html "An ActorInitializationException is thrown when the initialization logic for an Actor fails.")
+- [ActorInterruptedException](ActorInterruptedException.html "When an InterruptedException is thrown inside an Actor, it is wrapped as an ActorInterruptedException as to avoid cascading interrupts to other threads than the originally interrupted one.")
+- [ActorKilledException](ActorKilledException.html "ActorKilledException is thrown when an Actor receives the akka.actor.Kill message")
+- [ActorLogMarker](ActorLogMarker$.html "This is public with the purpose to document the used markers and properties of log events.")
+- [ActorLogging](ActorLogging.html "Scala API: Mix in ActorLogging into your Actor to easily obtain a reference to a logger, which is available under the name \"log\".")
+- [ActorNotFound](ActorNotFound.html "When ActorSelection#resolveOne can't identify the actor the Future is completed with this failure.")
+- [ActorPath](ActorPath.html "Actor path is a unique path to an actor that shows the creation path up through the actor tree to the root actor.")
+- [ActorPathExtractor](ActorPathExtractor$.html "Given an ActorPath it returns the Address and the path elements if the path is well-formed")
+- [ActorPaths](ActorPaths$.html "Java API")
+- [ActorRef](ActorRef.html "Immutable and serializable handle to an actor, which may or may not reside on the local host or inside the same akka.actor.ActorSystem.")
+- [ActorRefFactory](ActorRefFactory.html "Interface implemented by ActorSystem and ActorContext, the only two places from which you can get fresh actors.")
+- [ActorRefProvider](ActorRefProvider.html "Interface for all ActorRef providers to implement.")
+- [ActorSelection](ActorSelection.html "An ActorSelection is a logical view of a section of an ActorSystem's tree of Actors, allowing for broadcasting of messages to that section.")
+- [ActorSystem](ActorSystem.html "An actor system is a hierarchical group of actors which share common configuration, e.g.")
+- [Address](Address.html "The address specifies the physical location under which an Actor can be reached.")
+- [AddressFromURIString](AddressFromURIString$.html "This object serves as extractor for Scala and as address parser for Java.")
+- [AllDeadLetters](AllDeadLetters.html "Subscribe to this class to be notified about all DeadLetter (also the suppressed ones) and Dropped.")
+- [AllForOneStrategy](AllForOneStrategy.html "Applies the fault handling Directive (Resume, Restart, Stop) specified in the Decider to all children when one fails, as opposed to akka.actor.OneForOneStrategy that applies it only to the child actor that failed.")
+- [BootstrapSetup](BootstrapSetup.html "Core bootstrap settings of the actor system, create using one of the factories in BootstrapSetup, constructor is *Internal API*.")
+- [Cancellable](Cancellable.html "Signifies something that can be cancelled There is no strict guarantee that the implementation is thread-safe, but it should be good practice to make it so.")
+- [ChildActorPath](ChildActorPath.html "Not for user instantiation")
+- [ChildRestartStats](ChildRestartStats.html "ChildRestartStats is the statistics kept by every parent Actor for every child Actor and is used for SupervisorStrategies to know how to deal with problems that occur for the children.")
+- [ClassicActorContextProvider](ClassicActorContextProvider.html "Glue API introduced to allow minimal user effort integration between classic and typed for example for streams.")
+- [ClassicActorSystemProvider](ClassicActorSystemProvider.html "Glue API introduced to allow minimal user effort integration between classic and typed for example for streams.")
+- [CoordinatedShutdown](CoordinatedShutdown.html "Not for user instantiation, use the extension to access")
+- [DeadLetter](DeadLetter.html "When a message is sent to an Actor that is terminated before receiving the message, it will be sent as a DeadLetter to the ActorSystem's EventStream.")
+- [DeadLetterSuppression](DeadLetterSuppression.html "Use with caution: Messages extending this trait will not be logged by the default dead-letters listener.")
+- [DeathPactException](DeathPactException.html "A DeathPactException is thrown by an Actor that receives a Terminated(someActor) message that it doesn't handle itself, effectively crashing the Actor and escalating to the supervisor.")
+- [DefaultSupervisorStrategy](DefaultSupervisorStrategy.html)
+- [Deploy](Deploy.html "This class represents deployment configuration for a given actor path.")
+- [DiagnosticActorLogging](DiagnosticActorLogging.html "Scala API: Mix in DiagnosticActorLogging into your Actor to easily obtain a reference to a logger with MDC support, which is available under the name \"log\".")
+- [Dropped](Dropped.html "Envelope that is published on the eventStream wrapped in akka.actor.DeadLetter for every message that is dropped due to overfull queues or routers with no routees.")
+- [DynamicAccess](DynamicAccess.html "The DynamicAccess implementation is the class which is used for loading all configurable parts of an actor system (the akka.actor.ReflectiveDynamicAccess is the default implementation).")
+- [ExtendedActorSystem](ExtendedActorSystem.html "More powerful interface to the actor system’s implementation which is presented to extensions (see akka.actor.Extension).")
+- [Extension](Extension.html "The basic ActorSystem covers all that is needed for locally running actors, using futures and so on.")
+- [ExtensionId](ExtensionId.html "Identifies an Extension Lookup of Extensions is done by object identity, so the Id must be the same wherever it's used, otherwise you'll get the same extension loaded multiple times.")
+- [ExtensionIdProvider](ExtensionIdProvider.html "To be able to load an ExtensionId from the configuration, a class that implements ExtensionIdProvider must be specified.")
+- [FSM](FSM.html "Finite State Machine actor trait.")
+- [Identify](Identify.html "A message all Actors will understand, that when processed will reply with akka.actor.ActorIdentity containing the ActorRef.")
+- [IllegalActorStateException](IllegalActorStateException.html "IllegalActorStateException is thrown when a core invariant in the Actor implementation has been violated.")
+- [IndirectActorProducer](IndirectActorProducer.html "This interface defines a class of actor creation strategies deviating from the usual default of just reflectively instantiating the Actor subclass.")
+- [InvalidActorNameException](InvalidActorNameException.html "An InvalidActorNameException is thrown when you try to convert something, usually a String, to an Actor name which doesn't validate.")
+- [InvalidMessageException](InvalidMessageException.html "InvalidMessageException is thrown when an invalid message is sent to an Actor; Currently only null is an invalid message.")
+- [Kill](Kill.html)
+- [LightArrayRevolverScheduler](LightArrayRevolverScheduler.html "This scheduler implementation is based on a revolving wheel of buckets, like Netty’s HashedWheelTimer, which it advances at a fixed tick rate and dispatches tasks it finds in the current bucket to their respective ExecutionContexts.")
+- [LocalScope](LocalScope.html)
+- [LoggingFSM](LoggingFSM.html "Stackable trait for akka.actor.FSM which adds a rolling event log and debug logging capabilities (analogous to akka.event.LoggingReceive).")
+- [NoScopeGiven](NoScopeGiven.html "This is the default value and as such allows overrides.")
+- [NoSerializationVerificationNeeded](NoSerializationVerificationNeeded.html "Marker trait to signal that this class should not be verified for serializability.")
+- [NotInfluenceReceiveTimeout](NotInfluenceReceiveTimeout.html "Marker trait to indicate that a message should not reset the receive timeout.")
+- [OneForOneStrategy](OneForOneStrategy.html "Applies the fault handling Directive (Resume, Restart, Stop) specified in the Decider to the child actor that failed, as opposed to akka.actor.AllForOneStrategy that applies it to all children.")
+- [OriginalRestartException](OriginalRestartException$.html "This is an extractor for retrieving the original cause (i.e.")
+- [PoisonPill](PoisonPill.html)
+- [PossiblyHarmful](PossiblyHarmful.html "Marker trait to indicate that a message might be potentially harmful, this is used to block messages coming in over remoting.")
+- [PostRestartException](PostRestartException.html "A PostRestartException is thrown when constructor or postRestart() method fails during a restart attempt.")
+- [PreRestartException](PreRestartException.html "A PreRestartException is thrown when the preRestart() method failed; this exception is not propagated to the supervisor, as it originates from the already failed instance, hence it is only visible as log entry on the event stream.")
+- [Props](Props.html "Props is a configuration object using in creating an Actor; it is immutable, so it is thread-safe and fully shareable.")
+- [ProviderSelection](ProviderSelection.html)
+- [ReceiveTimeout](ReceiveTimeout.html)
+- [ReflectiveDynamicAccess](ReflectiveDynamicAccess.html "This is the default akka.actor.DynamicAccess implementation used by akka.actor.ExtendedActorSystem unless overridden.")
+- [RelativeActorPath](RelativeActorPath$.html "Extractor for so-called “relative actor paths” as in “relative URI”, not in “relative to some actor”.")
+- [RootActorPath](RootActorPath.html "Root of the hierarchy of ActorPaths.")
+- [ScalaActorRef](ScalaActorRef.html "This trait represents the Scala Actor API There are implicit conversions in package.scala from ActorRef -> ScalaActorRef and back")
+- [ScalaActorSelection](ScalaActorSelection.html "Contains the Scala API (!-method) for ActorSelections) which provides automatic tracking of the sender, as per the usual implicit ActorRef pattern.")
+- [Scheduler](Scheduler.html "An Akka scheduler service.")
+- [Scope](Scope.html "The scope of a akka.actor.Deploy serves two purposes: as a marker for pattern matching the “scope” (i.e.")
+- [Stash](Stash.html "The Stash trait enables an actor to temporarily stash away messages that can not or should not be handled using the actor's current behavior.")
+- [StashOverflowException](StashOverflowException.html "Is thrown when the size of the Stash exceeds the capacity of the Stash")
+- [Status](Status$.html "Superseeded by akka.pattern.StatusReply, prefer that when possible.")
+- [StoppingSupervisorStrategy](StoppingSupervisorStrategy.html)
+- [SupervisorStrategy](SupervisorStrategy.html "An Akka SupervisorStrategy is the policy to apply for crashing children.")
+- [SupervisorStrategyConfigurator](SupervisorStrategyConfigurator.html "Implement this interface in order to configure the supervisorStrategy for the top-level guardian actor (/user).")
+- [SupervisorStrategyLowPriorityImplicits](SupervisorStrategyLowPriorityImplicits.html)
+- [SuppressedDeadLetter](SuppressedDeadLetter.html "Similar to DeadLetter with the slight twist of NOT being logged by the default dead letters listener.")
+- [Terminated](Terminated.html "When Death Watch is used, the watcher will receive a Terminated(watched) message when watched is terminated.")
+- [TimerScheduler](TimerScheduler.html "Support for scheduled self messages in an actor.")
+- [Timers](Timers.html "Scala API: Mix in Timers into your Actor to get support for scheduled self messages via TimerScheduler.")
+- [UnboundedStash](UnboundedStash.html "The UnboundedStash trait is a version of akka.actor.Stash that enforces an unbounded stash for you actor.")
+- [UnhandledMessage](UnhandledMessage.html "This message is published to the EventStream whenever an Actor receives a message it doesn't understand")
+- [UnrestrictedStash](UnrestrictedStash.html "A version of akka.actor.Stash that does not enforce any mailbox type.")
+- [UntypedAbstractActor](UntypedAbstractActor.html "If the validation of the ReceiveBuilder match logic turns out to be a bottleneck for some of your actors you can consider to implement it at lower level by extending UntypedAbstractActor instead of AbstractActor.")
+- [WrappedMessage](WrappedMessage.html "Message envelopes may implement this trait for better logging, such as logging of message class name of the wrapped message instead of the envelope class name.")
+[o](CoordinatedShutdown.html "See companion class")[akka](../index.html).[actor](index.html)
+
+# [CoordinatedShutdown](CoordinatedShutdown.html "See companion class")[**](../../akka/actor/CoordinatedShutdown$.html "Permalink")
+
+### Companion [class CoordinatedShutdown](CoordinatedShutdown.html "See companion class")
+
+#### object CoordinatedShutdown extends [ExtensionId](ExtensionId.html)\[[CoordinatedShutdown](CoordinatedShutdown.html)] with [ExtensionIdProvider](ExtensionIdProvider.html)
+
+Source[CoordinatedShutdown.scala](https://github.com/akka/akka-core/tree/v2.10.17/akka-actor/src/main/scala/akka/actor/CoordinatedShutdown.scala#L32)Linear Supertypes[ExtensionIdProvider](ExtensionIdProvider.html), [ExtensionId](ExtensionId.html)\[[CoordinatedShutdown](CoordinatedShutdown.html)], [AnyRef](https://www.scala-lang.org/api/2.13.17/scala/AnyRef.html#scala.AnyRef), [Any](https://www.scala-lang.org/api/2.13.17/scala/Any.html#scala.Any)Content Hierarchy****Ordering1. Alphabetic
+2. By Inheritance
+Inherited  
+1. CoordinatedShutdown
+2. ExtensionIdProvider
+3. ExtensionId
+4. AnyRef
+5. Any
+1. Hide All
+2. Show All
+Visibility1. Public
+2. Protected
+### Type Members
+
+1. [**](../../akka/actor/CoordinatedShutdown$$Reason.html "Permalink")  trait [Reason](CoordinatedShutdown$$Reason.html "Reason for the shutdown, which can be used by tasks in case they need to do different things depending on what caused the shutdown.") extends [AnyRef](https://www.scala-lang.org/api/2.13.17/scala/AnyRef.html#scala.AnyRef)Reason for the shutdown, which can be used by tasks in case they need to do
+different things depending on what caused the shutdown.
+
+Reason for the shutdown, which can be used by tasks in case they need to do
+different things depending on what caused the shutdown. There are some
+predefined reasons, but external libraries applications may also define
+other reasons.
+### Value Members
+
+1. [**](../../akka/actor/CoordinatedShutdown$.html#!=(x$1:Any):Boolean "Permalink") final  def !\=(arg0: [Any](https://www.scala-lang.org/api/2.13.17/scala/Any.html#scala.Any)): [Boolean](https://www.scala-lang.org/api/2.13.17/scala/Boolean.html#scala.Boolean)Definition ClassesAnyRef → Any
+2. [**](../../akka/actor/CoordinatedShutdown$.html###:Int "Permalink") final  def \#\#: [Int](https://www.scala-lang.org/api/2.13.17/scala/Int.html#scala.Int)Definition ClassesAnyRef → Any
+3. [**](../../akka/actor/CoordinatedShutdown$.html#==(x$1:Any):Boolean "Permalink") final  def \=\=(arg0: [Any](https://www.scala-lang.org/api/2.13.17/scala/Any.html#scala.Any)): [Boolean](https://www.scala-lang.org/api/2.13.17/scala/Boolean.html#scala.Boolean)Definition ClassesAnyRef → Any
+4. [**](../../akka/actor/CoordinatedShutdown$.html#PhaseActorSystemTerminate:String "Permalink")  val PhaseActorSystemTerminate: [String](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#java.lang.String)Last phase.
+
+Last phase. See terminate\-actor\-system and exit\-jvm above.
+Don't add phases that depends on this phase because the
+dispatcher and scheduler of the ActorSystem have been shutdown.
+5. [**](../../akka/actor/CoordinatedShutdown$.html#PhaseBeforeActorSystemTerminate:String "Permalink")  val PhaseBeforeActorSystemTerminate: [String](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#java.lang.String)Phase for custom application tasks that are to be run
+after cluster shutdown and before ActorSystem termination.
+6. [**](../../akka/actor/CoordinatedShutdown$.html#PhaseBeforeClusterShutdown:String "Permalink")  val PhaseBeforeClusterShutdown: [String](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#java.lang.String)Phase for custom application tasks that are to be run
+after service shutdown and before cluster shutdown.
+7. [**](../../akka/actor/CoordinatedShutdown$.html#PhaseBeforeServiceUnbind:String "Permalink")  val PhaseBeforeServiceUnbind: [String](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#java.lang.String)The first pre\-defined phase that applications can add tasks to.
+
+The first pre\-defined phase that applications can add tasks to.
+Note that more phases can be added in the application's
+configuration by overriding this phase with an additional
+depends\-on.
+8. [**](../../akka/actor/CoordinatedShutdown$.html#PhaseClusterExiting:String "Permalink")  val PhaseClusterExiting: [String](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#java.lang.String)Shutdown cluster singletons
+9. [**](../../akka/actor/CoordinatedShutdown$.html#PhaseClusterExitingDone:String "Permalink")  val PhaseClusterExitingDone: [String](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#java.lang.String)Wait until exiting has been completed
+10. [**](../../akka/actor/CoordinatedShutdown$.html#PhaseClusterLeave:String "Permalink")  val PhaseClusterLeave: [String](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#java.lang.String)Emit the leave command for the node that is shutting down.
+11. [**](../../akka/actor/CoordinatedShutdown$.html#PhaseClusterShardingShutdownRegion:String "Permalink")  val PhaseClusterShardingShutdownRegion: [String](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#java.lang.String)Graceful shutdown of the Cluster Sharding regions.
+12. [**](../../akka/actor/CoordinatedShutdown$.html#PhaseClusterShutdown:String "Permalink")  val PhaseClusterShutdown: [String](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#java.lang.String)Shutdown the cluster extension
+13. [**](../../akka/actor/CoordinatedShutdown$.html#PhaseServiceRequestsDone:String "Permalink")  val PhaseServiceRequestsDone: [String](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#java.lang.String)Wait for requests that are in progress to be completed.
+14. [**](../../akka/actor/CoordinatedShutdown$.html#PhaseServiceStop:String "Permalink")  val PhaseServiceStop: [String](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#java.lang.String)Final shutdown of service endpoints.
+15. [**](../../akka/actor/CoordinatedShutdown$.html#PhaseServiceUnbind:String "Permalink")  val PhaseServiceUnbind: [String](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#java.lang.String)Stop accepting new incoming requests in for example HTTP.
+16. [**](../../akka/actor/CoordinatedShutdown$.html#actorSystemTerminateReason:akka.actor.CoordinatedShutdown.Reason "Permalink")  def actorSystemTerminateReason: [Reason](CoordinatedShutdown$$Reason.html)Java API: The shutdown was initiated by ActorSystem.terminate.
+17. [**](../../akka/actor/CoordinatedShutdown$.html#apply(system:akka.actor.ClassicActorSystemProvider):T "Permalink")  def apply(system: [ClassicActorSystemProvider](ClassicActorSystemProvider.html)): [CoordinatedShutdown](CoordinatedShutdown.html)Returns an instance of the extension identified by this ExtensionId instance.
+
+Returns an instance of the extension identified by this ExtensionId instance.
+
+Definition Classes[ExtensionId](ExtensionId.html)
+18. [**](../../akka/actor/CoordinatedShutdown$.html#apply(system:akka.actor.ActorSystem):T "Permalink")  def apply(system: [ActorSystem](ActorSystem.html)): [CoordinatedShutdown](CoordinatedShutdown.html)Returns an instance of the extension identified by this ExtensionId instance.
+
+Returns an instance of the extension identified by this ExtensionId instance.
+
+Definition Classes[ExtensionId](ExtensionId.html)
+19. [**](../../akka/actor/CoordinatedShutdown$.html#asInstanceOf[T0]:T0 "Permalink") final  def asInstanceOf\[T0]: T0Definition ClassesAny
+20. [**](../../akka/actor/CoordinatedShutdown$.html#clone():Object "Permalink")  def clone(): [AnyRef](https://www.scala-lang.org/api/2.13.17/scala/AnyRef.html#scala.AnyRef)Attributesprotected\[lang] Definition ClassesAnyRefAnnotations@throws(classOf\[java.lang.CloneNotSupportedException]) @HotSpotIntrinsicCandidate() @native()
+21. [**](../../akka/actor/CoordinatedShutdown$.html#clusterDowningReason:akka.actor.CoordinatedShutdown.Reason "Permalink")  def clusterDowningReason: [Reason](CoordinatedShutdown$$Reason.html)Java API: The shutdown was initiated by Cluster downing.
+22. [**](../../akka/actor/CoordinatedShutdown$.html#clusterJoinUnsuccessfulReason:akka.actor.CoordinatedShutdown.Reason "Permalink")  def clusterJoinUnsuccessfulReason: [Reason](CoordinatedShutdown$$Reason.html)Java API: The shutdown was initiated by a failure to join a seed node.
+23. [**](../../akka/actor/CoordinatedShutdown$.html#clusterLeavingReason:akka.actor.CoordinatedShutdown.Reason "Permalink")  def clusterLeavingReason: [Reason](CoordinatedShutdown$$Reason.html)Java API: The shutdown was initiated by Cluster leaving.
+24. [**](../../akka/actor/CoordinatedShutdown$.html#createExtension(system:akka.actor.ExtendedActorSystem):akka.actor.CoordinatedShutdown "Permalink")  def createExtension(system: [ExtendedActorSystem](ExtendedActorSystem.html)): [CoordinatedShutdown](CoordinatedShutdown.html)Is used by Akka to instantiate the Extension identified by this ExtensionId,
+internal use only.
+
+Is used by Akka to instantiate the Extension identified by this ExtensionId,
+internal use only.
+
+Definition ClassesCoordinatedShutdown → [ExtensionId](ExtensionId.html)
+25. [**](../../akka/actor/CoordinatedShutdown$.html#eq(x$1:AnyRef):Boolean "Permalink") final  def eq(arg0: [AnyRef](https://www.scala-lang.org/api/2.13.17/scala/AnyRef.html#scala.AnyRef)): [Boolean](https://www.scala-lang.org/api/2.13.17/scala/Boolean.html#scala.Boolean)Definition ClassesAnyRef
+26. [**](../../akka/actor/CoordinatedShutdown$.html#equals(other:Any):Boolean "Permalink") final  def equals(other: [Any](https://www.scala-lang.org/api/2.13.17/scala/Any.html#scala.Any)): [Boolean](https://www.scala-lang.org/api/2.13.17/scala/Boolean.html#scala.Boolean)Definition Classes[ExtensionId](ExtensionId.html) → AnyRef → Any
+27. [**](../../akka/actor/CoordinatedShutdown$.html#get(system:akka.actor.ClassicActorSystemProvider):akka.actor.CoordinatedShutdown "Permalink")  def get(system: [ClassicActorSystemProvider](ClassicActorSystemProvider.html)): [CoordinatedShutdown](CoordinatedShutdown.html)Returns an instance of the extension identified by this ExtensionId instance.
+
+Returns an instance of the extension identified by this ExtensionId instance.
+Java API
+For extensions written in Scala that are to be used from Java also,
+this method should be overridden to get correct return type.
+
+```
+override def get(system: ClassicActorSystemProvider): TheExtension = super.get(system)
+```
+Definition ClassesCoordinatedShutdown → [ExtensionId](ExtensionId.html)
+28. [**](../../akka/actor/CoordinatedShutdown$.html#get(system:akka.actor.ActorSystem):akka.actor.CoordinatedShutdown "Permalink")  def get(system: [ActorSystem](ActorSystem.html)): [CoordinatedShutdown](CoordinatedShutdown.html)Returns an instance of the extension identified by this ExtensionId instance.
+
+Returns an instance of the extension identified by this ExtensionId instance.
+Java API
+For extensions written in Scala that are to be used from Java also,
+this method should be overridden to get correct return type.
+
+```
+override def get(system: ActorSystem): TheExtension = super.get(system)
+```
+Definition ClassesCoordinatedShutdown → [ExtensionId](ExtensionId.html)
+29. [**](../../akka/actor/CoordinatedShutdown$.html#getClass():Class[_] "Permalink") final  def getClass(): [Class](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html#java.lang.Class)\[\_ \<: [AnyRef](https://www.scala-lang.org/api/2.13.17/scala/AnyRef.html#scala.AnyRef)]Definition ClassesAnyRef → AnyAnnotations@HotSpotIntrinsicCandidate() @native()
+30. [**](../../akka/actor/CoordinatedShutdown$.html#hashCode():Int "Permalink") final  def hashCode(): [Int](https://www.scala-lang.org/api/2.13.17/scala/Int.html#scala.Int)Definition Classes[ExtensionId](ExtensionId.html) → AnyRef → Any
+31. [**](../../akka/actor/CoordinatedShutdown$.html#incompatibleConfigurationDetectedReason:akka.actor.CoordinatedShutdown.Reason "Permalink")  def incompatibleConfigurationDetectedReason: [Reason](CoordinatedShutdown$$Reason.html)Java API: The shutdown was initiated by a configuration clash within the existing cluster and the joining node
+32. [**](../../akka/actor/CoordinatedShutdown$.html#isInstanceOf[T0]:Boolean "Permalink") final  def isInstanceOf\[T0]: [Boolean](https://www.scala-lang.org/api/2.13.17/scala/Boolean.html#scala.Boolean)Definition ClassesAny
+33. [**](../../akka/actor/CoordinatedShutdown$.html#jvmExitReason:akka.actor.CoordinatedShutdown.Reason "Permalink")  def jvmExitReason: [Reason](CoordinatedShutdown$$Reason.html)Java API: The shutdown was initiated by a JVM shutdown hook, e.g.
+
+Java API: The shutdown was initiated by a JVM shutdown hook, e.g. triggered by SIGTERM.
+34. [**](../../akka/actor/CoordinatedShutdown$.html#lookup:akka.actor.CoordinatedShutdown.type "Permalink")  def lookup: CoordinatedShutdownReturns the canonical ExtensionId for this Extension
+
+Returns the canonical ExtensionId for this Extension
+
+Definition ClassesCoordinatedShutdown → [ExtensionIdProvider](ExtensionIdProvider.html)
+35. [**](../../akka/actor/CoordinatedShutdown$.html#ne(x$1:AnyRef):Boolean "Permalink") final  def ne(arg0: [AnyRef](https://www.scala-lang.org/api/2.13.17/scala/AnyRef.html#scala.AnyRef)): [Boolean](https://www.scala-lang.org/api/2.13.17/scala/Boolean.html#scala.Boolean)Definition ClassesAnyRef
+36. [**](../../akka/actor/CoordinatedShutdown$.html#notify():Unit "Permalink") final  def notify(): [Unit](https://www.scala-lang.org/api/2.13.17/scala/Unit.html#scala.Unit)Definition ClassesAnyRefAnnotations@HotSpotIntrinsicCandidate() @native()
+37. [**](../../akka/actor/CoordinatedShutdown$.html#notifyAll():Unit "Permalink") final  def notifyAll(): [Unit](https://www.scala-lang.org/api/2.13.17/scala/Unit.html#scala.Unit)Definition ClassesAnyRefAnnotations@HotSpotIntrinsicCandidate() @native()
+38. [**](../../akka/actor/CoordinatedShutdown$.html#synchronized[T0](x$1:=>T0):T0 "Permalink") final  def synchronized\[T0](arg0: \=\> T0): T0Definition ClassesAnyRef
+39. [**](../../akka/actor/CoordinatedShutdown$.html#toString():String "Permalink")  def toString(): [String](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html#java.lang.String)Definition ClassesAnyRef → Any
+40. [**](../../akka/actor/CoordinatedShutdown$.html#unknownReason:akka.actor.CoordinatedShutdown.Reason "Permalink")  def unknownReason: [Reason](CoordinatedShutdown$$Reason.html)Java API: The reason for the shutdown was unknown.
+
+Java API: The reason for the shutdown was unknown. Needed for backwards compatibility.
+41. [**](../../akka/actor/CoordinatedShutdown$.html#wait(x$1:Long,x$2:Int):Unit "Permalink") final  def wait(arg0: [Long](https://www.scala-lang.org/api/2.13.17/scala/Long.html#scala.Long), arg1: [Int](https://www.scala-lang.org/api/2.13.17/scala/Int.html#scala.Int)): [Unit](https://www.scala-lang.org/api/2.13.17/scala/Unit.html#scala.Unit)Definition ClassesAnyRefAnnotations@throws(classOf\[java.lang.InterruptedException])
+42. [**](../../akka/actor/CoordinatedShutdown$.html#wait(x$1:Long):Unit "Permalink") final  def wait(arg0: [Long](https://www.scala-lang.org/api/2.13.17/scala/Long.html#scala.Long)): [Unit](https://www.scala-lang.org/api/2.13.17/scala/Unit.html#scala.Unit)Definition ClassesAnyRefAnnotations@throws(classOf\[java.lang.InterruptedException]) @native()
+43. [**](../../akka/actor/CoordinatedShutdown$.html#wait():Unit "Permalink") final  def wait(): [Unit](https://www.scala-lang.org/api/2.13.17/scala/Unit.html#scala.Unit)Definition ClassesAnyRefAnnotations@throws(classOf\[java.lang.InterruptedException])
+44. [**](../../akka/actor/CoordinatedShutdown$$ActorSystemTerminateReason$.html "Permalink")  case object [ActorSystemTerminateReason](CoordinatedShutdown$$ActorSystemTerminateReason$.html "Scala API: The shutdown was initiated by ActorSystem.terminate.") extends [Reason](CoordinatedShutdown$$Reason.html) with [Product](https://www.scala-lang.org/api/2.13.17/scala/Product.html#scala.Product) with SerializableScala API: The shutdown was initiated by ActorSystem.terminate.
+45. [**](../../akka/actor/CoordinatedShutdown$$ClusterDowningReason$.html "Permalink")  case object [ClusterDowningReason](CoordinatedShutdown$$ClusterDowningReason$.html "Scala API: The shutdown was initiated by Cluster downing.") extends [Reason](CoordinatedShutdown$$Reason.html) with [Product](https://www.scala-lang.org/api/2.13.17/scala/Product.html#scala.Product) with SerializableScala API: The shutdown was initiated by Cluster downing.
+46. [**](../../akka/actor/CoordinatedShutdown$$ClusterJoinUnsuccessfulReason$.html "Permalink")  case object [ClusterJoinUnsuccessfulReason](CoordinatedShutdown$$ClusterJoinUnsuccessfulReason$.html "Scala API: The shutdown was initiated by a failure to join a seed node.") extends [Reason](CoordinatedShutdown$$Reason.html) with [Product](https://www.scala-lang.org/api/2.13.17/scala/Product.html#scala.Product) with SerializableScala API: The shutdown was initiated by a failure to join a seed node.
+47. [**](../../akka/actor/CoordinatedShutdown$$ClusterLeavingReason$.html "Permalink")  case object [ClusterLeavingReason](CoordinatedShutdown$$ClusterLeavingReason$.html "Scala API: The shutdown was initiated by Cluster leaving.") extends [Reason](CoordinatedShutdown$$Reason.html) with [Product](https://www.scala-lang.org/api/2.13.17/scala/Product.html#scala.Product) with SerializableScala API: The shutdown was initiated by Cluster leaving.
+48. [**](../../akka/actor/CoordinatedShutdown$$IncompatibleConfigurationDetectedReason$.html "Permalink")  case object [IncompatibleConfigurationDetectedReason](CoordinatedShutdown$$IncompatibleConfigurationDetectedReason$.html "Scala API: The shutdown was initiated by a configuration clash within the existing cluster and the joining node") extends [Reason](CoordinatedShutdown$$Reason.html) with [Product](https://www.scala-lang.org/api/2.13.17/scala/Product.html#scala.Product) with SerializableScala API: The shutdown was initiated by a configuration clash within the existing cluster and the joining node
+49. [**](../../akka/actor/CoordinatedShutdown$$JvmExitReason$.html "Permalink")  case object [JvmExitReason](CoordinatedShutdown$$JvmExitReason$.html "Scala API: The shutdown was initiated by a JVM shutdown hook, e.g.") extends [Reason](CoordinatedShutdown$$Reason.html) with [Product](https://www.scala-lang.org/api/2.13.17/scala/Product.html#scala.Product) with SerializableScala API: The shutdown was initiated by a JVM shutdown hook, e.g.
+
+Scala API: The shutdown was initiated by a JVM shutdown hook, e.g. triggered by SIGTERM.
+50. [**](../../akka/actor/CoordinatedShutdown$$UnknownReason$.html "Permalink")  case object [UnknownReason](CoordinatedShutdown$$UnknownReason$.html "Scala API: The reason for the shutdown was unknown.") extends [Reason](CoordinatedShutdown$$Reason.html) with [Product](https://www.scala-lang.org/api/2.13.17/scala/Product.html#scala.Product) with SerializableScala API: The reason for the shutdown was unknown.
+
+Scala API: The reason for the shutdown was unknown. Needed for backwards compatibility.
+### Deprecated Value Members
+
+1. [**](../../akka/actor/CoordinatedShutdown$.html#finalize():Unit "Permalink")  def finalize(): [Unit](https://www.scala-lang.org/api/2.13.17/scala/Unit.html#scala.Unit)Attributesprotected\[lang] Definition ClassesAnyRefAnnotations@throws(classOf\[java.lang.Throwable]) @Deprecated Deprecated*(Since version 9\)*
+### Inherited from [ExtensionIdProvider](ExtensionIdProvider.html)
+
+### Inherited from [ExtensionId](ExtensionId.html)\[[CoordinatedShutdown](CoordinatedShutdown.html)]
+
+### Inherited from [AnyRef](https://www.scala-lang.org/api/2.13.17/scala/AnyRef.html#scala.AnyRef)
+
+### Inherited from [Any](https://www.scala-lang.org/api/2.13.17/scala/Any.html#scala.Any)
+
+### Ungrouped
+
+## Related Pages (Internal Links)
+
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/AbstractActor$.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/AbstractActor.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/AbstractActorWithStash.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/AbstractActorWithTimers.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/AbstractActorWithUnboundedStash.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/AbstractActorWithUnrestrictedStash.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/AbstractExtensionId.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/AbstractFSM$.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/AbstractFSM.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/AbstractFSMWithStash.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/AbstractLoggingActor.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/AbstractLoggingFSM.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/AbstractScheduler.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/AbstractSchedulerBase.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/Actor$.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/Actor.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/ActorContext.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/ActorIdentity.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/ActorInitializationException$.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/ActorInitializationException.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/ActorInterruptedException.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/ActorKilledException.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/ActorLogMarker$.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/ActorLogging.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/ActorNotFound.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/ActorPath$.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/ActorPath.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/ActorPathExtractor$.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/ActorPaths$.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/ActorRef$.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/ActorRef.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/ActorRefFactory.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/ActorRefProvider.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/ActorSelection$.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/ActorSelection.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/ActorSystem$.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/ActorSystem.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/Address$.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/Address.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/AddressFromURIString$.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/AllDeadLetters.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/AllForOneStrategy.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/BootstrapSetup$.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/BootstrapSetup.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/Cancellable$.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/Cancellable.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/ChildActorPath.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/ChildRestartStats.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/ClassicActorContextProvider.html
+- https://doc.akka.io/api/akka-core/2.10/akka/actor/ClassicActorSystemProvider.html
+
+---
+*Source: [https://doc.akka.io/api/akka-core/2.10/akka/actor/CoordinatedShutdown$.html](https://doc.akka.io/api/akka-core/2.10/akka/actor/CoordinatedShutdown$.html)*

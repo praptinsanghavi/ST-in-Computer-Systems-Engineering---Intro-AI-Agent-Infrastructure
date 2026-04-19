@@ -1,0 +1,140 @@
+---
+description: ''
+knowledge_type: official_documentation
+scraped_at: '2026-04-05T18:39:20Z'
+section: japi
+site: akka-io
+source_url: https://doc.akka.io/japi/akka/current/akka/actor/typed/SerializedActorRef$.html
+title: SerializedActorRef$
+---
+
+# SerializedActorRef$
+
+## Content
+
+Package [akka.actor.typed](package-summary.html)
+## Class SerializedActorRef$
+
+- java.lang.Object
+- - akka.actor.typed.SerializedActorRef$
+
+- All Implemented Interfaces:
+`java.io.Serializable`
+
+---
+
+```
+public class SerializedActorRef$
+extends java.lang.Object
+implements java.io.Serializable
+```
+
+INTERNAL API
+
+See Also:
+[Serialized Form](../../../serialized-form.html#akka.actor.typed.SerializedActorRef$)
+
+- - ### Field Summary
+	
+	
+	
+	Fields 
+	| Modifier and Type | Field | Description |
+	| `static [SerializedActorRef$](SerializedActorRef$.html "class in akka.actor.typed")` | `[MODULE$](#MODULE$)` | Static reference to the singleton instance of this Scala object. |
+
+	- ### Constructor Summary
+	
+	
+	
+	Constructors 
+	| Constructor | Description |
+	| `[SerializedActorRef$](#%3Cinit%3E())()` |  |
+
+	- ### Method Summary
+	
+	
+	
+	All Methods [Instance Methods](javascript:show(2);) [Concrete Methods](javascript:show(8);) 
+	| Modifier and Type | Method | Description |
+	| `<T> akka.actor.typed.SerializedActorRef<T>` | `[apply](#apply(akka.actor.typed.ActorRef))​([ActorRef](ActorRef.html "interface in akka.actor.typed")<T> actorRef)` |  |
+	| `<T> akka.actor.typed.SerializedActorRef<T>` | `[apply](#apply(java.lang.String))​(java.lang.String address)` | Memento pattern for serializing ActorRefs transparently  INTERNAL API |
+	| `<T> java.lang.String` | `[toAddress](#toAddress(akka.actor.typed.ActorRef))​([ActorRef](ActorRef.html "interface in akka.actor.typed")<T> actorRef)` |  |
+	| `<T> scala.Option<java.lang.String>` | `[unapply](#unapply(akka.actor.typed.SerializedActorRef))​(akka.actor.typed.SerializedActorRef<T> x$0)` |  |
+	
+	
+		- ### Methods inherited from class java.lang.Object
+		
+		
+		`clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString, wait, wait, wait`
+
+- - ### Field Detail
+	
+	
+	
+		- #### MODULE$
+		
+		
+		
+		```
+		public static final [SerializedActorRef$](SerializedActorRef$.html "class in akka.actor.typed") MODULE$
+		```
+		
+		Static reference to the singleton instance of this Scala object.
+
+	- ### Constructor Detail
+	
+	
+	
+		- #### SerializedActorRef$
+		
+		
+		
+		```
+		public SerializedActorRef$()
+		```
+
+	- ### Method Detail
+	
+	
+	
+		- #### apply
+		
+		
+		
+		```
+		public <T> akka.actor.typed.SerializedActorRef<T> apply​([ActorRef](ActorRef.html "interface in akka.actor.typed")<T> actorRef)
+		```
+		- #### toAddress
+		
+		
+		
+		```
+		public <T> java.lang.String toAddress​([ActorRef](ActorRef.html "interface in akka.actor.typed")<T> actorRef)
+		```
+		- #### apply
+		
+		
+		
+		```
+		public <T> akka.actor.typed.SerializedActorRef<T> apply​(java.lang.String address)
+		```
+		
+		Memento pattern for serializing ActorRefs transparently
+		 INTERNAL API
+		- #### unapply
+		
+		
+		
+		```
+		public <T> scala.Option<java.lang.String> unapply​(akka.actor.typed.SerializedActorRef<T> x$0)
+		```
+
+## Related Pages (Internal Links)
+
+- https://doc.akka.io/japi/akka/current/akka/actor/typed/ActorRef.html
+- https://doc.akka.io/japi/akka/current/akka/actor/typed/SerializedActorRef$.html
+- https://doc.akka.io/japi/akka/current/akka/actor/typed/package-summary.html
+- https://doc.akka.io/japi/akka/current/serialized-form.html
+
+---
+*Source: [https://doc.akka.io/japi/akka/current/akka/actor/typed/SerializedActorRef$.html](https://doc.akka.io/japi/akka/current/akka/actor/typed/SerializedActorRef$.html)*
